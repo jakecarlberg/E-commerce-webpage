@@ -1,0 +1,15 @@
+#site-paragraph {
+    font-family:"Times New Roman", Times, serif ;
+    font-style: italic;
+    font-size: large;
+    color: rgb(15, 180, 202);
+    text-align: end;
+  }
+
+.list-group-item {
+    font-family:"Times New Roman", Times, serif ;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(0, 73, 92);
+    text-align: left;
+  }
