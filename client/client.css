@@ -1,0 +1,26 @@
+#site-paragraph {
+    font-family:"Times New Roman", Times, serif ;
+    font-style: italic;
+    font-size: large;
+    color: rgb(74, 113, 157);
+    text-align: end;
+  }
+
+.list-group-item {
+    font-family:"Times New Roman", Times, serif ;
+    font-size: large;
+    font-weight: bold;
+    color: rgb(74, 113, 157);
+    text-align: left;
+  }
+
+  /* "price" : 2123445,
+  "user_id" : 1,
+  "model" : "Sjösala",
+  "description" : "Best bike at liu",
+  "gears" : 5,
+  "condition" : 2 */
+
+  /* "email" : "roger@gmail.com",
+  "password" : "roger",
+  "name" : "roger" */

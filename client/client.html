@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="client.css">
+
+    <title>Let's reCycle!</title>
+  </head>
+  <body>
+
+  <!-- Navbar -->
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img src="/ReCycle.png" width="200" height="100" alt="" class="center">
+           LETS GO BIKING
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Hem <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/bikes">Bilar <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contacts">Kontakt</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sign-up">Registrera dig <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Logga in <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Logga ut <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Empty container -->
+    <div class="container">
+    </div>
+
+    <!-- View Home script -->
+    <script id="view-home" type="text/html">
+      <h1 id="welcome" class="extra-big">
+        Hej fina student, välkommen till din internkanal!
+      </h1>
+      <p1 id="site-paragraph" class="extra-big">
+        Här hittar du all matnyttig information om dina studier.
+      </p1>
+
+      <ul class="list-group">
+        <li class="list-group-item">Måndag: 05-23</li>
+        <li class="list-group-item">Tisdag: 06-22</li>
+        <li class="list-group-item">Onsdag: 05-22</li>
+        <li class="list-group-item">Torsdag: 05-23</li>
+        <li class="list-group-item">Fredag: 07-21</li>
+        <li class="list-group-item">Lör-Sön: 09-14</li>
+      </ul>
+    </script>
+
+    <!-- View bikes script -->
+    <script id="view-bikes" type="text/html">
+      <h1 id="welcome" class="extra-big">
+        Hej motoriska student, välkommen till våra fina bilar!
+      </h1>
+      <p1 id="site-paragraph" class="extra-big">
+        Här hittar du all matnyttig information om våra bilar.
+      </p1>
+
+      <ul id="bike-list" class="list-group-flush">
+
+      </ul>
+      <button type="button" id="addBike" class="btn btn-primary" data-toggle="modal" data-target="#addBikeModal">Lägg till ny bil</button>
+      <button type="button" id="update" class="btn btn-success">Uppdatera</button>  
+    </script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editBikeModal" tabindex="-1" role="dialog" aria-labelledby="editbikeModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="editBikeModalLabel">Redigera Bil</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form id="editBikeForm">
+                      <div class="form-group">
+                          <label for="editPrice">Tillverkare</label>
+                          <input type="text" class="form-control" id="editPrice" name="price" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="editModel">Modell</label>
+                          <input type="text" class="form-control" id="editModel" name="model" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="editUserID">Kund-ID</label>
+                        <input type="text" class="form-control" id="editUserID" name="userID">
+                    </div>
+                      <button type="submit" class="btn btn-primary">Spara ändringar</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="addBikeModal" tabindex="-1" role="dialog" aria-labelledby="addBikeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="addBikeModalLabel">Lägg till ny bil</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <form id="addBikeForm">
+                <div class="form-group">
+                   <label for="addPrice">Tillverkare</label>
+                   <input type="text" class="form-control" id="addPrice" name="price" required>
+                </div>
+                <div class="form-group">
+                   <label for="addModel">Modell</label>
+                   <input type="text" class="form-control" id="addModel" name="model" required>
+                </div>
+                <div class="form-group">
+                  <label for="addUserID">Kund-ID</label>
+                  <input type="text" class="form-control" id="addUserID" name="userID">
+              </div>
+                <button type="submit" class="btn btn-success">Lägg till bil</button>
+             </form>
+          </div>
+       </div>
+    </div>
+ </div>
+ 
+<!-- View Contacts script -->
+    <script id="view-contacts" type="text/html">
+      <h1 id="welcome" class="extra-big">
+        Kontaktuppgifter
+      </h1>
+      <p1 id="site-paragraph" class="extra-big">
+        Liu-bil: Supportcenter.
+      </p1>
+
+      <ul class="list-group">
+        <li class="list-group-item">Namn: Lovisa</li>
+        <li class="list-group-item">Epost: help@liubil.se</li>
+        <li class="list-group-item">nmr: 070 070 70 07</li>
+      </ul>
+
+      <p1 id="site-paragraph" class="extra-big">
+        <br />
+        <br />
+        För att boka bilen, ansök med hjälp av formuläret med meddelande för önskad tid!
+      </p1>
+
+      <form id="form1">
+        <div class="form-group">
+          <label for="exampleInputName">Namn</label>
+          <input type="name" class="form-control" id="exampleInputName">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email adress</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <small id="emailHelp" class="form-text text-muted">Ange giltig LiU-mailadress</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputMessage">Meddelande</label>
+          <input type="message" class="form-control" id="exampleInputMessage">
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Vi behandlar dina kontaktuppgifter enligt §2.1 [GDPR]</label>
+        </div>
+        <button input type="submit" class="btn btn-primary">Skicka</button>
+      </form>
+    </script>
+
+    <!-- View Register Script-->
+    <script id="view-register" type="text/html">
+      <h1 id="welcome" class="extra-big">
+        Registrera dig hos oss!
+      </h1>
+
+      <p1 id="site-paragraph" class="extra-big">
+        <br />
+        <br />
+        <br />
+        <br />
+        Registrera dig för att kunna boka LiU-Bilar!
+      </p1>
+
+      <form id="form2">
+        <div class="form-group">
+          <label for="exampleInputName">Namn</label>
+          <input type="name" class="form-control" id="exampleInputName">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email adress</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <small id="emailHelp" class="form-text text-muted">Ange giltig LiU-mailadress</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword">Lösenord</label>
+          <input type="password" class="form-control" id="exampleInputPassword">
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck2">
+          <label class="form-check-label" for="exampleCheck2" required>Jag går med på era villkor</label>
+        </div>
+        <button input type="submit" class="btn btn-primary">Registrera</button>
+      </form>
+    </script>
+
+<!-- View Login Script-->
+<script id="view-login" type="text/html">
+  <h1 id="welcome" class="extra-big">
+    Logga in hos oss!
+  </h1>
+
+  <p1 id="site-paragraph" class="extra-big">
+    <br />
+    <br />
+    <br />
+    <br />
+    Logga in för att kunna boka LiU-Bilar!
+  </p1>
+
+  <form id="form3">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email adress</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <small id="emailHelp" class="form-text text-muted">Ange giltig LiU-mailadress</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword">Lösenord</label>
+      <input type="password" class="form-control" id="exampleInputPassword">
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck2">
+      <label class="form-check-label" for="exampleCheck2" required>Jag är inte en robot</label>
+    </div>
+    <button input type="submit" class="btn btn-primary">Logga in</button>
+  </form>
+</script>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>  
+    <script src="client.js"></script>
+
+  </body>
+</html>
