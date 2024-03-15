@@ -2,47 +2,35 @@ host = window.location.protocol + '//' + location.host
 
 function viewHome() {
     $(".container").html($("#view-home").html())
+    displayAllBikes();
 }
 
 // Function to fetch and display bikes in View bikes script
-function displayBikes() {
-   $(".container").html($("#view-bikes").html())
+function displayAllBikes() {
+   $(".container").html($("#view-home").html())
    $("#bike-list").empty(); 
    $.ajax({
       url: host + '/bikes',
       type: 'GET',
-      headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
       success: function(bikes) {
          bikes.forEach(function (bike) {
-            var bikeView = `      
+            var bikeView = $(`      
                <div class="card mb-3">
                   <div class="card-body">
-                     <h5 class="list-group-item">${bike.price} ${bike.model}</h5> `
-
-            if (JSON.parse(sessionStorage.getItem('auth')).user.is_admin) {
-               bikeView += `
-                  <p class="card-text"><strong>Aktuell Hyrestagare:</strong> ${bike.user ? bike.user.name : 'Ledig'}</p>
-                  <p class="card-text">Här kan du radera samt redigera information om bilarna.</p>
-                  <button class="btn btn-info edit-bike" data-id="${bike.id}">Redigera</button>
-                  <button class="btn btn-warning delete-bike" data-id="${bike.id}">Radera</button>`;
-            } else { 
-               var userExist = (bike.user ? bike.user.id : 'N/A');
-               if (userExist != 'N/A') {
-                  bikeView += `
-                  <p class="card-text"><strong>Aktuell Hyrestagare:</strong> ${bike.user ? bike.user.name : 'Ledig'}</p>`;
-                  if (bike.user.id == JSON.parse(sessionStorage.getItem('auth')).user.id){
-                     bikeView += `
-                     <p class="card-text">Här kan du avboka bilen.</p>
-                     <button class="btn btn-danger cancel-bike" data-id="${bike.id}">Avboka</button>`;
-                  }
-               } else {
-                  bikeView += `
-                     <p class="card-text">Här kan du boka bilen.</p>
-                     <button class="btn btn-success purchase-bike" data-id="${bike.id}">Boka</button>`;
-               }
-            }
-
-            bikeView += `</div></div>`;
+                     <p </p>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                     <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                     </div>
+                  </div>                  
+                  <div class="card-body">
+                     <h5 class="card-title">${bike.model} </h5> 
+                     <p class="card-text">Price: ${bike.price} </p>
+                     <button class="btn btn-success purchase-bike" onclick="showBike(${bike.id})" data-id="${bike.id}">Read more</button>
+                  </div>
+               </div>`);
+            //Img class will not contain image in webbsida_1, it's sketchy
             $("#bike-list").append(bikeView);
          });
       },
@@ -52,65 +40,181 @@ function displayBikes() {
    });
 }
 
-// Function checking if the user is signed in (only necessary for listing bike)
+// Function checking if the user is signed in
 function signedIn(){
    var authInfo = sessionStorage.getItem('auth');
    return authInfo.length > 0;
 }
 
+// Function showBike() enter new script for specific bike
+function showBike(bike_id) {
+   $(".container").html($("#view-bike").html())
+   $("#bike-list").empty(); 
+   $.ajax({
+      url: host + '/bikes/' + bike_id,
+      type: 'GET',
+      success: function(bike) {
+         var bikeView = $(`      
+            <div class="card mb-3">
+            <img class="card-img-top" src="/ReCycle.png" alt= "Card image cap" >
+               <div class="card-body">
+                  <h5 class="card-title">${bike.model} </h5> 
+                  <p class="card-text">Price: ${bike.price} </p>
+                  <p class="card-text">Gears: ${bike.description} </p>
+                  <button class="btn btn-success purchase-bike" onclick="purchaseBikebutton(${bike.id})" data-id="${bike.id}">Purchase</button>
+               </div>
+            </div>`);
+         $("#bike-list").append(bikeView);
+      },
+      error: function() {
+         alert("Error fetching bikes."); 
+      }
+   });
+}
+
+// Function purchaseBikeButton() enter new script for buyer to complete their order
+function purchaseBikeButton(bike_id) {
+   e.preventDefault();
+
+   $.ajax({
+      url: host + '/orders',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ user_id: purchaseUserID}),
+      success: function(response) {
+         console.log("Bokad bil", response);
+         alert(response)
+         displayBikes();
+      },
+      error: function() {
+         alert("Error purchasing bike.");
+      } 
+   });
+}
+
+// Function to enter my account from navbar dropdown using a modal
+function showAccount() {
+   $(".container").html($("#view-account").html())
+   $("#view-list").empty(); 
+   var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
+   var user_id = currentUser.id;
+  
+   $.ajax({
+      url: host + '/users/' + user_id,
+      type: 'GET',
+      headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
+      success: function(user) {
+         var userView = $(`   
+            <div class="card" style="width: 18rem;">
+               <div class="card-body">
+                  <p </p>
+               </div>
+               <div class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                     <span class="sr-only">Loading...</span>
+                  </div>
+               </div>
+               <div class="card-body">
+                  <h5 class="card-title">${user.name}</h5>
+                  <p class="card-text">E-mail: ${user.email} </p>
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#editAccountModal" onclick="editUser(${user.id})">Edit information</button>
+               </div>
+            </div>`);
+         $("#view-list").append(userView);
+      }
+   });
+}
+
+
+//opening edit modal
+function editUser(user_id) {
+   $('#editAccountModal').modal();
+   $.ajax({
+         url: host + '/users/' + user_id, 
+         type: 'GET',
+         headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
+         success: function(user) {
+            $("#editName").val(user.name);
+            $("#editEmail").val(user.email);
+            $("#editUserID").val(user.id);
+         },
+         error: function(error) {
+            console.error("Error fetching user data for editing:", error);
+         }
+      });
+}
+
+
+// Save the edited user information
+function saveChanges() {
+   const user_id = Math.floor(document.getElementById('editUserID').value);
+   const updatedName = document.getElementById('editName').value;
+   const updatedEmail = document.getElementById('editEmail').value;
+
+   $.ajax({
+      url: host + '/users/' + user_id,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify({ name: updatedName, email: updatedEmail, user_id: user_id}),
+      headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
+      success: function() {
+         $("#editName, #editEmail").val('');
+         $("#editAccountModal").modal("hide");
+         showAccount();
+         alert(updatedName);
+      },
+      error: function() {
+         alert("Error editing account.");
+      } 
+   });   
+}
+
 //  This executes when document is loaded
  $(document).ready(function(){
-    alert("Sidan laddades");
+    alert("Page was loaded");
     viewHome()
-    $(".nav-link:contains('Logga ut')").toggleClass('d-none')
-    $(".nav-link:contains('Bilar')").toggleClass('d-none')
+    $(".dropdown-item:contains('Sign out')").toggleClass('d-none')
+    $(".nav-link:contains('My profile')").toggleClass('d-none')
  });
 
 
 //  Click functions on Navbar
-// Ideally, the displayBikes() should be on the home site 
-$(".nav-link:contains('Hem')").click(function (e) {
+
+
+$(".nav-link:contains('Home')").click(function (e) {
    e.preventDefault();
    viewHome()
 });
 
- $(".nav-link:contains('Kontakt')").click(function (e) {
-    e.preventDefault();
-    $(".container").html($("#view-contacts").html())
- });
+//Contact-page will not be available on webbsida_1
+//  $(".nav-link:contains('Kontakt')").click(function (e) {
+//     e.preventDefault();
+//     $(".container").html($("#view-contacts").html())
+//  });
 
- $(".nav-link:contains('Bilar')").click(function (e) {
+$(".nav-link:contains('Sign up')").click(function (e) {
    e.preventDefault();
-   
-   if (signedIn()) {
-      displayBikes();
-   } else {
-      alert("User is not logged in!");
-      viewHome();
-   }
- });
-
-$(".nav-link:contains('Registrera dig')").click(function (e) {
-   e.preventDefault();
-   $(".container").html($("#view-register").html())
+   $(".container").html($("#view-sign-up").html())
 
 });
 
-$(".nav-link:contains('Logga in')").click(function (e) {
+$(".nav-link:contains('Log in')").click(function (e) {
    e.preventDefault();
    $(".container").html($("#view-login").html())
 });
 
-$(".nav-link:contains('Logga ut')").click(function (e) {
+$(".dropdown-item:contains('Sign out')").click(function (e) {
    e.preventDefault();
    viewHome();
    sessionStorage.removeItem("auth");
-   $(".nav-link:contains('Registrera dig')").toggleClass('d-none', false)
-   $(".nav-link:contains('Logga in')").toggleClass('d-none', false)
-   $(".nav-link:contains('Logga ut')").toggleClass('d-none', true)
-   $(".nav-link:contains('Bilar')").toggleClass('d-none', true)
+   $(".nav-link:contains('Sign up')").toggleClass('d-none', false)
+   $(".nav-link:contains('Log in')").toggleClass('d-none', false)
+   $(".dropdown-item:contains('Sign out')").toggleClass('d-none', true)
+   $(".nav-link:contains('My profile')").toggleClass('d-none', true)
 });
 
+
+// Click functions
 
 // Delete bike
 $(".container").on("click", ".delete-bike", function (e) {
@@ -122,7 +226,6 @@ $(".container").on("click", ".delete-bike", function (e) {
       type: 'DELETE',
       headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
       success: function(response) {
-         console.log("Hejdå bil", response);
          $(this).closest(".card").remove();
       },
       error: function() {
@@ -133,28 +236,7 @@ $(".container").on("click", ".delete-bike", function (e) {
 });
 
 
-// purchase bike
-$(".container").on("click", ".purchase-bike", function (e) {
-   e.preventDefault();
-   var bike_id = $(this).data('id');
-   var purchaseUserID = JSON.parse(sessionStorage.getItem('auth')).user.id;
 
-   $.ajax({
-      url: host + '/bikes/' + bike_id + '/purchasing',
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({ user_id: purchaseUserID}),
-      headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
-      success: function(response) {
-         console.log("Bokad bil", response);
-         alert(response)
-         displayBikes();
-      },
-      error: function() {
-         alert("Error purchasing bike.");
-      } 
-   });
-});
 
 
 // Cancel bike
@@ -269,7 +351,7 @@ $("#addBikeForm").submit(function (e) {
 });
 
 
-// submit signin
+// submit sign up
 $(".container").on("submit", "#form2", function (e) {
    e.preventDefault();
 
@@ -281,7 +363,7 @@ $(".container").on("submit", "#form2", function (e) {
       url: host + '/sign-up',
       type: 'POST',
       contentType: 'application/json', 
-      data: JSON.stringify({ name: newName, email: newEmail, password: newPassword}), 
+      data: JSON.stringify({name: newName, email: newEmail, password: newPassword}), 
       success: function(newUser) {
          console.log(newUser); 
       },
@@ -293,7 +375,7 @@ $(".container").on("submit", "#form2", function (e) {
 });
 
 
-// submit login
+// submit log in
 $(".container").on("submit", "#form3", function (e) {
    e.preventDefault();
 
@@ -313,10 +395,10 @@ $(".container").on("submit", "#form3", function (e) {
       }
    });
    viewHome()
-   $(".nav-link:contains('Registrera dig')").toggleClass('d-none', signedIn())
-   $(".nav-link:contains('Logga in')").toggleClass('d-none', signedIn())
-   $(".nav-link:contains('Logga ut')").toggleClass('d-none', !signedIn())
-   $(".nav-link:contains('Bilar')").toggleClass('d-none', !signedIn())
+   $(".nav-link:contains('Sign up')").toggleClass('d-none', signedIn())
+   $(".nav-link:contains('Log in')").toggleClass('d-none', signedIn())
+   $(".dropdown-item:contains('Sign out')").toggleClass('d-none', !signedIn())
+   $(".nav-link:contains('My profile')").toggleClass('d-none', !signedIn())
 });   
 
 
