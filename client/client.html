@@ -25,25 +25,25 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" id="home" onclick="viewHome()">Home <span class="sr-only">(current)</span></a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="/contacts">Kontakt</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="/sign-up">Sign up <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/sign-up" id="sign_up">Sign up <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/login">Log in <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/login" id="log_in">Log in <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">My profile </a>
+            <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">My profile </a>
             <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class = "dropdown-item" href="#" onclick=showAccount()> My account</a>
               <a class = "dropdown-item" href="/users"> My bikes</a>
               <a class = "dropdown-item" href="/users"> My orders</a>
               <div class = "dropdown-divider" ></div>
-              <a class="dropdown-item" href="/login">Sign out <span class="sr-only">(current)</span></a>
+              <a class="dropdown-item" href="#" onclick=logOut()>Sign out</a>
             </div>
           </li>
         </ul>
@@ -59,7 +59,7 @@
       <h1 id="welcome" class="extra-big">
         Our bikes
       </h1>
-      <ul id="bike-list" class="list-group-flush">
+      <ul id="home-list" class="list-group-flush">
       </ul>
     </script>
 
@@ -74,10 +74,10 @@
 
     <!-- View Account script -->
     <script id="view-account" type="text/html">
-      <h1 id="bike" class="extra-big">
+      <h1 id="account" class="extra-big">
         My account
       </h1>
-      <ul id="view-list" class="list-group-flush">
+      <ul id="account-list" class="list-group-flush">
       </ul>
     </script>
 
@@ -94,19 +94,17 @@
               <div class="modal-body">
                 <form id="editAccountForm">
                     <div class="form-group">
-                        <label for="editName">Name</label>
-                        <input type="text" class="form-control" id="editName" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editEmail">E-mail</label>
-                        <input type="text" class="form-control" id="editEmail" name="email" required>
+                        <label for="editName" class="col-form-label">Name</label>
+                        <input type="text" class="form-control" id="editName" required>
+                        <label for="editEmail" class="col-form-label">E-mail</label>
+                        <input type="text" class="form-control" id="editEmail" required>
                     </div>
                     <div class="form-group d-none" id="hiddenFormGroup">
                       <label for="hiddenField">Hidden Field</label>
                       <input type="text" class="form-control" id="editUserID" name="hiddenField">
                     </div>
-                  
-                    <button type="submit" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+                    <button class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </form>
           </div>
       </div>
@@ -223,7 +221,7 @@
         Create an account
       </h1>
 
-      <form id="form2">
+      <form id="signupForm">
         <div class="form-group">
           <label for="exampleInputName">Name</label>
           <input type="name" class="form-control" id="exampleInputName">
@@ -246,18 +244,17 @@
   <h1 id="welcome" class="extra-big">
     Log in here
   </h1>
-
-  <form id="form3">
+  <form id="logInForm">
     <div class="form-group">
-      <label for="exampleInputEmail1">E-mail address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <label for="inputEmail">E-mail address</label>
+      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
       <small id="emailHelp" class="form-text text-muted">Please enter a valid E-mail address</small>
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword">
+      <label for="inputPassword">Password</label>
+      <input type="password" class="form-control" id="inputPassword">
     </div>
-    <button input type="submit" class="btn btn-primary">Log in</button>
+    <button class="btn btn-primary" onclick="logIn()">Log in</button>
   </form>
 </script>
 

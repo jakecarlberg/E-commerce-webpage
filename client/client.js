@@ -1,14 +1,24 @@
 host = window.location.protocol + '//' + location.host
 
 function viewHome() {
-    $(".container").html($("#view-home").html())
-    displayAllBikes();
+   setTimeout(updateNavbar, 400);
+   displayAllBikes();
 }
 
+// wait for synchronising the login
+function updateNavbar() {
+   var signedIn = false;
+   var authInfo = sessionStorage.getItem('auth');
+   if ( authInfo !== null ) {
+      signedIn = true;
+   }
+   $('#sign_up, #log_in').toggleClass('d-none', signedIn);
+   $('#my_profile').toggleClass('d-none', !signedIn);
+}
 // Function to fetch and display bikes in View bikes script
 function displayAllBikes() {
    $(".container").html($("#view-home").html())
-   $("#bike-list").empty(); 
+   $("#home-list").empty(); 
    $.ajax({
       url: host + '/bikes',
       type: 'GET',
@@ -31,7 +41,7 @@ function displayAllBikes() {
                   </div>
                </div>`);
             //Img class will not contain image in webbsida_1, it's sketchy
-            $("#bike-list").append(bikeView);
+            $("#home-list").append(bikeView);
          });
       },
       error: function() {
@@ -41,10 +51,12 @@ function displayAllBikes() {
 }
 
 // Function checking if the user is signed in
-function signedIn(){
-   var authInfo = sessionStorage.getItem('auth');
-   return authInfo.length > 0;
-}
+// function signedIn(){
+//    var authInfo = sessionStorage.getItem('auth');
+//    var signedIn = authInfo !== null && authInfo.length > 0;
+//    return signedIn;
+// }
+
 
 // Function showBike() enter new script for specific bike
 function showBike(bike_id) {
@@ -95,7 +107,7 @@ function purchaseBikeButton(bike_id) {
 // Function to enter my account from navbar dropdown using a modal
 function showAccount() {
    $(".container").html($("#view-account").html())
-   $("#view-list").empty(); 
+   $("#account-list").empty(); 
    var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
    var user_id = currentUser.id;
   
@@ -120,11 +132,10 @@ function showAccount() {
                   <button class="btn btn-primary" data-toggle="modal" data-target="#editAccountModal" onclick="editUser(${user.id})">Edit information</button>
                </div>
             </div>`);
-         $("#view-list").append(userView);
+         $("#account-list").append(userView);
       }
    });
 }
-
 
 //opening edit modal
 function editUser(user_id) {
@@ -144,7 +155,6 @@ function editUser(user_id) {
       });
 }
 
-
 // Save the edited user information
 function saveChanges() {
    const user_id = Math.floor(document.getElementById('editUserID').value);
@@ -155,7 +165,11 @@ function saveChanges() {
       url: host + '/users/' + user_id,
       type: 'PUT',
       contentType: 'application/json',
-      data: JSON.stringify({ name: updatedName, email: updatedEmail, user_id: user_id}),
+      data: JSON.stringify({ 
+         user_id: user_id,
+         name: updatedName, 
+         email: updatedEmail,
+         }),
       headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
       success: function() {
          $("#editName, #editEmail").val('');
@@ -172,19 +186,12 @@ function saveChanges() {
 //  This executes when document is loaded
  $(document).ready(function(){
     alert("Page was loaded");
+    sessionStorage.removeItem("auth");
     viewHome()
-    $(".dropdown-item:contains('Sign out')").toggleClass('d-none')
-    $(".nav-link:contains('My profile')").toggleClass('d-none')
  });
-
 
 //  Click functions on Navbar
 
-
-$(".nav-link:contains('Home')").click(function (e) {
-   e.preventDefault();
-   viewHome()
-});
 
 //Contact-page will not be available on webbsida_1
 //  $(".nav-link:contains('Kontakt')").click(function (e) {
@@ -203,15 +210,12 @@ $(".nav-link:contains('Log in')").click(function (e) {
    $(".container").html($("#view-login").html())
 });
 
-$(".dropdown-item:contains('Sign out')").click(function (e) {
-   e.preventDefault();
-   viewHome();
+
+// Log out
+function logOut() {
    sessionStorage.removeItem("auth");
-   $(".nav-link:contains('Sign up')").toggleClass('d-none', false)
-   $(".nav-link:contains('Log in')").toggleClass('d-none', false)
-   $(".dropdown-item:contains('Sign out')").toggleClass('d-none', true)
-   $(".nav-link:contains('My profile')").toggleClass('d-none', true)
-});
+   viewHome();
+}
 
 
 // Click functions
@@ -235,10 +239,6 @@ $(".container").on("click", ".delete-bike", function (e) {
    $(this).closest(".card").remove();
 });
 
-
-
-
-
 // Cancel bike
 $(".container").on("click", ".cancel-bike", function (e) {
    e.preventDefault();
@@ -260,14 +260,12 @@ $(".container").on("click", ".cancel-bike", function (e) {
    });
 });
 
-
 // Updating bike
 $(".container").on("click", "#update", function (e) {
    e.preventDefault();
    displayBikes();
    alert("Sidan uppdaterades")
 });
-
 
 // Opening modal of editing bike
 $(".container").on("click", ".edit-bike", function (e) {
@@ -290,7 +288,6 @@ $(".container").on("click", ".edit-bike", function (e) {
       }
    });
 });
-
 
 // Submit edit of bike
 $("#editBikeForm").submit(function (e) {
@@ -318,12 +315,10 @@ $("#editBikeForm").submit(function (e) {
    });
 });
 
-
 // Opening modal of adding bike
 $(".container").on("click", "#addBike", function (e) {
    $("#addPrice, #addModel, #addUserID").val('');
 });
-
 
 // Submitting the newly added bike
 $("#addBikeForm").submit(function (e) {
@@ -350,9 +345,8 @@ $("#addBikeForm").submit(function (e) {
    });
 });
 
-
 // submit sign up
-$(".container").on("submit", "#form2", function (e) {
+$(".container").on("submit", "#signupForm", function (e) {
    e.preventDefault();
 
    var newName = $("#exampleInputName").val();
@@ -374,32 +368,29 @@ $(".container").on("submit", "#form2", function (e) {
    viewHome()
 });
 
-
 // submit log in
-$(".container").on("submit", "#form3", function (e) {
-   e.preventDefault();
 
-   var email = $("#exampleInputEmail1").val();
-   var password = $("#exampleInputPassword").val();
+function logIn() {
+   var email = document.getElementById("inputEmail").value;
+   var password = document.getElementById("inputPassword").value;
   
    $.ajax({
       url: host + '/login',
       type: 'POST',
       contentType: 'application/json', 
-      data: JSON.stringify({ email: email, password: password}), 
+      data: JSON.stringify({ 
+         email: email, 
+         password: password}), 
       success: function(loginResponse) {;
          sessionStorage.setItem('auth', JSON.stringify(loginResponse));
+         console.log("login success ajax");
       },
       error: function(error) {
-         console.error("Error adding user:", error);
+         console.error("Error signing in user:", error);
       }
    });
-   viewHome()
-   $(".nav-link:contains('Sign up')").toggleClass('d-none', signedIn())
-   $(".nav-link:contains('Log in')").toggleClass('d-none', signedIn())
-   $(".dropdown-item:contains('Sign out')").toggleClass('d-none', !signedIn())
-   $(".nav-link:contains('My profile')").toggleClass('d-none', !signedIn())
-});   
+   viewHome();
+}  
 
 
 // Submit contact form in View Contacts script

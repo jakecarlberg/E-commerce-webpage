@@ -288,12 +288,14 @@ def login():
       abort(401)
    if bcrypt.check_password_hash(user.password_hash, data['password']):
       access_token = create_access_token(identity=user.id)
+      print("log in success")
       response = {
          'token': access_token,
          'user': user.serialize()
       }      
       return jsonify(response)
    else:
+      print("failure")
       abort(401)
 
 @app.route("/")
