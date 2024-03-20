@@ -51,39 +51,25 @@ class Bike(db.Model):
    is_sold = db.Column(db.Boolean, nullable=False, default=False)  
    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = True) # Id of seller
    orders = db.relationship('Order', backref='bike_orders', lazy=True) # Completed sale
-   description = db.relationship('BikeDescription', backref='bike_description', uselist=False, lazy=True)
+   gears = db.Column(db.Integer, nullable=True) # Amount of gears
+   condition = db.Column(db.Integer, nullable=True) # Describes condition on a range from 1-5 translating into descriptive words
+   age = db.Column(db.Integer, nullable = True)
+   picture = db.Column(db.String, nullable=False, default='<div class="card-body"><p </p></div><div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div></div>')
 
    def __repr__(self):
       return '<Bike {}: Price {} Model {}'.format(self.id, self.price, self.model)
    
    def serialize(self):
       return dict(
-         id=self.id,
-         price=self.price,
+         id = self.id,
+         price = self.price,
          is_listed = self.is_listed,
          is_sold = self.is_sold,
-         model=self.model,
-         description=self.description.serialize() if self.description else None)
-
-# Description for the bike as a weak entity set with bike_id as primary key
-class BikeDescription(db.Model):
-   bike_id = db.Column(db.Integer, db.ForeignKey('bike.id'), primary_key=True, nullable=False)
-   details = db.Column(db.String, nullable=False)
-   gears = db.Column(db.Integer, nullable=True) # Amount of gears
-   condition = db.Column(db.Integer, nullable=True) # Describes condition on a range from 1-5 translating into descriptive words
-   age = db.Column(db.Integer, nullable = True)
-   #Pictures på något
-
-   def __repr__(self):
-      return '<BikeDescription {}: Details {} Gears {} Condition {} Age {}>'.format(self.bike_id, self.details, self.gears, self.condition, self.age)
-
-   def serialize(self):
-      return dict(
-         details=self.details,
-         bike_id=self.bike_id,
-         gears=self.gears,
-         condition=self.condition,
-         age=self.age
+         model = self.model,
+         gears = self.gears,
+         condition = self.condition,
+         age = self.age,
+         picture = self.picture
       )
 
 # Class of Order, to be created and stored when a user successfully sells a bike
@@ -102,43 +88,33 @@ class Order(db.Model):
          buyer_id=self.buyer_id,
          bike_id=self.bike_id
       )
+   
+# Class of Message, to store messages send by users and non-users to be read by Admin
+class Message(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   name = db.Column(db.String, nullable=False)
+   email = db.Column(db.String, nullable=False)
+   message = db.Column(db.String, nullable=False)
+
+   def __repr__(self):
+      return '<ID {}: Name {} E-mail {} Message {}'.format(self.id, self.name, self.email, self.message)
+   
+   def serialize(self):
+      return dict(
+          id=self.id, 
+          name=self.name, 
+          email=self.email,
+          message=self.message)
 
 
 # Route for fetching all bikes   
-@app.route('/bikes', methods=['GET', 'POST'])
+@app.route('/bikes', methods=['GET'])
 def bikes():
    if request.method == 'GET':
       bike_list = Bike.query.all()
       serialized_bikes = [bike.serialize() for bike in bike_list ] #if bike.is_listed
       return jsonify(serialized_bikes)
-   elif request.method == 'POST':
-      data = request.get_json()
-
-      if 'price' not in data or 'model' not in data or 'seller_id' not in data:
-         abort(400)
-
-      new_bike = Bike(price=data['price'], model=data['model'])
-
-      # Probs uneccessary
-      if 'seller_id' in data:
-         if User.query.get(data['seller_id']):
-            new_bike.seller_id = data['seller_id']
-
-      #  Mandatory to include details, gears, condition & age when posting a bike
-      #  Values can be null
-      if 'details' in data:
-         new_bike.description.details = data['details']
-      if 'gears' in data:
-         new_bike.description.gears = data['gears']
-      if 'condition' in data:
-         new_bike.description.condition = data['condition']
-      if 'age' in data: 
-         new_bike.description.age = data['age'] 
-
-      db.session.add(new_bike)
-      db.session.commit()
-
-      return jsonify(new_bike.serialize())
+     
 
 # Route for fetching one specific bike
 # We save all sold bikes to be accessed by sellers and buyers in their purchase history, 
@@ -155,8 +131,6 @@ def bikes_int(bike_id):
       if bike.seller_id == data['user_id']:
          if 'price' in data:
             bike.price = data['price']
-         if 'is_listed' in data:
-            bike.is_listed = data['is_listed']
          if 'model' in data:
             bike.model = data['model']
          if 'user_id' in data:
@@ -164,8 +138,10 @@ def bikes_int(bike_id):
                bike.user_id = data['user_id']
             else:
                bike.user_id = None
-         db.session.commit()
-         return jsonify(bike.serialize())
+      elif 'is_listed' in data:
+            bike.is_listed = data['is_listed']
+      db.session.commit()
+      return jsonify(bike.serialize())
       
    elif request.method == 'DELETE':
       data = request.get_json()
@@ -195,6 +171,7 @@ def users():
 @jwt_required()
 def users_int(user_id):
    user = User.query.get_or_404(user_id)
+   print(user)
    if request.method == 'GET':
       return jsonify(user.serialize())
    
@@ -208,7 +185,7 @@ def users_int(user_id):
          if 'is_admin' in data:
             user.is_admin = data['is_admin']
          db.session.commit()
-         return jsonify(user.serialize())
+         return jsonify(user.serialize()), 200
    
    elif request.method == 'DELETE':
       data = request.get_json()
@@ -222,29 +199,53 @@ def users_int(user_id):
 
          db.session.delete(user) # Delete the user
          db.session.commit()
-         return jsonify(200)     
+         return jsonify({'message': 'User deleted successfully'}), 200    
 
 # Fetching a sellers listed bikes
-@app.route('/users/<int:user_id>/bikes')
+@app.route('/users/<int:user_id>/bikes', methods=['GET', 'POST'])
 @jwt_required()
 def user_bikes(user_id):
-   data = request.get_json()
-   if user_id == data['user_id']:
-      user = User.query.get_or_404(user_id)
+   user = User.query.get_or_404(user_id)
+   if request.method == 'GET':
       bike_list = user.bikes
       serialized_bikes = [bike.serialize() for bike in bike_list]
       return jsonify(serialized_bikes)
+   elif request.method == 'POST':
+      data = request.get_json()
+      
+      if 'price' not in data or 'model' not in data:
+         abort(400)
+
+      new_bike = Bike(price=data['price'], model=data['model'])
+      new_bike.seller_id = user_id
+
+      #  Mandatory to include details, gears, condition & age when posting a bike
+      #  Values can be null
+      if 'gears' in data:
+         new_bike.gears = data['gears']
+      if 'condition' in data:
+         new_bike.condition = data['condition']
+      if 'age' in data: 
+         new_bike.age = data['age'] 
+
+      if 'picture' in data:
+         new_bike.picture = data['picture']
+   
+      db.session.add(new_bike)
+      db.session.commit()
+
+      return jsonify(new_bike.serialize())
 
 # Fetching a buyers purchased bikes
 @app.route('/users/<int:user_id>/orders')
 @jwt_required()
 def user_orders(user_id):
-   data = request.get_json()
-   if user_id == data['user_id']:
-      user = User.query.get_or_404(user_id)
-      order_list = user.orders
-      serialized_orders = [order.serialize() for order in order_list]
-      return jsonify(serialized_orders)
+  data = request.get_json()
+  if user_id == data['user_id']:
+     user = User.query.get_or_404(user_id)
+     bike_list = user.orders.bike_id
+     serialized_bikes = [bike.serialize() for bike in bike_list]
+     return jsonify(serialized_bikes)
 
 # Function for fetching all completed orders and creating a new order
 @app.route('/orders', methods=['GET', 'POST'], endpoint='orders')
@@ -288,7 +289,6 @@ def login():
       abort(401)
    if bcrypt.check_password_hash(user.password_hash, data['password']):
       access_token = create_access_token(identity=user.id)
-      print("log in success")
       response = {
          'token': access_token,
          'user': user.serialize()
@@ -298,11 +298,25 @@ def login():
       print("failure")
       abort(401)
 
+# Function for fetching all messages and creating a new message
+@app.route('/messages', methods=['GET', 'POST'])
+def messages():
+   if request.method == 'GET':
+      messages_list = Message.query.all()
+      serialized_messages = [message.serialize() for message in messages_list]
+      return jsonify(serialized_messages)
+   elif request.method == 'POST':
+      data = request.get_json()
+      new_message = Message(name=data['name'], email=data['email'], message=data['message'])
+      db.session.add(new_message)
+      db.session.commit()
+      return jsonify(new_message.serialize())
+
 @app.route("/")
 def client():
    return app.send_static_file("client.html")
 
 if __name__ == "__main__":
-   app.run(port=5223)
+   app.run(port=5000)
 
    

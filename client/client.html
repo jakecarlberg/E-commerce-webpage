@@ -5,261 +5,474 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="client.css">
 
+
+    <link rel="icon" href="data:,">
     <title>Let's reCycle!</title>
   </head>
   <body>
 
   <!-- Navbar -->
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="#">
-        <img src="/ReCycle.png" width="200" height="100" alt="" class="center">
-           LETS GO BIKING
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#" id="home" onclick="viewHome()">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/contacts">Kontakt</a>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link" href="/sign-up" id="sign_up">Sign up <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login" id="log_in">Log in <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">My profile </a>
-            <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class = "dropdown-item" href="#" onclick=showAccount()> My account</a>
-              <a class = "dropdown-item" href="/users"> My bikes</a>
-              <a class = "dropdown-item" href="/users"> My orders</a>
-              <div class = "dropdown-divider" ></div>
-              <a class="dropdown-item" href="#" onclick=logOut()>Sign out</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="/ReCycle.png" width="200" height="100" alt="" class="center">
+          LETS GO BIKING
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#" id="home" onclick="viewHome()">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="sign_up">Sign up <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="log_in">Log in <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="applications" onclick=viewApplications()>Applications <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="messages" onclick=viewMessages()>Messages <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="about_us" onclick=viewAbout()>About us <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="contact" onclick=viewContact()>Contact <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">My profile </a>
+          <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class = "dropdown-item" href="#" onclick=showAccount()> My account</a>
+            <a class = "dropdown-item" href="#" onclick=showMyBikes()> My bikes</a>
+            <a class = "dropdown-item" href="#" onclick=showMyOrders()> My orders</a>
+            <div class = "dropdown-divider" ></div>
+            <a class="dropdown-item" href="#" onclick=logOut()>Sign out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- Empty container -->
+  <!-- Empty container -->
     <div class="container">
     </div>
 
-    <!-- View Home script -->
-    <script id="view-home" type="text/html">
-      <h1 id="welcome" class="extra-big">
-        Our bikes
-      </h1>
-      <ul id="home-list" class="list-group-flush">
-      </ul>
-    </script>
-
-    <!-- View Bike script -->
-    <script id="view-bike" type="text/html">
-      <h1 id="bike" class="extra-big">
-        Product description
-      </h1>
-      <ul id="bike-list" class="list-group-flush">
-      </ul>
-    </script>
-
-    <!-- View Account script -->
-    <script id="view-account" type="text/html">
-      <h1 id="account" class="extra-big">
-        My account
-      </h1>
-      <ul id="account-list" class="list-group-flush">
-      </ul>
-    </script>
-
-    <!-- Modal for editing account-->
-    <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="editAccountModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="editAccountModalLabel">Edit information</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
+  <!-- View Home script -->
+  <script id="view-home" type="text/html">
+    <h1 id="welcome" class="extra-big">
+      Our bikes
+    </h1>
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filters</button>
+      
+      <form class="dropdown-menu p-4">
+        <fieldset class="form-group">
+          <div class="row">
+            <legend >Price</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="lowPrice" value="option1" checked>
+                <label class="form-check-label" for="lkowPrice">
+                  < 1000 kr
+                </label>
               </div>
-              <div class="modal-body">
-                <form id="editAccountForm">
-                    <div class="form-group">
-                        <label for="editName" class="col-form-label">Name</label>
-                        <input type="text" class="form-control" id="editName" required>
-                        <label for="editEmail" class="col-form-label">E-mail</label>
-                        <input type="text" class="form-control" id="editEmail" required>
-                    </div>
-                    <div class="form-group d-none" id="hiddenFormGroup">
-                      <label for="hiddenField">Hidden Field</label>
-                      <input type="text" class="form-control" id="editUserID" name="hiddenField">
-                    </div>
-                    <button class="btn btn-primary" onclick="saveChanges()">Save changes</button>
-                    <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                </form>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="middlePrice" value="option2">
+                <label class="form-check-label" for="middlePrice">
+                  1000 - 5000 kr
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="highPrice" value="option3">
+                <label class="form-check-label" for="highPrice">
+                  > 5000 kr
+                </label>
+              </div>
+            </div>
           </div>
-      </div>
-  </div>
-  
-    <!-- Modal for editing bike -->
-    <div class="modal fade" id="editBikeModal" tabindex="-1" role="dialog" aria-labelledby="editbikeModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="editBikeModalLabel">Redigera Bil</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
+        </fieldset>
+        
+        <fieldset class="form-group">
+          <div class="row">
+            <legend >Gears</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="lowGears" value="option1" checked>
+                <label class="form-check-label" for="lowgears">
+                  < 5
+                </label>
               </div>
-              <div class="modal-body">
-                  <form id="editBikeForm">
-                      <div class="form-group">
-                          <label for="editPrice">Tillverkare</label>
-                          <input type="text" class="form-control" id="editPrice" name="price" required>
-                      </div>
-                      <div class="form-group">
-                          <label for="editModel">Modell</label>
-                          <input type="text" class="form-control" id="editModel" name="model" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="editUserID">Kund-ID</label>
-                        <input type="text" class="form-control" id="editUserID" name="userID">
-                    </div>
-                      <button type="submit" class="btn btn-primary">Spara ändringar</button>
-                  </form>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="highGears" value="option2">
+                <label class="form-check-label" for="highGears">
+                  > 5
+                </label>
               </div>
+            </div>
           </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <div class="row">
+            <legend >Age</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="new" value="option1" checked>
+                <label class="form-check-label" for="new">
+                  New
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="lowAge" value="option2">
+                <label class="form-check-label" for="lowAge">
+                  < 5 år 
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="highAge" value="option3">
+                <label class="form-check-label" for="highAge">
+                  > 5 år
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <div class="row">
+            <legend >Condition</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="lowCondition" value="option1" checked>
+                <label class="form-check-label" for="lowCondition">
+                  < 3
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="highCondition" value="option2">
+                <label class="form-check-label" for="highCondition">
+                  > 3
+                </label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <button class="btn btn-primary">Filter</button> 
+      </form>
+      <form style="margin-left: 10px;">
+        <div class="form-row align-items-center">
+          <div class="col-auto my-1">
+            <label class="mr-sm-2 sr-only" for="selectSort">Sort by</label>
+            <select class="custom-select mr-sm-2" id="selectSort">              
+              <option selected>Recently posted</option>
+              <option value="1">Lowest price</option>
+              <option value="2">Lowest age</option>
+              <option value="3">Best condition</option>
+            </select>
+          </div>
+          <div class="col-auto my-1">
+            <button class="btn btn-primary" onclick="displayAllBikes()">Sort</button> 
+            <!-- the problem we have here is that the value of the option above is only stored until the button Sort is pressed, 
+              then the value is automatically selected to the first option (regardless if teh first option is "selected" or not...) -->
+          </div>
+        </div>
+      </form>
+    </div>
+    <ul id="home-list" class="list-group-flush">
+    </ul>
+  </script>
+
+  <!-- View Bike script -->
+  <script id="view-bike" type="text/html">
+    <h1 id="bike" class="extra-big">
+      Product description
+    </h1>
+    <ul id="bike-list" class="list-group-flush">
+    </ul>
+  </script>
+
+  <!-- View user's bikes script -->
+  <script id="view-myBikes" type="text/html">
+    <h1 id="myBikes" class="extra-big">
+      My bikes for sale
+    </h1>
+    <button id="addNewBikeButton" class="btn btn-primary" onclick="addBike()">Upload bike for sale</button>
+    <ul id="myBikes-list" class="list-group-flush">
+    </ul>
+  </script>
+     
+  <!-- View user's bikes script -->
+  <script id="view-addBike" type="text/html">
+    <h1 id="myNewBike" class="extra-big">
+      Apply to upload a new bike
+    </h1>
+    <form id="addBikeForm" enctype="multipart/form-data" method="POST">
+      <div class="form-group">
+        <label for="addModel" class="col-form-label">Model</label>
+        <input type="text" class="form-control" id="addModel" required>
+        <label for="addPrice" class="col-form-label">Price</label>
+        <input type="text" class="form-control" id="addPrice" required>
+        <label for="addGears" class="col-form-label">Number of gears</label>
+        <input type="text" class="form-control" id="addGears">
+        <label for="addAge" class="col-form-label">Age of bike</label>
+        <input type="text" class="form-control" id="addAge">
+        <label for="addCondition" class="col-form-label">Condition</label>
+        <input type="text" class="form-control" id="addCondition">
+        <small id="conditionHelp" class="form-text text-muted">Enter a number between 1 and 5, where 5 is brand new and 1 is bike falling apart</small>
       </div>
-  </div>
-  
-  <!-- Modal for adding bike-->
-  <div class="modal fade" id="addBikeModal" tabindex="-1" role="dialog" aria-labelledby="addBikeModalLabel" aria-hidden="true">
+      <div class="form-group">
+        <input type="file" id="exampleFormControlFile1">
+      </div>
+      <button id="addBikeButton" class="btn btn-primary" onclick="uploadBike()">Apply to upload</button>
+      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+    </form>
+    </ul>
+  </script>
+
+
+  <!-- View user's orders script -->
+  <script id="view-myOrders" type="text/html">
+    <h1 id="myOrders" class="extra-big">
+      My purchased bikes
+    </h1>
+    <ul id="myOrders-list" class="list-group-flush">
+    </ul>
+  </script>
+
+  <!-- View Account script -->
+  <script id="view-account" type="text/html">
+    <h1 id="account" class="extra-big">
+      My account
+    </h1>
+    <ul id="account-list" class="list-group-flush">
+    </ul>
+  </script>
+
+  <!-- View Applications script -->
+  <script id="view-applications" type="text/html">
+    <h1 id="applications" class="extra-big">
+      Pending applications
+    </h1>
+    <ul id="applications-list" class="list-group-flush">
+    </ul>
+  </script>
+
+  <!-- View Messages script -->
+  <script id="view-messages" type="text/html">
+    <h1 id="messages" class="extra-big">
+      Received messages
+    </h1>
+    <ul id="messages-list" class="list-group-flush">
+    </ul>
+  </script>
+
+  <!-- View About us script -->
+  <script id="view-about" type="text/html">
+    <h1 id="about" class="extra-big">
+      About reCycle
+    </h1>
+    <div class="card-deck">
+      <div class="card">
+        <img src="/Joachim.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Joachim Andersson</h5>
+          <p class="card-text">GIT-master</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="/Jacob.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Jacob Carlberg</h5>
+          <p class="card-text">Front-end developer</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-deck">
+      <div class="card">
+        <img src="/Sten.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Sten Gårdmark</h5>
+          <p class="card-text">Architect</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="/Victoria.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Victoria Johansson</h5>
+          <p class="card-text">Merge-approver</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-deck">
+      <div class="card">
+        <img src="/Olle.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Olle Lövborg</h5>
+          <p class="card-text">Scrum master</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="/Robin.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Robin Ridell</h5>
+          <p class="card-text">Chairman</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-deck">
+      <div class="card">
+        <img src="/Emma.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Emma Strömberg</h5>
+          <p class="card-text">Secretary</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="/William.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">William Öbrink</h5>
+          <p class="card-text">Back-end developer</p>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <!-- Modal for editing account-->
+  <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="editAccountModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="addBikeModalLabel">Lägg till ny bil</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-             </button>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editAccountModalLabel">Edit information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editAccountForm">
+          <div class="form-group">
+            <label for="editName" class="col-form-label">Name</label>
+            <input type="text" class="form-control" id="editName" required>
+            <label for="editEmail" class="col-form-label">E-mail</label>
+            <input type="text" class="form-control" id="editEmail" required>
           </div>
-          <div class="modal-body">
-             <form id="addBikeForm">
-                <div class="form-group">
-                   <label for="addPrice">Tillverkare</label>
-                   <input type="text" class="form-control" id="addPrice" name="price" required>
-                </div>
-                <div class="form-group">
-                   <label for="addModel">Modell</label>
-                   <input type="text" class="form-control" id="addModel" name="model" required>
-                </div>
-                <div class="form-group">
-                  <label for="addUserID">Kund-ID</label>
-                  <input type="text" class="form-control" id="addUserID" name="userID">
+          <div class="form-group d-none" id="hiddenFormGroup">
+            <label for="hiddenField">Hidden Field</label>
+            <input type="text" class="form-control" id="editUserID" name="hiddenField">
+          </div>
+          <button id="saveChangesButton" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+          <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal for editing bike -->
+  <!-- <div class="modal fade" id="editBikeModal" tabindex="-1" role="dialog" aria-labelledby="editbikeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editBikeModalLabel">Redigera Bil</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editBikeForm">
+            <div class="form-group">
+              <label for="editPrice">Tillverkare</label>
+              <input type="text" class="form-control" id="editPrice" name="price" required>
+            </div>
+            <div class="form-group">
+                <label for="editModel">Modell</label>
+              <input type="text" class="form-control" id="editModel" name="model" required>
+            </div>
+              <div class="form-group">
+                <label for="editUserID">Kund-ID</label>
+                <input type="text" class="form-control" id="editUserID" name="userID">
               </div>
-                <button type="submit" class="btn btn-success">Lägg till bil</button>
-             </form>
+              <button type="submit" class="btn btn-primary">Spara ändringar</button>
+            </form>
           </div>
-       </div>
-    </div>
- </div>
+        </div>
+      </div>
+    </div> -->
+  
  
-<!-- View Contacts script -->
-    <script id="view-contacts" type="text/html">
-      <h1 id="welcome" class="extra-big">
-        Kontaktuppgifter
-      </h1>
-      <p1 id="site-paragraph" class="extra-big">
-        Liu-bil: Supportcenter.
-      </p1>
+  <!-- View Contacts script -->
+  <script id="view-contact" type="text/html">
+    <h1 id="contact" class="extra-big">
+      Conctact recycle
+    </h1>
+    <form id="contactUsForm">
+      <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="name" class="form-control" id="inputName">
+      </div>
+      <div class="form-group">
+        <label for="inputEmail">E-mail</label>
+        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">Enter a valid e-mail</small>
+      </div>
+      <div class="form-group">
+        <label for="inputMessage">Message</label>
+        <input type="message" class="form-control" id="inputMessage">
+      </div>
+      <button class="btn btn-primary" onclick="sendMessageButton()">Send message</button>
+    </form>
+  </script>
 
-      <ul class="list-group">
-        <li class="list-group-item">Namn: Lovisa</li>
-        <li class="list-group-item">Epost: help@liubil.se</li>
-        <li class="list-group-item">nmr: 070 070 70 07</li>
-      </ul>
+  <!-- View Sign up Script-->
+   <script id="view-sign-up" type="text/html">
+    <h1 id="welcome" class="extra-big">
+      Create an account
+    </h1>
+    <form id="signupForm">
+      <div class="form-group">
+        <label for="exampleInputName">Name</label>
+        <input type="name" class="form-control" id="exampleInputName">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">E-mail address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">Please enter a valid E-mail address</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword">
+      </div>
+      <button input type="submit" class="btn btn-primary">Register</button>
+    </form>
+  </script>
 
-      <p1 id="site-paragraph" class="extra-big">
-        <br />
-        <br />
-        För att boka bilen, ansök med hjälp av formuläret med meddelande för önskad tid!
-      </p1>
+  <!-- View Login Script-->
+  <script id="view-login" type="text/html">
+    <h1 id="welcome" class="extra-big">
+      Log in here
+    </h1>
+    <form id="logInForm">
+      <div class="form-group">
+        <label for="inputEmail">E-mail address</label>
+        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">Please enter a valid E-mail address</small>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword">
+      </div>
+      <button class="btn btn-primary" onclick="logIn()">Log in</button>
+    </form>
+  </script>
 
-      <form id="form1">
-        <div class="form-group">
-          <label for="exampleInputName">Namn</label>
-          <input type="name" class="form-control" id="exampleInputName">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email adress</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <small id="emailHelp" class="form-text text-muted">Ange giltig LiU-mailadress</small>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputMessage">Meddelande</label>
-          <input type="message" class="form-control" id="exampleInputMessage">
-        </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Vi behandlar dina kontaktuppgifter enligt §2.1 [GDPR]</label>
-        </div>
-        <button input type="submit" class="btn btn-primary">Skicka</button>
-      </form>
-    </script>
-
-    <!-- View Sign up Script-->
-    <script id="view-sign-up" type="text/html">
-      <h1 id="welcome" class="extra-big">
-        Create an account
-      </h1>
-
-      <form id="signupForm">
-        <div class="form-group">
-          <label for="exampleInputName">Name</label>
-          <input type="name" class="form-control" id="exampleInputName">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">E-mail address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <small id="emailHelp" class="form-text text-muted">Please enter a valid E-mail address</small>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword">
-        </div>
-        <button input type="submit" class="btn btn-primary">Register</button>
-      </form>
-    </script>
-
-<!-- View Login Script-->
-<script id="view-login" type="text/html">
-  <h1 id="welcome" class="extra-big">
-    Log in here
-  </h1>
-  <form id="logInForm">
-    <div class="form-group">
-      <label for="inputEmail">E-mail address</label>
-      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
-      <small id="emailHelp" class="form-text text-muted">Please enter a valid E-mail address</small>
-    </div>
-    <div class="form-group">
-      <label for="inputPassword">Password</label>
-      <input type="password" class="form-control" id="inputPassword">
-    </div>
-    <button class="btn btn-primary" onclick="logIn()">Log in</button>
-  </form>
-</script>
-
-
-    <!-- Optional JavaScript -->
+<!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
