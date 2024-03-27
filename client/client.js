@@ -16,37 +16,75 @@ function updateNavbar() {
       isAdmin = currentUser.is_admin;
    }
    $('#sign_up, #log_in').toggleClass('d-none', signedIn);
-   $('#applications, #messages').toggleClass('d-none', !isAdmin);
+   $('#applications, #messages, #orders').toggleClass('d-none', !isAdmin);
    $('#my_profile').toggleClass('d-none', !signedIn);
 }
 
 // Function to view applications
 function viewApplications() {
    $(".container").html($("#view-applications").html())
-   $("#applications-list").empty(); 
+   $("#applications-list").empty();
    $.ajax({
       url: host + '/bikes',
       type: 'GET',
       success: function(bikes) {
          bikes.forEach(function (bike) {
-            if (!bike.is_listed) {
-            var bikeView = $(`      
-               <div class="card mb-3">
+            if (!bike.is_listed && !bike.is_sold) {
+               var bikeView = $(`     
+               <div class="card mb-3"> 
+                  <img src="${bike.picture_path}" id="pic">             
                   <div class="card-body">
-                     <p </p>
-                  </div>
-                  <div class="d-flex justify-content-center">
-                     <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                     </div>
-                  </div>                  
-                  <div class="card-body">
-                     <h5 class="card-title">${bike.model} </h5> 
-                     <p class="card-text">Price: ${bike.price} </p>
+                     <h5 class="card-title">${bike.model} </h5>
+                     <p class="card-text">Price: ${bike.price} SEK</p>
                      <button class="btn btn-primary" onclick="listBike(${bike.id})" data-id="${bike.id}">Approve</button>
                   </div>
                </div>`);
-            $("#applications-list").append(bikeView);
+               $("#applications-list").append(bikeView);
+            }
+         });
+      },
+      error: function() {
+         alert("Error fetching bikes.");
+      }
+   });
+}
+
+// Function to view orders as admin
+function viewOrders() {
+   $(".container").html($("#view-orders").html())
+   $("#orders-list").empty(); 
+   seller_email = 'no email';
+   $.ajax({
+      url: host + '/bikes',
+      type: 'GET',
+      success: function(bikes) {
+         bikes.forEach(function (bike) {
+            if (bike.is_sold) {                      
+            $.ajax({
+               url: host + '/users/' + bike.seller_id,
+               type: 'GET',
+               contentType: 'application/json', 
+               headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
+               success: function(seller){
+                  seller_email = seller.email;
+               },
+               error: function(){
+                  console.log("AJNAJAJAJA DET BRINNER");
+               }
+            });
+            setTimeout(function() {
+            var orderView = $(`      
+               <div class="card mb-3">       
+                  <img src="${bike.picture_path}" id="pic">      
+                  <div class="card-body">
+                     <h5 class="card-title">Bike: (${bike.id}) ${bike.model} </h5>
+                     <p class="card-text">Payment to seller: ${bike.price - 50} SEK</p>   
+                     <p class="card-text">Fee: 50 SEK </p>   
+                     <p class="card-text">Seller: ${seller_email} </p>
+                  </div>
+               </div>`);
+            $("#orders-list").append(orderView);
+            }, 400);
             }
          });
       },
@@ -144,9 +182,13 @@ function viewAbout() {
    $(".container").html($("#view-about").html());
 }
 
-
+// Function to sort the bikes in displayAllBikes()
 function sortBikes(sortByValue, bikes)  {
-   if (sortByValue == 1) {
+   if (sortByValue == 0) {
+      bikes.sort(function(a, b) {
+         return b.id - a.id;
+     });
+   } else if (sortByValue == 1) {
       bikes.sort(function(a, b) {
          return a.price - b.price;
      });
@@ -160,37 +202,158 @@ function sortBikes(sortByValue, bikes)  {
      });
    }
    return bikes;
-}
+ }
 
-function displaySortedBikes(value){
-   console.log(value);
-
-}
+ // Function to store filter options
+ function setStoredOption(){
+   var storedOption = localStorage.getItem("sortOption");
+   if (storedOption !== "undefined"){
+      $('#selectSort').val(storedOption);
+   }
+   if (localStorage.getItem('lowPriceChecked') === 'true') {
+      $('#lowPrice').prop('checked', true);
+   }
+   if (localStorage.getItem('middlePriceChecked') === 'true') {
+      $('#middlePrice').prop('checked', true);
+   }
+   if (localStorage.getItem('highPriceChecked') === 'true') {
+      $('#highPrice').prop('checked', true);
+   }
+   if (localStorage.getItem('lowGearsChecked') === 'true') {
+      $('#lowGears').prop('checked', true);
+   }
+   if (localStorage.getItem('highGearsChecked') === 'true') {
+      $('#highGears').prop('checked', true);
+   }
+   if (localStorage.getItem('newChecked') === 'true') {
+      $('#new').prop('checked', true);
+   }
+   if (localStorage.getItem('lowAgeChecked') === 'true') {
+      $('#lowAge').prop('checked', true);
+   }
+   if (localStorage.getItem('highAgeChecked') === 'true') {
+      $('#highAge').prop('checked', true);
+   }
+   if (localStorage.getItem('lowConditionChecked') === 'true') {
+      $('#lowCondition').prop('checked', true);
+   }
+   if (localStorage.getItem('highConditionChecked') === 'true') {
+      $('#highCondition').prop('checked', true);
+   }
+ }
+ 
+ // Function to filter displayAllBikes() using checkbox
+ function checkBox() {
+   $('#lowPrice, #middlePrice, #highPrice').on('change', function(){
+      if ($('#lowPrice').prop('checked') && $('#highPrice').prop('checked')){
+         $('#middlePrice').prop('checked', true);
+      } else {
+         $('#middlePrice').prop('disabled', false);
+      }
+   });
+   $('#new, #lowAge, #highAge').on('change', function(){
+      if ($('#new').prop('checked') && $('#highAge').prop('checked')){
+         $('#lowAge').prop('checked', true);
+      } else {
+         $('#lowAge').prop('disabled', false);
+      }
+   });
+ } 
 
 // Function to fetch and display bikes in View bikes script
 function displayAllBikes() {
+   var lowestPrice = 0;
+   var highestPrice = 100000000000;
+   var lowestGears = 0;
+   var highestGears = 100000000000;
+   var lowestAge = 0;
+   var highestAge = 10000000000;
+   var lowestCondition = 1;
+   var highestCondition = 5;
+   if ($('#lowPrice').prop('checked')) {
+      highestPrice = 999;
+   } else if ($('#lowPrice').prop('checked') && $('#middlePrice').prop('checked')  ) {
+      highestPrice = 5000;
+   } else if ($('#middlePrice').prop('checked')  ) {
+      lowestPrice = 1000;
+      highestPrice = 5000;
+   } else if ($('#middlePrice').prop('checked') && $('#highPrice').prop('checked')  ) {
+      lowestPrice = 1000;
+   } else if ($('#highPrice').prop('checked')  ) {
+      lowestPrice = 5001;
+   }
+ 
+   if ($('#lowGears').prop('checked')) {
+      highestGears = 4;
+   } else if ($('#highGears').prop('checked')) {
+      lowestGears = 5;
+   }
+ 
+   if ($('#new').prop('checked')) {
+      highestAge = 1;
+   } else if ($('#new').prop('checked') && $('#lowAge').prop('checked')  ) {
+      highestAge = 5;
+   } else if ($('#lowAge').prop('checked')  ) {
+      lowesetAge = 2;
+      highestAge = 5;
+   } else if ($('#lowAge').prop('checked') && $('#highAge').prop('checked')  ) {
+      lowesetAge = 2;
+   } else if ($('#highAge').prop('checked')  ) {
+      lowestAge = 6;
+   }
+ 
+   if ($('#lowCondition').prop('checked')) {
+      highestCondition = 2;
+   } else if ($('#highCondition').prop('checked')) {
+      lowestCondition = 3;
+   }
+   
+   var sortByValue = $('#selectSort').val();
+  
+   localStorage.setItem("sortOption", sortByValue);
+   localStorage.setItem('lowPriceChecked', $('#lowPrice').prop('checked'));
+   localStorage.setItem('middlePriceChecked', $('#middlePrice').prop('checked'));
+   localStorage.setItem('highPriceChecked', $('#highPrice').prop('checked'));
+   localStorage.setItem('lowGearsChecked', $('#lowGears').prop('checked'));
+   localStorage.setItem('highGearsChecked', $('#highGears').prop('checked'));
+   localStorage.setItem('newChecked', $('#new').prop('checked'));
+   localStorage.setItem('lowAgeChecked', $('#lowAge').prop('checked'));
+   localStorage.setItem('highAgeChecked', $('#highAge').prop('checked'));
+   localStorage.setItem('lowConditionChecked', $('#lowCondition').prop('checked'));
+   localStorage.setItem('highConditionChecked', $('#highCondition').prop('checked'));
+ 
+   setTimeout(() => {
+      setStoredOption();
+   }, 1);
    $(".container").html($("#view-home").html());
    $("#home-list").empty(); 
-   var sortByValue = document.getElementById('selectSort').value;
-   console.log(sortByValue);
-
+ 
    $.ajax({
       url: host + '/bikes',
       type: 'GET',
       success: function(bikes) {
+         // bikes = filterBikes(priceValue, gearsValue, ageValue, conditionValue, bikes);
          bikes = sortBikes(sortByValue, bikes);
          bikes.forEach(function (bike) {
             if (bike.is_listed) {
-            var bikeView = `      
-               <div class="card mb-3">
-               ${bike.picture}
-                  <div class="card-body">
-                     <h5 class="card-title">${bike.model} </h5> 
-                     <p class="card-text">Price: ${bike.price} </p>
-                     <button class="btn btn-success purchase-bike" onclick="showBike(${bike.id})" data-id="${bike.id}">Read more</button>
-                  </div>
-               </div>`
-            $("#home-list").append(bikeView);
+               if (bike.price >= lowestPrice && bike.price <= highestPrice) {
+                  if (bike.gears >= lowestGears && bike.gears <= highestGears) {
+                     if (bike.age >= lowestAge && bike.age <= highestAge) {
+                        if (bike.condition >= lowestCondition && bike.condition <= highestCondition) {
+                           var bikeView = `      
+                              <div class="card mb-3">
+                              <img src="${bike.picture_path}" id="pic">
+                                 <div class="card-body">
+                                    <h5 class="card-title">${bike.model} </h5> 
+                                    <p class="card-text">Price: ${bike.price} SEK </p>
+                                    <button class="btn btn-success purchase-bike" onclick="showBike(${bike.id})" data-id="${bike.id}">Read more</button>
+                                 </div>
+                              </div>`
+                           $("#home-list").append(bikeView);
+                        }
+                     }
+                  }
+               }
             }
          });
       },
@@ -199,8 +362,6 @@ function displayAllBikes() {
       }
    });
 }
-
-
 
 // Function showBike() enter new script for specific bike
 function showBike(bike_id) {
@@ -215,14 +376,14 @@ function showBike(bike_id) {
                <div class="card-body">
                   <p </p>
                </div>
-            <img class="card-img-top" src=${bike.picture} alt= "Card image cap" style="max-height: 18rem;">
+               <img src="${bike.picture_path}" id="pic">
             <div class="card-body">
                         <h5 class="card-title">${bike.model} </h5> 
-                        <p class="card-text">Price: ${bike.price} </p>
+                        <p class="card-text">Price: ${bike.price} SEK</p>
                         <p class="card-text">Gears: ${bike.gears} </p>
                         <p class="card-text">Condition: ${bike.condition} </p>
                         <p class="card-text">Age: ${bike.age} </p>
-                        <button class="btn btn-success purchase-bike" onclick="purchaseBikebutton(${bike.id})" data-id="${bike.id}">Purchase</button>
+                        <button class="btn btn-success purchase-bike" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>
                      </div>
                </div>`
          $("#bike-list").append(bikeView);
@@ -249,10 +410,10 @@ function showMyBikes() {
                <div class="card-body">
                <p </p>
                </div>
-               <img class="card-img-top" src="${bike.picture}" style="max-height: 18rem;">
+               <img src="${bike.picture_path}" id="pic">
                <div class="card-body">
                   <h5 class="card-title">${bike.model} </h5> 
-                  <p class="card-text">Price: ${bike.price} </p>
+                  <p class="card-text">Price: ${bike.price} SEK </p>
                   <p class="card-text">Gears: ${bike.gears} </p>
                   <p class="card-text">Age: ${bike.age} </p>
                   <p class="card-text">Condition: ${bike.condition} </p>
@@ -284,49 +445,88 @@ function uploadBike() {
    var newCondition = Math.floor($("#addCondition").val());
    var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
    var user_id = currentUser.id;
-   // var fileInput = document.getElementById('exampleFormControlFile1');
+   var fileInput = document.getElementById('input-file').files[0];
+
+   var formData = new FormData();
+   formData.append('model', newModel);
+   formData.append('price', newPrice);
+   formData.append('gears', newGears);
+   formData.append('age', newAge);
+   formData.append('condition', newCondition);
+   formData.append('user_id', user_id);
+   formData.append('picture', fileInput);
+   
    $.ajax({
+
       url: host + '/users/' + user_id + '/bikes',
       type: 'POST',
-      contentType: 'application/json', 
+      contentType: false,
+      processData: false,
+      data: formData,
       headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
-      data: JSON.stringify({
-         model: newModel, 
-         price: newPrice, 
-         gears: newGears, 
-         age: newAge,
-         condition: newCondition,
-         // picture: fileInput
-      }), 
-      success: function() {
-         console.log("ajax success");
-         $("#addModel, #addPrice, #addGears, #addAge, #addCondition, #exampleFormControlFile1").val('');
-         $("#addBikeModal").modal("hide");
+      success: function(response) {
+          console.log("Cykeluppladdning lyckades: ", response);
+          $("#addModel, #addPrice, #addGears, #addAge, #addCondition, #input-file").val('');
+          $("#addBikeModal").modal("hide");
+          // Här kan du hantera svar från backend, t.ex. visa bekräftelsemeddelande för användaren
       },
       error: function(error) {
-         console.error("Error adding bike:", error);
+          console.error("Error uploading bike");
       }
-   });
-   alert("You have successfully submitted your application. After a careful review from reCycle it will be posted on the web application. You can see the status of your application on the 'My bikes' page.");
-   viewHome()
+  });
+  alert("You have successfully submitted your application. After a thorough review by reCycle, it will be published on the website. You can see the status of your application on the 'My Bikes' page.");
+  viewHome();
+
 }
 
-// Function purchaseBikeButton() enter new script for buyer to complete their order
-function purchaseBikeButton(bike_id) {
-   e.preventDefault();
-
+function makeOrder(bike_id) {
+   var currentUser = JSON.parse(sessionStorage.getItem('auth'));
+   var purchaseUserID = null;
+   if (currentUser != null) {
+      purchaseUserID = currentUser.user.id;
+   }
    $.ajax({
       url: host + '/orders',
       type: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({ user_id: purchaseUserID}),
+      data: JSON.stringify({buyer_id: purchaseUserID, bike_id: bike_id}),
+      success: function() {
+         console.log("Order was successfully added");
+      },
+      error: function() {
+         console.log("Order was not successful!");
+      } 
+   });
+}
+
+// Function purchaseBikeButton() enter new script for buyer to complete their order
+function purchaseBikeButton(bike_id) {
+   makeOrder(bike_id);
+   $.ajax({
+      url: host + '/create-checkout-session',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ bike_id: bike_id}),
       success: function(response) {
-         console.log("Bokad bil", response);
-         alert(response)
-         displayBikes();
+         location.href = response;
       },
       error: function() {
          alert("Error purchasing bike.");
+      } 
+   });
+}
+
+function deleteLatestOrder(){
+   $.ajax({
+      url: host + '/orders',
+      type: 'DELETE',
+      contentType: 'application/json',
+      data: JSON.stringify(),
+      success: function(bike_id) {
+         console.log("The latest order was deleted");
+      },
+      error: function() {
+         console.log("No order was deleted");
       } 
    });
 }
@@ -377,27 +577,17 @@ function showMyOrders() {
       success: function(bikes) {
          bikes.forEach(function (bike) {
             var bikeView = `      
-               <div class="card mb-3">
-                  <div class="card-body">
-                     <p </p>
-                  </div>`
-               if (bike.description_picture == null) {
-                  bikeView += `
-                  <div class="d-flex justify-content-center">
-                     <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
+            <div class="card mb-3">
+            <div class="card-body">
+            <p </p>
+            </div>
+            <img src="${bike.picture_path}" id="pic">
+            <div class="card-body">
+                        <h5 class="card-title">${bike.id} </h5> 
+                        <p class="card-text">Price: ${bike.price} SEK </p>
                      </div>
                   </div>`
-               } else {                     
-                  bikeView += `<img class="card-img-top" src=${bike.description_picture} alt= "Card image cap" style="max-height: 18rem;">`
-               }
-               bikeView += `                 
-                     <div class="card-body">
-                        <h5 class="card-title">${bike.model} </h5> 
-                        <p class="card-text">Price: ${bike.price} </p>
-                     </div>
-                  </div>`
-            $("#home-list").append(bikeView);
+            $("#myOrders-list").append(bikeView);
          });
       }
    })
@@ -620,15 +810,10 @@ function logIn() {
          sessionStorage.setItem('auth', JSON.stringify(loginResponse));
       },
       error: function(error) {
+         alert("Wrong password!");
          console.error("Error signing in user:", error);
       }
    });
    viewHome();
 }  
 
-// $("#ex18b").slider({
-// 	min: 0,
-// 	max: 10,
-// 	value: [3, 6],
-// 	labelledby: ['ex18-label-2a', 'ex18-label-2b']
-// });

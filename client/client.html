@@ -40,6 +40,9 @@
           <a class="nav-link" href="#" id="applications" onclick=viewApplications()>Applications <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#" id="orders" onclick=viewOrders()>Orders <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#" id="messages" onclick=viewMessages()>Messages <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
@@ -66,130 +69,128 @@
     <div class="container">
     </div>
 
-  <!-- View Home script -->
-  <script id="view-home" type="text/html">
-    <h1 id="welcome" class="extra-big">
-      Our bikes
-    </h1>
-    <div class="btn-group">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filters</button>
-      
-      <form class="dropdown-menu p-4">
-        <fieldset class="form-group">
-          <div class="row">
-            <legend >Price</legend>
-            <div class="col-sm-10">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="lowPrice" value="option1" checked>
-                <label class="form-check-label" for="lkowPrice">
-                  < 1000 kr
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="middlePrice" value="option2">
-                <label class="form-check-label" for="middlePrice">
-                  1000 - 5000 kr
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="highPrice" value="option3">
-                <label class="form-check-label" for="highPrice">
-                  > 5000 kr
-                </label>
-              </div>
+<!-- View Home script -->
+<script id="view-home" type="text/html">
+  <h1 id="welcome" class="extra-big">
+    Our bikes
+  </h1>
+  <div class="btn-group">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filters</button>
+    
+    <form class="dropdown-menu p-4">
+      <fieldset class="form-group" >
+        <div class="row">
+          <legend >Price</legend>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="lowPrice" value="1" onclick="checkBox()">
+              <label class="form-check-label" for="lowPrice">
+                < 1000 SEK
+              </label>
             </div>
-          </div>
-        </fieldset>
-        
-        <fieldset class="form-group">
-          <div class="row">
-            <legend >Gears</legend>
-            <div class="col-sm-10">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="lowGears" value="option1" checked>
-                <label class="form-check-label" for="lowgears">
-                  < 5
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="highGears" value="option2">
-                <label class="form-check-label" for="highGears">
-                  > 5
-                </label>
-              </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="middlePrice" value="3">
+              <label class="form-check-label" for="middlePrice">
+                1000 - 5000 SEK
+              </label>
             </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="form-group">
-          <div class="row">
-            <legend >Age</legend>
-            <div class="col-sm-10">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="new" value="option1" checked>
-                <label class="form-check-label" for="new">
-                  New
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="lowAge" value="option2">
-                <label class="form-check-label" for="lowAge">
-                  < 5 år 
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="highAge" value="option3">
-                <label class="form-check-label" for="highAge">
-                  > 5 år
-                </label>
-              </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="highPrice" value="5" onclick="checkBox()">
+              <label class="form-check-label" for="highPrice">
+                > 5000 SEK
+              </label>
             </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="form-group">
-          <div class="row">
-            <legend >Condition</legend>
-            <div class="col-sm-10">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="lowCondition" value="option1" checked>
-                <label class="form-check-label" for="lowCondition">
-                  < 3
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="gridRadios" id="highCondition" value="option2">
-                <label class="form-check-label" for="highCondition">
-                  > 3
-                </label>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <button class="btn btn-primary">Filter</button> 
-      </form>
-      <form style="margin-left: 10px;">
-        <div class="form-row align-items-center">
-          <div class="col-auto my-1">
-            <label class="mr-sm-2 sr-only" for="selectSort">Sort by</label>
-            <select class="custom-select mr-sm-2" id="selectSort">              
-              <option selected>Recently posted</option>
-              <option value="1">Lowest price</option>
-              <option value="2">Lowest age</option>
-              <option value="3">Best condition</option>
-            </select>
-          </div>
-          <div class="col-auto my-1">
-            <button class="btn btn-primary" onclick="displayAllBikes()">Sort</button> 
-            <!-- the problem we have here is that the value of the option above is only stored until the button Sort is pressed, 
-              then the value is automatically selected to the first option (regardless if teh first option is "selected" or not...) -->
           </div>
         </div>
-      </form>
-    </div>
-    <ul id="home-list" class="list-group-flush">
-    </ul>
-  </script>
+      </fieldset>
+      
+      <fieldset class="form-group">
+        <div class="row">
+          <legend >Gears</legend>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="lowGears" value="1">
+              <label class="form-check-label" for="lowgears">
+                1 - 4
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="highGears" value="3">
+              <label class="form-check-label" for="highGears">
+                > 4
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <div class="row">
+          <legend >Age</legend>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="new" value="1" onclick="checkBox()">
+              <label class="form-check-label" for="new">
+                New
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="lowAge" value="3">
+              <label class="form-check-label" for="lowAge">
+                2 - 5 years 
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="highAge" value="5" onclick="checkBox()">
+              <label class="form-check-label" for="highAge">
+                > 5 years
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <div class="row">
+          <legend >Condition</legend>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="lowCondition" value="1">
+              <label class="form-check-label" for="lowCondition">
+                1 - 2
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="highCondition" value="3">
+              <label class="form-check-label" for="highCondition">
+                3 - 5
+              </label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <button class="btn btn-primary" onclick ="displayAllBikes()">Filter</button> 
+    </form>
+    <form style="margin-left: 10px;">
+      <div class="form-row align-items-center">
+        <div class="col-auto my-1">
+          <label class="mr-sm-2 sr-only" for="selectSort">Sort by</label>
+          <select class="custom-select mr-sm-2" id="selectSort">       
+            <option value="0">Recently posted</option>
+            <option value="1">Lowest price</option>
+            <option value="2">Lowest age</option>
+            <option value="3">Best condition</option>
+          </select>
+        </div>
+        <div class="col-auto my-1">
+          <button class="btn btn-primary" onclick="displayAllBikes()">Sort</button> 
+        </div>
+      </div>
+    </form>
+  </div>
+  <ul id="home-list" class="list-group-flush">
+  </ul>
+</script>
 
   <!-- View Bike script -->
   <script id="view-bike" type="text/html">
@@ -230,8 +231,19 @@
         <small id="conditionHelp" class="form-text text-muted">Enter a number between 1 and 5, where 5 is brand new and 1 is bike falling apart</small>
       </div>
       <div class="form-group">
-        <input type="file" id="exampleFormControlFile1">
+        <img src="images/bike.png", id = "Bikepic">
+        <label for="input-file">Upload image</label>>
+        <input type="file" id="input-file", accept="image/jpeg, image/png, image/jpg">
       </div>
+      <!-- <script>
+        let Bikepic = document.getElementById("Bikepic");
+        let inputFile = document.getElementById("input-file");
+        inputFile.onchange =function(){
+          Bikepic.src =  URL.createObjectURL(inputFile.files[0])
+        }
+      </script> 
+    This script makes the ffollowing buttons appear on every script. This code does not seem to affect the uploading of a picture
+    -->
       <button id="addBikeButton" class="btn btn-primary" onclick="uploadBike()">Apply to upload</button>
       <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
     </form>
@@ -263,6 +275,15 @@
       Pending applications
     </h1>
     <ul id="applications-list" class="list-group-flush">
+    </ul>
+  </script>
+
+  <!-- View Orders script -->
+  <script id="view-orders" type="text/html">
+    <h1 id="orders" class="extra-big">
+      Orders
+    </h1>
+    <ul id="orders-list" class="list-group-flush">
     </ul>
   </script>
 
