@@ -272,44 +272,58 @@ function displayAllBikes() {
    var highestCondition = 5;
    if ($('#lowPrice').prop('checked')) {
       highestPrice = 999;
-   } else if ($('#lowPrice').prop('checked') && $('#middlePrice').prop('checked')  ) {
-      highestPrice = 5000;
-   } else if ($('#middlePrice').prop('checked')  ) {
+   } if ($('#middlePrice').prop('checked')  ) {
       lowestPrice = 1000;
       highestPrice = 5000;
-   } else if ($('#middlePrice').prop('checked') && $('#highPrice').prop('checked')  ) {
-      lowestPrice = 1000;
-   } else if ($('#highPrice').prop('checked')  ) {
+   } if ($('#highPrice').prop('checked')) {
       lowestPrice = 5001;
-   }
+   } if ($('#lowPrice').prop('checked') && $('#middlePrice').prop('checked')) {
+      lowestPrice = 0;
+      highestPrice = 5000;
+   } if ($('#middlePrice').prop('checked') && $('#highPrice').prop('checked')) {
+      lowestPrice = 1000;
+      highestPrice = 1000000000;
+   } 
  
    if ($('#lowGears').prop('checked')) {
       highestGears = 4;
-   } else if ($('#highGears').prop('checked')) {
+   } if ($('#highGears').prop('checked')) {
       lowestGears = 5;
+   }
+   if ($('#lowGears').prop('checked') && $('#highGears').prop('checked')) {
+      lowestGears = 0;
+      highestGears = 100000000;
    }
  
    if ($('#new').prop('checked')) {
       highestAge = 1;
-   } else if ($('#new').prop('checked') && $('#lowAge').prop('checked')  ) {
+   } if ($('#lowAge').prop('checked')) {
+      lowestAge = 2;
       highestAge = 5;
-   } else if ($('#lowAge').prop('checked')  ) {
-      lowesetAge = 2;
-      highestAge = 5;
-   } else if ($('#lowAge').prop('checked') && $('#highAge').prop('checked')  ) {
-      lowesetAge = 2;
-   } else if ($('#highAge').prop('checked')  ) {
+   } if ($('#highAge').prop('checked')) {
       lowestAge = 6;
-   }
+      highestAge = 1000000;
+   }  if ($('#new').prop('checked') && $('#lowAge').prop('checked')) {
+      lowestAge = 0;
+      highestAge = 5;
+   }  if ($('#lowAge').prop('checked') && $('#highAge').prop('checked')) {
+      lowestAge = 2;
+      highestAge = 1000000;
+   } 
  
    if ($('#lowCondition').prop('checked')) {
       highestCondition = 2;
-   } else if ($('#highCondition').prop('checked')) {
+   } if ($('#highCondition').prop('checked')) {
       lowestCondition = 3;
+   }
+   if ($('#lowCondition').prop('checked') && $('#highCondition').prop('checked')) {
+      lowestCondition = 1;
+      highestCondition = 5;
    }
    
    var sortByValue = $('#selectSort').val();
-  
+  console.log(lowestAge);
+  console.log(highestAge);
    localStorage.setItem("sortOption", sortByValue);
    localStorage.setItem('lowPriceChecked', $('#lowPrice').prop('checked'));
    localStorage.setItem('middlePriceChecked', $('#middlePrice').prop('checked'));

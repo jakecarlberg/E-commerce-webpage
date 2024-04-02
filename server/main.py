@@ -151,8 +151,8 @@ def bikes_int(bike_id):
                bike.user_id = data['user_id']
             else:
                bike.user_id = None
-      elif 'is_listed' in data:
-            bike.is_listed = data['is_listed']
+      if 'is_listed' in data:
+         bike.is_listed = data['is_listed']
       db.session.commit()
       return jsonify(bike.serialize())
       
