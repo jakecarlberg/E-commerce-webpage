@@ -11,12 +11,10 @@ from flask import url_for
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from werkzeug.utils import secure_filename
 import os
-import stripe
+import stripe #also download stripe  $ pip3 install stripe
 import logging
 
 stripe.api_key = 'sk_test_51Oy9c5B4pUMRNsNp2NFcjy4pgPUbnkiy1kLbK3S8C02rSASCE2BMbA2r44mf3CytleUpuTeZhmZbpPdgfk8JBdwS004EgfeYYq'
-#https://docs.stripe.com/checkout/quickstart?lang=python
-#Länken ovan är där vi häntade kod från, vi fick inte import stripe att fungera (något konstigt felmeddelande). Vi gjorde en ny app.route längs ner här i denna filen.
 
 app = Flask(__name__, static_folder='../client', static_url_path='/')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -230,8 +228,7 @@ def user_bikes(user_id):
       adjustedPrice = int(data['price'])+50
       new_bike = Bike(price=str(adjustedPrice), model=data['model'])
       new_bike.seller_id = user_id
-      # Mandatory to include details, gears, condition & age when posting a bike
-      # Values can be null
+
       if 'gears' in data:
          new_bike.gears = data['gears']
       if 'condition' in data:
@@ -242,7 +239,6 @@ def user_bikes(user_id):
       if picture_file:
          picture_filename = secure_filename(picture_file.filename)  # Secure filename to prevent directory traversal
          parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
-        # Bygg sökvägen till client-mappen
          picture_path = os.path.join(parent_dir, 'client', picture_filename)
          picture_file.save(picture_path)  # Save the picture to the specified path
          new_bike.picture_path = picture_filename  # Save the filename in the database

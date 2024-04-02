@@ -346,7 +346,6 @@ function displayAllBikes() {
       url: host + '/bikes',
       type: 'GET',
       success: function(bikes) {
-         // bikes = filterBikes(priceValue, gearsValue, ageValue, conditionValue, bikes);
          bikes = sortBikes(sortByValue, bikes);
          bikes.forEach(function (bike) {
             if (bike.is_listed) {
@@ -355,12 +354,12 @@ function displayAllBikes() {
                      if (bike.age >= lowestAge && bike.age <= highestAge) {
                         if (bike.condition >= lowestCondition && bike.condition <= highestCondition) {
                            var bikeView = `      
-                              <div class="card mb-3">
+                              <div class="card mb-3" id = "card">
                               <img src="${bike.picture_path}" id="pic">
                                  <div class="card-body">
-                                    <h5 class="card-title">${bike.model} </h5> 
-                                    <p class="card-text">Price: ${bike.price} SEK </p>
-                                    <button class="btn btn-success purchase-bike" onclick="showBike(${bike.id})" data-id="${bike.id}">Read more</button>
+                                    <p class="card-text">${bike.model} </p> 
+                                    <p class="card-text">${bike.price} SEK </p>
+                                    <button class="btn purchase-bike" onclick="showBike(${bike.id})" data-id="${bike.id}">Read more</button>
                                  </div>
                               </div>`
                            $("#home-list").append(bikeView);
@@ -386,20 +385,18 @@ function showBike(bike_id) {
       type: 'GET',
       success: function(bike) {
          var bikeView = `      
-            <div class="card mb-3">
-               <div class="card-body">
-                  <p </p>
-               </div>
+            <div class="card mb-3" id="card">
+               
                <img src="${bike.picture_path}" id="pic">
-            <div class="card-body">
+               <div class="card-body">
                         <h5 class="card-title">${bike.model} </h5> 
                         <p class="card-text">Price: ${bike.price} SEK</p>
                         <p class="card-text">Gears: ${bike.gears} </p>
                         <p class="card-text">Condition: ${bike.condition} </p>
                         <p class="card-text">Age: ${bike.age} </p>
-                        <button class="btn btn-success purchase-bike" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>
-                     </div>
-               </div>`
+                        <button class="btn purchase-bike" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>
+               </div>
+            </div>`
          $("#bike-list").append(bikeView);
       },
       error: function() {
@@ -471,7 +468,6 @@ function uploadBike() {
    formData.append('picture', fileInput);
    
    $.ajax({
-
       url: host + '/users/' + user_id + '/bikes',
       type: 'POST',
       contentType: false,
@@ -513,7 +509,7 @@ function makeOrder(bike_id) {
    });
 }
 
-// Function purchaseBikeButton() enter new script for buyer to complete their order
+// Function purchaseBikeButton
 function purchaseBikeButton(bike_id) {
    makeOrder(bike_id);
    $.ajax({
@@ -656,31 +652,63 @@ function saveChanges() {
   
 }
 
-//  This executes when document is loaded
- $(document).ready(function(){
-    alert("Page was loaded");
-    sessionStorage.removeItem("auth");
-    viewHome()
- });
-
-//  Click functions on Navbar
-
-//Contact-page will not be available on webbsida_1
-//  $(".nav-link:contains('Kontakt')").click(function (e) {
-//     e.preventDefault();
-//     $(".container").html($("#view-contacts").html())
-//  });
-
-$(".nav-link:contains('Sign up')").click(function (e) {
-   e.preventDefault();
+// sign in page
+function signInPage() {
    $(".container").html($("#view-sign-up").html())
+}
 
-});
+// submit signup
+function signIn(){
 
-$(".nav-link:contains('Log in')").click(function (e) {
-   e.preventDefault();
+   var newName = document.getElementById("exampleInputName").value;
+   var newEmail = document.getElementById("exampleInputEmail1").value;
+   var newPassword = document.getElementById("exampleInputPassword").value;
+   console.log(newName);
+   $.ajax({
+      url: host + '/sign-up',
+      type: 'POST',
+      contentType: 'application/json', 
+      data: JSON.stringify({
+         name: newName, 
+         email: newEmail, 
+         password: newPassword}), 
+      success: function(newUser) {
+         console.log("ajax success"); 
+      },
+      error: function(error) {
+         console.error("Error adding user:", error);
+      }
+   });
+   viewHome()
+}
+
+// log in page
+function logInPage(){
    $(".container").html($("#view-login").html())
-});
+}
+
+// submit log in
+function logIn() {
+   var email = document.getElementById("inputEmail").value;
+   var password = document.getElementById("inputPassword").value;
+  
+   $.ajax({
+      url: host + '/login',
+      type: 'POST',
+      contentType: 'application/json', 
+      data: JSON.stringify({ 
+         email: email, 
+         password: password}), 
+      success: function(loginResponse) {;
+         sessionStorage.setItem('auth', JSON.stringify(loginResponse));
+      },
+      error: function(error) {
+         alert("Wrong password!");
+         console.error("Error signing in user:", error);
+      }
+   });
+   viewHome();
+}  
 
 // Log out
 function logOut() {
@@ -688,8 +716,25 @@ function logOut() {
    viewHome();
 }
 
-// Click functions
+//  This executes when document is loaded
+ $(document).ready(function(){
+    alert("Page was loaded");
+    sessionStorage.removeItem("auth");
+    viewHome()
+ });
 
+
+//Contact-page will not be available on webbsida_1
+//  $(".nav-link:contains('Kontakt')").click(function (e) {
+//     e.preventDefault();
+//     $(".container").html($("#view-contacts").html())
+//  });
+
+
+// ÖVERFLÖDIG KOD VI KANSKE ANVÄNDER
+
+ 
+// VI ANVÄNDER EJ DÄRAV EJ FUNKTION, KANSKE RIMLIGT FÖR ADMIN MEN VI BEHÖVER EJ GÖRA SAKER SVÅRT
 // Delete bike
 $(".container").on("click", ".delete-bike", function (e) {
    e.preventDefault();
@@ -709,6 +754,7 @@ $(".container").on("click", ".delete-bike", function (e) {
    $(this).closest(".card").remove();
 });
 
+// DESSA BÖR VI TA BORT
 // Cancel bike
 $(".container").on("click", ".cancel-bike", function (e) {
    e.preventDefault();
@@ -728,13 +774,6 @@ $(".container").on("click", ".cancel-bike", function (e) {
          alert("Error cancelling bike.");
       } 
    });
-});
-
-// Updating bike
-$(".container").on("click", "#update", function (e) {
-   e.preventDefault();
-   displayBikes();
-   alert("Sidan uppdaterades")
 });
 
 // Opening modal of editing bike
@@ -784,50 +823,4 @@ $("#editBikeForm").submit(function (e) {
       } 
    });
 });
-
-// submit sign up
-$(".container").on("submit", "#signupForm", function (e) {
-   e.preventDefault();
-
-   var newName = $("#exampleInputName").val();
-   var newEmail = $("#exampleInputEmail1").val();
-   var newPassword = $("#exampleInputPassword").val();
-  
-   $.ajax({
-      url: host + '/sign-up',
-      type: 'POST',
-      contentType: 'application/json', 
-      data: JSON.stringify({name: newName, email: newEmail, password: newPassword}), 
-      success: function(newUser) {
-         console.log("ajax success"); 
-      },
-      error: function(error) {
-         console.error("Error adding user:", error);
-      }
-   });
-   viewHome()
-});
-
-// submit log in
-function logIn() {
-   var email = document.getElementById("inputEmail").value;
-   var password = document.getElementById("inputPassword").value;
-  
-   $.ajax({
-      url: host + '/login',
-      type: 'POST',
-      contentType: 'application/json', 
-      data: JSON.stringify({ 
-         email: email, 
-         password: password}), 
-      success: function(loginResponse) {;
-         sessionStorage.setItem('auth', JSON.stringify(loginResponse));
-      },
-      error: function(error) {
-         alert("Wrong password!");
-         console.error("Error signing in user:", error);
-      }
-   });
-   viewHome();
-}  
 
