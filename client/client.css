@@ -1,22 +1,8 @@
-
-#site-paragraph {
-    font-family:"Times New Roman", Times, serif ;
-    font-style: italic;
-    font-size: large;
-    color: rgb(74, 113, 157);
-    text-align: end;
-  }
-
+/* Navbar */
 .navbar-custom{
     background-color: rgb(74, 113, 157);
     min-height: 120px;
   }
-.navbar-custom .navbar-brand{
-  color : white;
-}
-.navbar-custom .navbar-toggler{
-  color : purple;
-}
 .navbar-custom .navbar-picture{
   position: absolute;
   top: 0%;
@@ -25,17 +11,7 @@
   height: 100px;
 }
 
-.container{
-  max-width: fit-content;
-  margin: 0 auto;
-  position: relative;
-}
-
-.extra-big {
-  text-align: center;
-  font-family: serif;
-  line-height: 1.5;
-}
+/* Footer */
 .custom-footer{
   display : block;
   background-color: rgb(74, 113, 157);
@@ -55,58 +31,154 @@
   text-align: center;
 }
 
+/* Container */
+.container{
+  max-width: fit-content;
+  margin: 0 auto;
+  position: relative;
+  padding-bottom: 85px;
+}
+
+/* Texts */
+.extra-big {
+  color: black;
+  font-family: serif;
+  line-height: 1.5;
+  text-align: center;
+}
+#aboutUs {
+  color: black;
+  font-family: serif;
+  line-height: 1.5;
+  text-align: center;
+  position: relative;
+  left: 10%;
+  max-width: 1000px;
+}
+
+/* Cards */
 .list-group-item {
-    font-family:"Times New Roman", Times, serif ;
-    font-size: large;
-    font-weight: bold;
-    color: rgb(74, 113, 157);
-    text-align: left;
+  color: rgb(74, 113, 157);
+  font-family: serif;
+  font-size: large;
+  font-weight: bold;
+  text-align: left;
   }
 
+  /* Bike cards */
+.two-column-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#home-list {
+  width: 100%; /* Ensure the list takes full width */
+  margin-right: -2.5%; /* Compensate for the right shift */
+  position: relative;
+  right: 2.5%;
+}
+#card {
+  width: calc(50% - 10px); /* Adjust width for two columns with 20px gap */
+  margin-bottom: 20px; /* Add bottom margin for spacing between rows */
+}
 #pic {
   height: 240px;
   max-width: 400px;
   object-fit: cover;
+  object-position: center 25%; 
 }
-
-.card-body  {
+#allBikes-pic {
+  height: 240px;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center 25%; 
+}
+.card-body {
+  color: black;
+  font-family: serif;
   max-width: 400px;
   height: 240px;
+}
+.allBikes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.myBike-card {
+  height: 350px;
+}
+
+/* About us cards */
+.us {
+max-height: 450px;
+filter: grayscale(100%);
+margin-top: 20px;
+}
+.card-img-top{
+    width: 100%; 
+    height: 288px; 
+    object-fit: cover; 
+    object-position: center 25%; 
+}
+#tilt-right {
+  transform: rotate(1deg); /* Adjust the degree value as needed */
+}
+
+/* Buttons */
+.allbuttons {
+  background-color: rgb(74, 113, 157); 
+  color: white;
   font-family: serif;
 }
-
-#bike-list{
-  max-height: 40px;
-}
-
-.two-column-list {
-  columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
+#filter-button-group {
   position: relative;
-  right: 2.5%;
-  
-}
-
-.purchase-bike {
-  background-color: rgb(74, 113, 157); 
-  color: white;
-  font-family: serif;
-}
-
-.sort-button{
-  background-color: rgb(74, 113, 157); 
-  color: white;
-  font-family: serif;
-}
-.filter-button{
-  background-color: rgb(74, 113, 157); 
-  color: white;
-  font-family: serif;
+  left: 30%;
 }
 .goBack-button {
-  background-color: rgb(74, 113, 157); 
-  color: white;
-  font-family: serif;
-  top: 0%;
+  position: relative;
+  left: 41%;
 }
+#selectSort {
+  color: black;
+  font-family: serif;
+}
+
+/* Cancel and success */
+#cancel_text1{
+  font-family: serif ;
+  font-size: large;
+  text-align: center;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+ }
+ #cancel_text2{
+  font-family: serif ;
+  font-size: large;
+  text-align: center;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+ }
+ #cancel_text3{
+  font-family: serif ;
+  font-size: large;
+  text-align: center;
+  position: fixed;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+ }
+ .bike-rider{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 480px;
+  height: 360px;
+  transform: translate(-50%, -50%);
+ }

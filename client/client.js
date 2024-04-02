@@ -36,7 +36,7 @@ function viewApplications() {
                   <div class="card-body">
                      <h5 class="card-title">${bike.model} </h5>
                      <p class="card-text">Price: ${bike.price} SEK</p>
-                     <button class="btn btn-primary" onclick="listBike(${bike.id})" data-id="${bike.id}">Approve</button>
+                     <button class="btn allbuttons" onclick="listBike(${bike.id})" data-id="${bike.id}">Approve</button>
                   </div>
                </div>`);
                $("#applications-list").append(bikeView);
@@ -322,8 +322,7 @@ function displayAllBikes() {
    }
    
    var sortByValue = $('#selectSort').val();
-  console.log(lowestAge);
-  console.log(highestAge);
+
    localStorage.setItem("sortOption", sortByValue);
    localStorage.setItem('lowPriceChecked', $('#lowPrice').prop('checked'));
    localStorage.setItem('middlePriceChecked', $('#middlePrice').prop('checked'));
@@ -354,12 +353,14 @@ function displayAllBikes() {
                      if (bike.age >= lowestAge && bike.age <= highestAge) {
                         if (bike.condition >= lowestCondition && bike.condition <= highestCondition) {
                            var bikeView = `      
-                              <div class="card mb-3" id = "card">
-                              <img src="${bike.picture_path}" id="pic">
-                                 <div class="card-body">
-                                    <p class="card-text">${bike.model} </p> 
-                                    <p class="card-text">${bike.price} SEK </p>
-                                    <button class="btn purchase-bike" onclick="showBike(${bike.id})" data-id="${bike.id}">Read more</button>
+                              <div class="card mb-3" id ="card">
+                              <img src="${bike.picture_path}" id="allBikes-pic">
+                                 <div class="card-body allBikes">
+                                    <div>
+                                       <p class="card-text">${bike.model} </p> 
+                                       <p class="card-text">${bike.price} SEK </p>
+                                    </div>
+                                    <button class="btn allbuttons readMore-button" onclick="showBike(${bike.id})" data-id="${bike.id}">Read more</button>
                                  </div>
                               </div>`
                            $("#home-list").append(bikeView);
@@ -385,16 +386,16 @@ function showBike(bike_id) {
       type: 'GET',
       success: function(bike) {
          var bikeView = `      
-            <div class="card mb-3" id="card">
+            <div class="card mb-3">
                
                <img src="${bike.picture_path}" id="pic">
-               <div class="card-body">
+               <div class="card-body aBike-card">
                         <h5 class="card-title">${bike.model} </h5> 
                         <p class="card-text">Price: ${bike.price} SEK</p>
                         <p class="card-text">Gears: ${bike.gears} </p>
                         <p class="card-text">Condition: ${bike.condition} </p>
                         <p class="card-text">Age: ${bike.age} </p>
-                        <button class="btn purchase-bike" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>
+                        <button class="btn allbuttons" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>
                </div>
             </div>`
          $("#bike-list").append(bikeView);
@@ -418,18 +419,19 @@ function showMyBikes() {
          bikes.forEach(function (bike) {
          var bikeView = `      
             <div class="card mb-3">
-               <div class="card-body">
-               <p </p>
-               </div>
                <img src="${bike.picture_path}" id="pic">
-               <div class="card-body">
+               <div class="card-body myBike-card">
                   <h5 class="card-title">${bike.model} </h5> 
                   <p class="card-text">Price: ${bike.price} SEK </p>
                   <p class="card-text">Gears: ${bike.gears} </p>
                   <p class="card-text">Age: ${bike.age} </p>
                   <p class="card-text">Condition: ${bike.condition} </p>
-                  <p class="card-text">isListed: ${bike.is_listed} </p>
-                  <p class="card-text">isSold: ${bike.is_sold} </p>
+                  <p class="card-text">Listed: ${bike.is_listed} </p>`
+               if (!bike.is_sold) {
+                  bikeView += `
+                  <button class = "btn allbuttons" onclick = "deleteBike(${bike.id})">Delete</button>`;
+               }
+               bikeView += `
                </div>
              </div>`
          $("#myBikes-list").append(bikeView);
@@ -565,7 +567,7 @@ function showAccount() {
                <div class="card-body">
                   <h5 class="card-title">${user.name}</h5>
                   <p class="card-text">E-mail: ${user.email} </p>
-                  <button class="btn btn-primary" data-toggle="modal" data-target="#editAccountModal" onclick="editUser(${user.id})">Edit information</button>
+                  <button class="btn allbuttons" data-toggle="modal" data-target="#editAccountModal" onclick="editUser(${user.id})">Edit information</button>
                </div>
             </div>`);
          $("#account-list").append(userView);
@@ -724,6 +726,25 @@ function logOut() {
  });
 
 
+ // Function to delete listed but not sold bike
+ function deleteBike(bike_id) {
+   var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
+   var id = currentUser.id;
+   $.ajax({
+      url: host + '/bikes/' + bike_id,
+      type: 'DELETE',
+      success: function() {
+         console.log("Delete successful");
+      },
+      error: function() {
+         alert("Error deleting bike.");
+      } 
+   });
+   setTimeout(() => {
+      showMyBikes();
+   }, 1000);
+}
+
 //Contact-page will not be available on webbsida_1
 //  $(".nav-link:contains('Kontakt')").click(function (e) {
 //     e.preventDefault();
@@ -736,45 +757,10 @@ function logOut() {
  
 // VI ANVÄNDER EJ DÄRAV EJ FUNKTION, KANSKE RIMLIGT FÖR ADMIN MEN VI BEHÖVER EJ GÖRA SAKER SVÅRT
 // Delete bike
-$(".container").on("click", ".delete-bike", function (e) {
-   e.preventDefault();
-   var bike_id = $(this).data('id');
 
-   $.ajax({
-      url: host + '/bikes/' + bike_id,
-      type: 'DELETE',
-      headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
-      success: function(response) {
-         $(this).closest(".card").remove();
-      },
-      error: function() {
-         alert("Error deleting bike.");
-      } 
-   });
-   $(this).closest(".card").remove();
-});
 
 // DESSA BÖR VI TA BORT
-// Cancel bike
-$(".container").on("click", ".cancel-bike", function (e) {
-   e.preventDefault();
-   var bike_id = $(this).data('id');
 
-   $.ajax({
-      url: host + '/bikes/' + bike_id,
-      type: 'PUT',
-      contentType: 'application/json',
-      data: JSON.stringify({ user_id: 0}),
-      headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
-      success: function(response) {
-         console.log("Avbokad bil", response);
-         displayBikes();
-      },
-      error: function() {
-         alert("Error cancelling bike.");
-      } 
-   });
-});
 
 // Opening modal of editing bike
 $(".container").on("click", ".edit-bike", function (e) {

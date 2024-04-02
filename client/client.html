@@ -20,7 +20,7 @@
   <nav class="navbar navbar-custom navbar-dark">
 
     <img src="/ReCycle.png" class="navbar-picture">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button"  data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -70,9 +70,9 @@
   <!-- Footer -->
     <footer class="custom-footer">
       <pre class="footer-text">
-        Kontakt: 073 555 09 14 - Sten Gårdmark
+        Contact: +46 73 555 0914 - Sten Gårdmark
         Adress: Kårallen, Universitetet - 581 83 Linköping
-        Vi använder oss av GDPR vid hantering av personuppgifter
+        GDPR is used to handle your personal information 
         <a href="mailto:hege@example.com" id="mail">sten@gardmark.com</a>
       </pre>
 
@@ -83,8 +83,8 @@
   <h1 id="welcome" class="extra-big">
     Our bikes
   </h1>
-  <div class="btn-group">
-    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filters</button>
+  <div class="btn-group" id="filter-button-group">
+    <button type="button" class="btn allbuttons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filters</button>
     
     <form class="dropdown-menu p-4">
       <fieldset class="form-group" >
@@ -178,7 +178,7 @@
           </div>
         </div>
       </fieldset>
-      <button class="btn filter-button" onclick ="displayAllBikes()">Filter</button> 
+      <button class="btn allbuttons" onclick ="displayAllBikes()">Filter</button> 
     </form>
     <form style="margin-left: 10px;" >
       <div class="form-row align-items-center" >
@@ -192,23 +192,26 @@
           </select>
         </div>
         <div class="col-auto my-1">
-          <button class="btn sort-button" onclick="displayAllBikes()">Sort</button> 
+          <button class="btn allbuttons sort-button" onclick="displayAllBikes()">Sort</button> 
         </div>
       </div>
     </form>
   </div>
+  <p></p>
   <ul id="home-list" class="list-group-flush two-column-list">
   </ul>
 </script>
 
   <!-- View Bike script -->
   <script id="view-bike" type="text/html">
-    <button class = "btn goBack-button" onclick = "displayAllBikes()">Back</button>
     <h1 id="bike" class="extra-big">
       Product description
     </h1>
+    <button class = "btn allbuttons goBack-button" onclick = "displayAllBikes()">Back</button>
+    <p></p>
     <ul id="bike-list" class="list-group-flush">
     </ul>
+    
   </script>
 
   <!-- View user's bikes script -->
@@ -216,7 +219,7 @@
     <h1 id="myBikes" class="extra-big">
       My bikes for sale
     </h1>
-    <button id="addNewBikeButton" class="btn btn-primary" onclick="addBike()">Upload bike for sale</button>
+    <button id="addNewBikeButton" class="btn allbuttons addBike-button" onclick="addBike()">Upload bike for sale</button>
     <ul id="myBikes-list" class="list-group-flush">
     </ul>
   </script>
@@ -254,8 +257,7 @@
       </script> 
     This script makes the ffollowing buttons appear on every script. This code does not seem to affect the uploading of a picture
     -->
-      <button id="addBikeButton" class="btn btn-primary" onclick="uploadBike()">Apply to upload</button>
-      <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      <button id="addBikeButton" class="btn allbuttons" onclick="uploadBike()">Apply to upload</button>
     </form>
     </ul>
   </script>
@@ -311,32 +313,37 @@
     <h1 id="about" class="extra-big">
       About reCycle
     </h1>
+    <p id="aboutUs"> At reCycle, we are passionate about promoting sustainable transportation solutions while also providing affordable options for cycling enthusiasts. As a leading provider of second-hand bicycles, we believe in giving new life to pre-owned bikes, reducing waste, and contributing to a greener environment.</p>
+    <p id="aboutUs">  Our mission is to make cycling accessible to everyone by offering a wide range of high-quality, refurbished bicycles at competitive prices. Whether you're a commuter, a recreational rider, or an eco-conscious individual, we have the perfect bike to suit your needs.</p>
+    <p id="aboutUs">  With a commitment to excellence and customer satisfaction, reCycle ensures that every bike undergoes thorough inspection and refurbishment by our team of skilled technicians. We stand behind the quality of our products, offering warranties and support to ensure your peace of mind.</p>
+    <p id="aboutUs">  Join us in our journey to promote sustainable mobility and enjoy the benefits of cycling with reCycle. Explore our selection of second-hand bicycles today and take the first step towards a healthier, more eco-friendly lifestyle.</p>
+    <h2 class="extra-big">
+      Our team
+    </h2>
     <div class="card-deck">
-      <div class="card">
-        <img src="/Joachim.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+      <div class="card us">
+        <img src="/Joachim.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Joachim Andersson</h5>
           <p class="card-text">GIT-master</p>
         </div>
       </div>
-      <div class="card">
-        <img src="/Jacob.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+      <div class="card us">
+        <img src="/Jacob.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Jacob Carlberg</h5>
           <p class="card-text">Front-end developer</p>
         </div>
       </div>
-    </div>
-    <div class="card-deck">
-      <div class="card">
-        <img src="/Sten.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+      <div class="card us">
+        <img src="/Sten.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Sten Gårdmark</h5>
           <p class="card-text">Architect</p>
         </div>
       </div>
-      <div class="card">
-        <img src="/Victoria.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+      <div class="card us">
+        <img src="/Victoria.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Victoria Johansson</h5>
           <p class="card-text">Merge-approver</p>
@@ -344,31 +351,29 @@
       </div>
     </div>
     <div class="card-deck">
-      <div class="card">
-        <img src="/Olle.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+      <div class="card us">
+        <img src="/Olle.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Olle Lövborg</h5>
           <p class="card-text">Scrum master</p>
         </div>
       </div>
-      <div class="card">
-        <img src="/Robin.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+      <div class="card us">
+        <img src="/Robin.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Robin Ridell</h5>
           <p class="card-text">Chairman</p>
         </div>
       </div>
-    </div>
-    <div class="card-deck">
-      <div class="card">
-        <img src="/Emma.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+      <div class="card us">
+        <img src="/Emma.png" class="card-img-top" id="tilt-right" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">Emma Strömberg</h5>
           <p class="card-text">Secretary</p>
         </div>
       </div>
-      <div class="card">
-        <img src="/William.png" class="card-img-top" alt="Card image cap" style="max-height: 18rem;">
+      <div class="card us">
+        <img src="/William.png" class="card-img-top" alt="Card image cap" >
         <div class="card-body">
           <h5 class="card-title">William Öbrink</h5>
           <p class="card-text">Back-end developer</p>
@@ -399,8 +404,8 @@
             <label for="hiddenField">Hidden Field</label>
             <input type="text" class="form-control" id="editUserID" name="hiddenField">
           </div>
-          <button id="saveChangesButton" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
-          <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button id="saveChangesButton" class="btn allbuttons" onclick="saveChanges()">Save changes</button>
+          <button class="btn allbuttons" data-dismiss="modal">Cancel</button>
         </form>
       </div>
     </div>
@@ -430,7 +435,7 @@
                 <label for="editUserID">Kund-ID</label>
                 <input type="text" class="form-control" id="editUserID" name="userID">
               </div>
-              <button type="submit" class="btn btn-primary">Spara ändringar</button>
+              <button type="submit" class="btn allbuttons">Spara ändringar</button>
             </form>
           </div>
         </div>
@@ -457,7 +462,7 @@
         <label for="inputMessage">Message</label>
         <input type="message" class="form-control" id="inputMessage">
       </div>
-      <button class="btn btn-primary" onclick="sendMessageButton()">Send message</button>
+      <button class="btn allbuttons" onclick="sendMessageButton()">Send message</button>
     </form>
   </script>
 
@@ -480,7 +485,7 @@
         <label for="exampleInputPassword">Password</label>
         <input type="password" class="form-control" id="exampleInputPassword">
       </div>
-      <button input type="submit" class="btn btn-primary" onclick="signIn()">Register</button>
+      <button input type="submit" class="btn allbuttons" onclick="signIn()">Register</button>
     </form>
   </script>
 
@@ -499,8 +504,31 @@
         <label for="inputPassword">Password</label>
         <input type="password" class="form-control" id="inputPassword">
       </div>
-      <button class="btn btn-primary" onclick="logIn()">Log in</button>
+      <button class="btn allbuttons" onclick="logIn()">Log in</button>
     </form>
+  </script>
+<!-- Chatbot Sam -->
+
+<iframe
+src=https://www.chatbase.co/chatbot-iframe/gHLlR8bj_4vIwiSyTa0eC
+title="Chatbot"
+width="100%"
+style="height: 100%; min-height: 700px"
+frameborder="0"
+></iframe>
+
+<script>
+  window.embeddedChatbotConfig = {
+  chatbotId: "gHLlR8bj_4vIwiSyTa0eC",
+  domain: www.chatbase.co
+  }
+  </script>
+
+  <script
+  src=https://www.chatbase.co/embed.min.js
+  chatbotId="gHLlR8bj_4vIwiSyTa0eC"
+  domain=www.chatbase.co
+  defer>
   </script>
 
   <!-- Optional JavaScript -->

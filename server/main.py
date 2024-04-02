@@ -32,7 +32,7 @@ class User(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    name = db.Column(db.String, nullable=False)
    email = db.Column(db.String, nullable=False)
-   is_admin = db.Column(db.Boolean, nullable=False, default=True)
+   is_admin = db.Column(db.Boolean, nullable=False, default=False)
    password_hash = db.Column(db.String, nullable=True)
    bikes = db.relationship('Bike', backref = 'user', lazy = True) # Bikes for sale or sold for seller
    orders = db.relationship('Order', backref='user_orders', lazy=True) # Completed purchases as buyer
@@ -130,7 +130,7 @@ def bikes():
 # Route for fetching one specific bike
 # We save all sold bikes to be accessed by sellers and buyers in their purchase history, 
 # therefore no bikes can be deleted from the database if they have been sold
-@app.route('/bikes/<int:bike_id>', methods=['GET', 'PUT', 'DELETE'], endpoint='bikes_int')
+@app.route('/bikes/<int:bike_id>', methods=['GET', 'PUT', 'DELETE'])
 # @jwt_required() we want this only for DELETE and PUT but not for GET
 def bikes_int(bike_id):
    bike = Bike.query.get_or_404(bike_id)
@@ -155,11 +155,9 @@ def bikes_int(bike_id):
       return jsonify(bike.serialize())
       
    elif request.method == 'DELETE':
-      data = request.get_json()
-      if bike.seller_id == data['user_id']:
-         db.session.delete(bike)
-         db.session.commit()
-         return jsonify(200) 
+      db.session.delete(bike)
+      db.session.commit()
+      return jsonify(200) 
 
 
 # Route for fetching all users (they can be both sellers and buyers)
