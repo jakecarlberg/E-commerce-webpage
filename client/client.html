@@ -25,36 +25,36 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" id="home" onclick="viewHome()">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="home" onclick="viewHome(); closeNavbar()">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" id="sign_up" onclick=signInPage()>Sign up <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#" id="sign_up" onclick="signInPage(); closeNavbar()">Sign up <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" id="log_in" onclick="logInPage()">Log in <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#" id="log_in" onclick="logInPage(); closeNavbar()">Log in <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" id="applications" onclick=viewApplications()>Applications <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#" id="applications" onclick="viewApplications(); closeNavbar()">Applications <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" id="orders" onclick=viewOrders()>Orders <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#" id="orders" onclick="viewOrders(); closeNavbar()">Orders <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" id="messages" onclick=viewMessages()>Messages <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#" id="messages" onclick="viewMessages(); closeNavbar()">Messages <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" id="about_us" onclick=viewAbout()>About us <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#" id="about_us" onclick="viewAbout(); closeNavbar()">About us <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" id="contact" onclick=viewContact()>Contact <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#" id="contact" onclick="viewContact(); closeNavbar()">Contact <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">My profile </a>
           <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class = "dropdown-item" href="#" onclick=showAccount()> My account</a>
-            <a class = "dropdown-item" href="#" onclick=showMyBikes()> My bikes</a>
-            <a class = "dropdown-item" href="#" onclick=showMyOrders()> My orders</a>
+            <a class = "dropdown-item" href="#" onclick="showAccount(); closeNavbar()"> My account</a>
+            <a class = "dropdown-item" href="#" onclick="showMyBikes(); closeNavbar()"> My bikes</a>
+            <a class = "dropdown-item" href="#" onclick="showMyOrders(); closeNavbar()"> My orders</a>
             <div class = "dropdown-divider" ></div>
             <a class="dropdown-item" href="#" onclick=logOut()>Sign out</a>
           </div>
@@ -63,17 +63,19 @@
     </div>
   </nav>
 
+  <script>
+    function closeNavbar(){
+      document.querySelector('.navbar-toggler').click();
+    }
+  </script>
   <!-- Empty container -->
     <div class="container">
     </div>
 
   <!-- Footer -->
-    <footer class="custom-footer">
+    <footer class="custom-footer" id="footer">
       <pre class="footer-text">
-        Contact: +46 73 555 0914 - Sten Gårdmark
-        Adress: Kårallen, Universitetet - 581 83 Linköping
-        GDPR is used to handle your personal information 
-        <a href="mailto:hege@example.com" id="mail">sten@gardmark.com</a>
+        © Copyright 2024
       </pre>
 
     </footer> 
@@ -220,7 +222,7 @@
       My bikes for sale
     </h1>
     <button id="addNewBikeButton" class="btn allbuttons addBike-button" onclick="addBike()">Upload bike for sale</button>
-    <ul id="myBikes-list" class="list-group-flush">
+    <ul id="myBikes-list" class="list-group-flush two-column-list card-list">
     </ul>
   </script>
      
@@ -237,7 +239,7 @@
         <input type="text" class="form-control" id="addPrice" required>
         <label for="addGears" class="col-form-label">Number of gears</label>
         <input type="text" class="form-control" id="addGears">
-        <label for="addAge" class="col-form-label">Age of bike</label>
+        <label for="addAge" class="col-form-label">Age of bike (in years)</label>
         <input type="text" class="form-control" id="addAge">
         <label for="addCondition" class="col-form-label">Condition</label>
         <input type="text" class="form-control" id="addCondition">
@@ -268,7 +270,7 @@
     <h1 id="myOrders" class="extra-big">
       My purchased bikes
     </h1>
-    <ul id="myOrders-list" class="list-group-flush">
+    <ul id="myOrders-list" class="list-group-flush two-column-list">
     </ul>
   </script>
 
@@ -286,7 +288,7 @@
     <h1 id="applications" class="extra-big">
       Pending applications
     </h1>
-    <ul id="applications-list" class="list-group-flush">
+    <ul id="applications-list" class="list-group-flush two-column-list">
     </ul>
   </script>
 
@@ -295,7 +297,7 @@
     <h1 id="orders" class="extra-big">
       Orders
     </h1>
-    <ul id="orders-list" class="list-group-flush">
+    <ul id="orders-list" class="list-group-flush two-column-list">
     </ul>
   </script>
 
@@ -317,6 +319,9 @@
     <p id="aboutUs">  Our mission is to make cycling accessible to everyone by offering a wide range of high-quality, refurbished bicycles at competitive prices. Whether you're a commuter, a recreational rider, or an eco-conscious individual, we have the perfect bike to suit your needs.</p>
     <p id="aboutUs">  With a commitment to excellence and customer satisfaction, reCycle ensures that every bike undergoes thorough inspection and refurbishment by our team of skilled technicians. We stand behind the quality of our products, offering warranties and support to ensure your peace of mind.</p>
     <p id="aboutUs">  Join us in our journey to promote sustainable mobility and enjoy the benefits of cycling with reCycle. Explore our selection of second-hand bicycles today and take the first step towards a healthier, more eco-friendly lifestyle.</p>
+    
+    <button id="contactUsButton" class="btn allbuttons" onclick="viewContact()">Contact us here</button>
+
     <h2 class="extra-big">
       Our team
     </h2>
@@ -410,61 +415,66 @@
       </div>
     </div>
   </div>
-  
-  <!-- Modal for editing bike -->
-  <!-- <div class="modal fade" id="editBikeModal" tabindex="-1" role="dialog" aria-labelledby="editbikeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editBikeModalLabel">Redigera Bil</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="editBikeForm">
-            <div class="form-group">
-              <label for="editPrice">Tillverkare</label>
-              <input type="text" class="form-control" id="editPrice" name="price" required>
-            </div>
-            <div class="form-group">
-                <label for="editModel">Modell</label>
-              <input type="text" class="form-control" id="editModel" name="model" required>
-            </div>
-              <div class="form-group">
-                <label for="editUserID">Kund-ID</label>
-                <input type="text" class="form-control" id="editUserID" name="userID">
-              </div>
-              <button type="submit" class="btn allbuttons">Spara ändringar</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div> -->
-  
  
-  <!-- View Contacts script -->
-  <script id="view-contact" type="text/html">
-    <h1 id="contact" class="extra-big">
-      Contact recycle
-    </h1>
-    <form id="contactUsForm">
-      <div class="form-group">
-        <label for="inputName">Name</label>
-        <input type="name" class="form-control" id="inputName">
+<!-- View Contacts script -->
+<script id="view-contact" type="text/html">
+  <h1 id="contact" class="extra-big">
+    Contact recycle
+  </h1>
+  <div class="two-column-layout">
+    <div class="card mb-3" id="contactCard">
+      <div class="card-body" id="contactBody">
+        <h2 class="extra-big">Contact info</h2>
+        <p class="allText">For questions regarding purchase, please contact:</p>
+        <a href="mailto:purchase@reCycle.se">purchase@reCycle.se</a>
+        <p></p>
+        <p class="allText">For questions regarding sales, please contact:</p>
+        <a href="mailto:sales@reCycle.se">sales@reCycle.se</a>
+        <p></p>
+        <p class="allText">For questions regarding the web application, please contact:</p>
+        <a href="mailto:front-end@reCycle.se">front-end@reCycle.se</a>
       </div>
-      <div class="form-group">
-        <label for="inputEmail">E-mail</label>
-        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
-        <small id="emailHelp" class="form-text text-muted">Enter a valid e-mail</small>
+    </div>
+    <div class="card mb-3" id="contactCard">
+      <div class="card-body" id="contactBody">
+        <h2 class="extra-big">Not sure who to contact? Fill in this form</h2>
+        <form id="contactUsForm">
+          <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="text" class="form-control" id="inputName" required>
+          </div>
+          <div class="form-group">
+            <label for="inputEmail">E-mail</label>
+            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" required>
+            <small id="emailHelp" class="form-text text-muted">Enter a valid e-mail</small>
+          </div>
+          <div class="form-group">
+            <label for="inputMessage">Message</label>
+            <input type="text" class="form-control" id="inputMessage" required>
+          </div>
+          <button type="submit" class="btn allbuttons">Send message</button>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="inputMessage">Message</label>
-        <input type="message" class="form-control" id="inputMessage">
+    </div>
+    <div class="card mb-3" id="contactCard">
+      <div class="card-body" id="contactBody">
+        <h2 class="extra-big">Address</h2>
+        <p class="allText">Visit our office to deliver and pick up your bike at the following address:</p>
+        <p class="allText">Kårallen, universistet</p>
+        <p class="allText">581 83 Linköping</p>
+        <p class="allText">Sweden</p>
+        <h2 class="extra-big" >Opening hours</h2>
+        <p class="allText">Monday to Friday: 08:00-17:00</p>
+        <p class="allText">Saturday and Sunday: closed</p>
       </div>
-      <button class="btn allbuttons" onclick="sendMessageButton()">Send message</button>
-    </form>
-  </script>
+    </div>
+    <div class="card mb-3" id="contactCardMap">
+      <div class="card-body" id="contactBody">
+        <iframe width="500" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src=https://maps.google.com/maps?width=500&amp;height=500&amp;hl=en&amp;q=K%C3%A5rallen%20Link%C3%B6ping+()&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed></iframe> 
+      </div>
+    </div>
+  </div>
+</script>
 
   <!-- View Sign up Script-->
    <script id="view-sign-up" type="text/html">
@@ -507,21 +517,21 @@
       <button class="btn allbuttons" onclick="logIn()">Log in</button>
     </form>
   </script>
+
+
 <!-- Chatbot Sam -->
+  <iframe
+  src=https://www.chatbase.co/chatbot-iframe/gHLlR8bj_4vIwiSyTa0eC
+  title="Chatbot"
+  width="100%"
+  style="height: 100%; min-height: 700px"
+  frameborder="0"
+  ></iframe>
 
-<iframe
-src=https://www.chatbase.co/chatbot-iframe/gHLlR8bj_4vIwiSyTa0eC
-title="Chatbot"
-width="100%"
-style="height: 100%; min-height: 700px"
-frameborder="0"
-></iframe>
-
-<script>
-  window.embeddedChatbotConfig = {
-  chatbotId: "gHLlR8bj_4vIwiSyTa0eC",
-  domain: www.chatbase.co
-  }
+  <script>window.embeddedChatbotConfig = {
+    chatbotId: "gHLlR8bj_4vIwiSyTa0eC",
+    domain: www.chatbase.co
+    }
   </script>
 
   <script
