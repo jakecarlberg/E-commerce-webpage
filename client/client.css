@@ -1,14 +1,124 @@
 /* Navbar */
 .navbar-custom{
-    background-color: rgb(74, 113, 157);
-    min-height: 120px;
-  }
+  background-color: rgb(74, 113, 157);
+  min-height: 120px;
+  position: relative;
+}
 .navbar-custom .navbar-picture{
-  position: absolute;
-  top: 0%;
-  left: 45%;
-  width: 200px;
-  height: 100px;
+position: absolute;
+top: 0%;
+left: 45%;
+width: 200px;
+height: 100px;
+}
+
+#home_icon {
+height: 20px;
+width: 30px;
+margin-right: 10px; 
+align-items: center;
+}
+
+#signup_icon {
+height: 20px;
+width: 30px;
+}
+
+#login_icon {
+height: 20px;
+width: 30px;
+margin-right: 10px; 
+}
+
+#application_icon {
+height: 20px;
+width: 30px;
+margin-right: 10px; 
+}
+
+#orders_icon {
+height: 20px;
+width: 30px;
+margin-right: 10px; 
+}
+
+#messages_icon {
+height: 20px;
+width: 30px;
+margin-right: 10px; 
+}
+
+#aboutus_icon {
+height: 20px;
+width: 30px;
+margin-right: 10px; 
+}
+
+#contact_icon {
+height: 20px;
+width: 30px;
+margin-right: 10px; 
+}
+
+#profile_icon {
+height: 20px;
+width: 30px;
+margin-right: 10px; 
+}
+
+
+#home {
+display: inline-flex;
+align-items: center;
+margin-left: 10px;
+}
+
+#sign_up {
+display: inline-flex;
+align-items: center;
+margin-left: 19px;
+}
+
+#log_in {
+display: inline-flex;
+align-items: center;
+margin-left: 10px;
+}
+
+#applications {
+display: inline-flex;
+align-items: center;
+margin-left: 10px;
+}
+
+#orders {
+display: inline-flex;
+align-items: center;
+margin-left: 10px;
+}
+
+#messages {
+display: inline-flex;
+align-items: center;
+margin-left: 10px;
+}
+
+#about_us {
+display: inline-flex;
+align-items: center;
+margin-left: 10px;
+}
+
+#contact {
+display: inline-flex;
+align-items: center;
+margin-left: 10px;
+}
+
+#my_profile {
+display: inline-flex;
+align-items: center;
+margin-left: 10px;
 }
 
 /* Footer */

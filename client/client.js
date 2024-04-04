@@ -15,9 +15,9 @@ function updateNavbar() {
       var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
       isAdmin = currentUser.is_admin;
    }
-   $('#sign_up, #log_in').toggleClass('d-none', signedIn);
-   $('#applications, #messages, #orders').toggleClass('d-none', !isAdmin);
-   $('#my_profile').toggleClass('d-none', !signedIn);
+   $('#sign_up, #log_in, #signup_icon, #login_icon').toggleClass('d-none', signedIn);
+   $('#applications, #application_icon, #messages, #messages_icon, #orders, #orders_icon').toggleClass('d-none', !isAdmin);
+   $('#my_profile, #profile_icon').toggleClass('d-none', !signedIn);
 }
 
 // Function to view applications
@@ -608,6 +608,7 @@ function showMyOrders() {
 
 //opening edit modal
 function editUser(user_id) {
+   $('iframe[src*=chatbase]').hide();
    $('#editAccountModal').modal();
    $.ajax({
          url: host + '/users/' + user_id, 
