@@ -395,3 +395,19 @@ margin-top: 20px;
   height: 360px;
   transform: translate(-50%, -50%);
  }
+ .favorite-button {
+  /* Add your button styles here */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* Add other styles as needed */
+}
+
+.favorite-button img {
+  /* Add styles for the image */
+  width: 50px; /* Adjust the width as needed */
+  height: 50px; /* Adjust the height as needed */
+}

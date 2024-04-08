@@ -28,14 +28,20 @@ jwt = JWTManager(app)
 # The User has attributes describing their info, bikes, and sales orders
 # As well as the boolean if the said user is an admin, able to approve the
 # listing of bikes
+favorites = db.Table('favorites',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('bike_id', db.Integer, db.ForeignKey('bike.id'), primary_key=True)
+)
+
 class User(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    name = db.Column(db.String, nullable=False)
    email = db.Column(db.String, nullable=False)
-   is_admin = db.Column(db.Boolean, nullable=False, default=False)
+   is_admin = db.Column(db.Boolean, nullable=False, default=True)
    password_hash = db.Column(db.String, nullable=True)
    bikes = db.relationship('Bike', backref = 'user', lazy = True) # Bikes for sale or sold for seller
    orders = db.relationship('Order', backref='user_orders', lazy=True) # Completed purchases as buyer
+   favorites = db.relationship('Bike', secondary=favorites, backref='favorited_by')
 
    def __repr__(self):
       return '<User {}: Name {} Email {}'.format(self.id, self.name, self.email)
@@ -337,6 +343,45 @@ def messages():
       db.session.add(new_message)
       db.session.commit()
       return jsonify(new_message.serialize())
+
+@app.route('/users/<int:user_id>/favorite/<int:bike_id>', methods=['POST'])
+def add_favorite(user_id, bike_id):
+    user = User.query.get_or_404(user_id)
+    bike = Bike.query.get_or_404(bike_id)
+    user.favorites.append(bike)
+    db.session.commit()
+    return jsonify(message="Bike added to favorites")
+
+@app.route('/users/<int:user_id>/favorite/<int:bike_id>', methods=['DELETE'])
+def remove_favorite(user_id, bike_id):
+    user = User.query.get_or_404(user_id)
+    bike = Bike.query.get_or_404(bike_id)
+    user.favorites.remove(bike)
+    db.session.commit()
+    return jsonify(message="Bike removed from favorites")
+
+@app.route('/users/<int:user_id>/favorite/<int:bike_id>', methods=['GET'])
+def check_favorite(user_id, bike_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    bike = Bike.query.get(bike_id)
+    if not bike:
+        return jsonify({'error': 'Bike not found'}), 404
+
+    favorited = bike in user.favorites
+    return jsonify({'favorited': favorited}), 200
+
+@app.route('/users/<int:user_id>/favorites', methods=['GET'])
+def show_favorites(user_id):
+   user = User.query.get_or_404(user_id)
+   favorite_list = user.favorites
+   serialized_favorite = [favorite.serialize() for favorite in favorite_list]
+   return jsonify(serialized_favorite)
+ 
+
+
 
 @app.route("/")
 def client():

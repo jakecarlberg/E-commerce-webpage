@@ -376,14 +376,58 @@ function displayAllBikes() {
    });
  }
 
+function showMyFavorites() {
+   $(".container").html($("#view-myFavorites").html())
+   $("#myFavorites-list").empty(); 
+   var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
+   var user_id = currentUser.id;
+   $.ajax({
+      url: host + '/users/' + user_id + '/favorites',
+      headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
+      success: function(bikes) {
+         bikes.forEach(function (bike) {
+         var bikeView = `      
+            <div class="card mb-3">
+               <img src="${bike.picture_path}" id="pic">
+               <div class="card-body myBike-card">
+                  <h5 class="card-title">${bike.model} </h5> 
+                  <p class="card-text">Price: ${bike.price} SEK </p>
+                  <p class="card-text">Gears: ${bike.gears} </p>
+                  <p class="card-text">Age: ${bike.age} </p>
+                  <p class="card-text">Condition: ${bike.condition} </p>
+                  <p class="card-text">Listed: ${bike.is_listed} </p>
+                  <button class = "btn allbuttons" onclick = "unfavoriteAndReload(${user_id}, ${bike.id});">Unfavorite</button>
+               </div>
+             </div>`
+         $("#myFavorites-list").append(bikeView);
+         
+      });
+      },
+      error: function() {
+         alert("Error fetching favorites."); 
+      }
+   });
+   
+}
+
 // Function showBike() enter new script for specific bike
 function showBike(bike_id) {
-   $(".container").html($("#view-bike").html())
+   $(".container").html($("#view-bike").html());
    $("#bike-list").empty(); 
+   var authData = sessionStorage.getItem('auth');
+   if (authData !== null) {
+      var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
+      var user_id = currentUser.id;
+   } else {
+    console.log("Auth data is null");
+    var user_id = null;
+   }
+
    $.ajax({
+      
       url: host + '/bikes/' + bike_id,
       type: 'GET',
-      success: function(bike) {
+      success: function(bike) {  
          var bikeView = `      
             <div class="card mb-3" id="card">
                
@@ -394,9 +438,30 @@ function showBike(bike_id) {
                         <p class="card-text">Gears: ${bike.gears} </p>
                         <p class="card-text">Condition: ${bike.condition} </p>
                         <p class="card-text">Age: ${bike.age} </p>
-                        <button class="btn allbuttons" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>
-               </div>
-            </div>`
+                        <button class="btn allbuttons" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>`;
+                        if (user_id !== null) {
+                           var favorited = isFavorite(user_id, bike.id);
+                           if (favorited == true){
+                              console.log("bike är true");
+                              var imgSrc = 'star_filled.png';
+                              bikeView += `<button class="btn favorite-button" onclick="toggleFavorite(${user_id}, ${bike.id}); setTimeout(function() { reloadShowBike(${bike.id}); }, 10)" data-id="${user_id}, ${bike.id}">
+                           <img src="${imgSrc}">
+                           </button>`;
+                           
+                           }
+                           else {
+                              console.log("bike är false");
+                              var imgSrc = 'star_unfilled.png';
+                              bikeView += `<button class="btn favorite-button" onclick="toggleFavorite(${user_id}, ${bike.id}); setTimeout(function() { reloadShowBike(${bike.id}); }, 10)" data-id="${user_id}, ${bike.id}">
+                           <img src="${imgSrc}">
+                           </button>`;
+
+                           }
+                           
+                           
+                       }
+                        bikeView += `</div>
+                        </div>`;
          $("#bike-list").append(bikeView);
       },
       error: function() {
@@ -818,3 +883,84 @@ $("#editBikeForm").submit(function (e) {
    });
 });
 
+function toggleFavorite(userId, bikeId) {
+   $.ajax({
+       url: '/users/' + userId + '/favorite/' + bikeId,
+       type: 'GET',
+       success: function(response) {
+           if (response.favorited) {
+               // Bike is already favorited, so unfavorite it
+               unfavorite(userId, bikeId);
+           } else {
+               // Bike is not favorited, so favorite it
+               favorite(userId, bikeId);
+           }
+       },
+       error: function() {
+           console.error('Error checking favorite status.');
+       }
+   });
+}
+function isFavorite(user_id, bike_id) {
+   var isFavorited;
+   $.ajax({
+       url: host + '/users/' + user_id + '/favorite/' + bike_id,
+       type: 'GET',
+       async: false, // Ensure synchronous execution
+       success: function(response) {
+           isFavorited = response.favorited;
+          
+       },
+       error: function() {
+           console.error('Error checking favorite status.');
+       }
+   });
+   return isFavorited;
+}
+
+
+function favorite(userId, bikeId) {
+   console.log("Deli");
+   $.ajax({
+       url: '/users/' + userId + '/favorite/' + bikeId,
+       type: 'POST',
+       success: function(response) {
+           console.log('Bike favorited successfully.');
+           // Update UI to reflect favorited status
+       },
+       error: function() {
+           console.error('Error favoriting bike.');
+       }
+   });
+}
+
+function unfavorite(userId, bikeId) {
+   $.ajax({
+       url: '/users/' + userId + '/favorite/' + bikeId,
+       type: 'DELETE',
+       success: function(response) {
+           console.log('Bike unfavorited successfully.');
+           // Update UI to reflect unfavorited status
+       },
+       error: function() {
+           console.error('Error unfavoriting bike.');
+       }
+   });
+}
+function unfavoriteAndReload(userId, bikeId) {
+   $.ajax({
+       url: '/users/' + userId + '/favorite/' + bikeId,
+       type: 'DELETE',
+       success: function(response) {
+           console.log('Bike unfavorited successfully.');
+           showMyFavorites();
+       },
+       error: function() {
+           console.error('Error unfavoriting bike.');
+       }
+   });
+}
+function reloadShowBike(bikeId) {
+   // Call your showBike function with the bikeId parameter to reload the content
+   showBike(bikeId);
+}
