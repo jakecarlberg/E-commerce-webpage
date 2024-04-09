@@ -16,7 +16,7 @@ function updateNavbar() {
       isAdmin = currentUser.is_admin;
    }
    $('#sign_up, #log_in, #signup_icon, #login_icon').toggleClass('d-none', signedIn);
-   $('#applications, #application_icon, #messages, #messages_icon, #orders, #orders_icon').toggleClass('d-none', !isAdmin);
+   $('#applications, #application_icon, #messages, #messages_icon, #orders, #orders_icon, #admin_icon, #admin').toggleClass('d-none', !isAdmin);
    $('#my_profile, #profile_icon').toggleClass('d-none', !signedIn);
 }
 
@@ -352,6 +352,7 @@ function displayAllBikes() {
                      if (bike.age >= lowestAge && bike.age <= highestAge) {
                         if (bike.condition >= lowestCondition && bike.condition <= highestCondition) {
                            var bikeView = `      
+                              <a href="#" onclick="showBike(${bike.id}); return false;">
                               <div class="card mb-3" id ="card">
                               <img src="${bike.picture_path}" id="allBikes-pic">
                                  <div class="card-body allBikes">
@@ -359,9 +360,10 @@ function displayAllBikes() {
                                        <p class="card-text bike-title">${bike.model} </p> 
                                        <p class="card-text">${bike.price} SEK </p>
                                     </div>
-                                    <button class="btn allbuttons" id="readMore-button" onclick="showBike(${bike.id})" data-id="${bike.id}">Read more</button>
+                                    <button class="btn allbuttons" id="readMore-button" data-id="${bike.id}">Read more</button>
                                  </div>
-                              </div>`
+                              </div>
+                           </a>`;
                            $("#home-list").append(bikeView);
                         }
                      }
