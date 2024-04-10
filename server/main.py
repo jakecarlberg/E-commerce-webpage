@@ -69,6 +69,7 @@ class Bike(db.Model):
    condition = db.Column(db.Integer, nullable=True) # Describes condition on a range from 1-5 translating into descriptive words
    age = db.Column(db.Integer, nullable = True)
    picture_path = db.Column(db.String, nullable=False, default='')
+   category = db.Column(db.String, nullable=False)  # Type of bicycle
 
    def __repr__(self):
       return '<Bike {}: Price {} Model {}'.format(self.id, self.price, self.model)
@@ -84,7 +85,8 @@ class Bike(db.Model):
          condition = self.condition,
          age = self.age,
          picture_path=self.picture_path,
-         seller_id = self.seller_id
+         seller_id = self.seller_id,
+         category = self.category
       )
 
 # Class of Order, to be created and stored when a user successfully sells a bike
@@ -150,6 +152,8 @@ def bikes_int(bike_id):
             bike.price = data['price']
          if 'model' in data:
             bike.model = data['model']
+         if 'category' in data:
+            bike.category = data['category']
          if 'user_id' in data:
             if User.query.get(data['user_id']):
                bike.user_id = data['user_id']
@@ -164,6 +168,14 @@ def bikes_int(bike_id):
       db.session.delete(bike)
       db.session.commit()
       return jsonify(200) 
+   
+@app.route('/bikes/<string:bike_category>', methods=['GET'])
+# @jwt_required() we want this only for DELETE and PUT but not for GET
+def bikes_string(bike_category):
+    bikes = Bike.query.filter_by(category=bike_category).all()
+    if not bikes:
+        return jsonify({'error': 'No bikes found for this category'}), 404
+    return jsonify([bike.serialize() for bike in bikes])
 
 
 # Route for fetching all users (they can be both sellers and buyers)
@@ -235,6 +247,8 @@ def user_bikes(user_id):
 
       if 'gears' in data:
          new_bike.gears = data['gears']
+      if 'category' in data:
+         new_bike.category = data['category']   
       if 'condition' in data:
          new_bike.condition = data['condition']
       if 'age' in data: 

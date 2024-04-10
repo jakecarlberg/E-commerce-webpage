@@ -197,6 +197,17 @@ margin-left: 10px;
   line-height: 1.5;
   text-align: center;
 }
+.description-headline {
+  color: rgb(68, 55, 55);
+  font-family: serif;
+  text-align: left;
+}
+.description-price {
+  color: rgb(68, 55, 55);
+  font-weight: bold;
+  font-family: serif;
+  text-align: left;
+}
 #aboutUs {
   color: black;
   font-family: serif;
@@ -291,8 +302,8 @@ margin-left: 10px;
   margin-right: 10px;
 }
 #pic {
-  height: 240px;
-  max-width: 400px;
+  height: 480px;
+  max-width: 800px;
   object-fit: cover;
   object-position: center 25%; 
 }
@@ -318,7 +329,7 @@ margin-left: 10px;
   align-items: center;
   height: fit-content;
 }
-.bike-title {
+/* .bike-title {
   color: black;
   font-family: serif;
   font-size: large;
@@ -326,7 +337,7 @@ margin-left: 10px;
   font-weight: bold;
   line-height: 1.5;
   text-align: center;
- }
+ } */
 
 /* About us cards */
 .us {
