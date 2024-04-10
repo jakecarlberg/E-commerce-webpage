@@ -34,51 +34,52 @@
     <div class="button-container">
      <ul class="navbar-nav">
       <li class="nav-item dropdown">
-        <img src="images/Bild8.png" id="bike_icon">
-        <a class="nav-link dropdown-toggle" href="#" id="bikes" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Bikes
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownBikes">
-          <a class="dropdown-item" href="#">BMX</a>
-          <a class="dropdown-item" href="#">Mountain Bike</a>
-          <a class="dropdown-item" href="#">Kids</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <img src="images/Bild6.png" id="admin_icon">
-        <a class="nav-link dropdown-toggle" href="#" id="admin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#" onclick="viewApplications()">Applications</a>
-          <a class="dropdown-item" href="#" onclick="viewOrders()">Orders</a>
-          <a class="dropdown-item" href="#" onclick="viewMessages()">Messages</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <img src="images/Bild4.png" id="recycle_icon">
-        <a class="nav-link dropdown-toggle" href="#" id="recycle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ReCycle </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#" onclick="viewAbout()"> About us</a>
-          <a class="dropdown-item" href="#" onclick="viewContact()"> Contact us</a>
-          <a class="dropdown-item" href="#" onclick="logOut()">Join us</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <img src="images/Bild9.png" id="profile_icon">
-        <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My profile </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#" onclick="showAccount()"> My account</a>
-          <a class="dropdown-item" href="#" onclick="showMyBikes()"> My bikes</a>
-          <a class="dropdown-item" href="#" onclick="showMyOrders()"> My orders</a>
-          <a class="dropdown-item" href="#" onclick="showMyFavorites()">My favorites</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" onclick="logOut()">Sign out</a>
-        </div>
-      </li>
-    </ul>
-    </div>
-
-</nav>
-
+          <img src="images/Bild8.png" id="bike_icon">
+            <a class="nav-link dropdown-toggle" href="#" id="bikes" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Bikes
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownBikes">
+                <a class="dropdown-item" href="#" onclick="displayAllBikes()">All bikes</a>
+                <a class="dropdown-item" href="#" onclick="displayBikeCategory('BMX')">BMX</a>
+                <a class="dropdown-item" href="#" onclick="displayBikeCategory('Mountain Bike')">Mountain Bike</a>
+                <a class="dropdown-item" href="#" onclick="displayBikeCategory('Kid Bike')">Kid Bike</a>
+                <a class="dropdown-item" href="#" onclick="displayBikeCategory('Electrical Bike')">Electrical Bike</a>
+                <a class="dropdown-item" href="#" onclick="displayBikeCategory('Alternative Bike')">Alternative Bike</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+          <img src="images/Bild6.png" id="admin_icon">
+          <a class="nav-link dropdown-toggle" href="#" id="admin" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">Admin </a>
+          <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class = "dropdown-item" href="#" onclick="viewApplications()">Applications</a>
+            <a class = "dropdown-item" href="#" onclick="viewOrders()">Orders</a>
+            <a class = "dropdown-item" href="#" onclick="viewMessages()">Messages</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <img src="images/Bild4.png" id="recycle_icon">
+          <a class="nav-link dropdown-toggle" href="#" id="recycle" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">reCycle </a>
+          <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class = "dropdown-item" href="#" onclick="viewAbout()"> About us</a>
+            <a class = "dropdown-item" href="#" onclick="viewContact()"> Contact us</a>
+            <a class = "dropdown-item" href="#" onclick=logOut()>Join us</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <img src="images/Bild9.png" id="profile_icon">
+          <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">My profile </a>
+          <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class = "dropdown-item" href="#" onclick="showAccount()"> My account</a>
+            <a class = "dropdown-item" href="#" onclick="showMyBikes()"> My bikes</a>
+            <a class = "dropdown-item" href="#" onclick="showMyOrders()"> My orders</a>
+            <a class="dropdown-item" href="#" onclick="showMyFavorites()">My favorites</a>
+            <div class = "dropdown-divider" ></div>
+            <a class="dropdown-item" href="#" onclick=logOut()>Sign out</a>
+          </div>
+        </li>
+      </ul>
+    <!-- </div>  -->
+  </nav> 
    <!-- <nav class="navbar navbar-custom navbar-dark">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +135,7 @@
 <!-- View Home script -->
 <script id="view-home" type="text/html">
   <h1 id="welcome" class="extra-big">
-    Our bikes
+    Our Bikes
   </h1>
   <div class="btn-group" id="filter-button-group">
     <button type="button" class="btn allbuttons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filters</button>
@@ -284,17 +285,34 @@
     </h1>
     <form id="addBikeForm" enctype="multipart/form-data" method="POST">
       <div class="form-group">
-        <label for="addModel" class="col-form-label">Model</label>
+        <label for="addCategory" class="col-form-label">Category</label>
+        <select class="form-control" id="addCategory" required>
+          <option value="BMX">BMX</option>
+          <option value="Kid Bike">Kid Bike</option>
+          <option value="Mountain Bike">Mountain Bike</option>
+          <option value="Electrical Bike">Electrical Bike</option>
+          <option value="Alternative Bike">Alternative Bike</option>
+        </select>
+        <!-- <input type="text" class="form-control" id="addCategory" required> -->
+        <label for="addModel" class="col-form-label">Caption</label>
         <input type="text" class="form-control" id="addModel" required>
         <label for="addPrice" class="col-form-label">Price</label>
         <input type="text" class="form-control" id="addPrice" required>
         <label for="addGears" class="col-form-label">Number of gears</label>
         <input type="text" class="form-control" id="addGears">
-        <label for="addAge" class="col-form-label">Age of bike (in years)</label>
+        <label for="addAge" class="col-form-label">Tum</label>
         <input type="text" class="form-control" id="addAge">
+        <!-- <label for="addCondition" class="col-form-label">Condition</label>
+        <input type="text" class="form-control" id="addCondition"> -->
         <label for="addCondition" class="col-form-label">Condition</label>
-        <input type="text" class="form-control" id="addCondition">
-        <small id="conditionHelp" class="form-text text-muted">Enter a number between 1 and 5, where 5 is brand new and 1 is bike falling apart</small>
+        <select class="form-control" id="addCondition" required>
+          <option value="1">Bike is falling apart</option>
+          <option value="2">Bad condition</option>
+          <option value="2">Has been used but works fine</option>
+          <option value="4">Good Condition</option>
+          <option value="5">Almost new Bike</option>
+        </select>
+        <small id="conditionHelp" class="form-text text-muted">More information here</small>
       </div>
       <div class="form-group">
         <img src="images/bike.png", id = "Bikepic">

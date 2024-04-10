@@ -36,6 +36,7 @@ function viewApplications() {
                   <div class="card-body">
                      <h5 class="card-title">${bike.model} </h5>
                      <p class="card-text">User ID: ${bike.seller_id}</p>
+                     <p class="card-text">Category: ${bike.category}</p>
                      <p class="card-text">Price: ${bike.price} SEK</p>
                      <p class="card-text">Condition: ${bike.condition}</p>
                      <p class="card-text">Age: ${bike.age} years</p>
@@ -82,6 +83,7 @@ function viewOrders() {
                   <img src="${bike.picture_path}" id="allBikes-pic">      
                   <div class="card-body">
                      <h5 class="card-title">Bike: (${bike.id}) ${bike.model} </h5>
+                     <p class="card-text">Category: ${bike.category} </p> 
                      <p class="card-text">Payment to seller: ${bike.price - 50} SEK</p>   
                      <p class="card-text">Fee: 50 SEK </p>   
                      <p class="card-text">Seller: ${seller_email} </p>
@@ -357,7 +359,123 @@ function displayAllBikes() {
                               <img src="${bike.picture_path}" id="allBikes-pic">
                                  <div class="card-body allBikes">
                                     <div>
+                                       
+                                       <h5 class="card-text bike-title">${bike.model} </h5> 
+                                       <p class="card-text bike-title">Category: ${bike.category} </p> 
+                                       <p class="card-text">${bike.price} SEK </p>
+                                    </div>
+                                    <button class="btn allbuttons" id="readMore-button" data-id="${bike.id}">Read more</button>
+                                 </div>
+                              </div>
+                           </a>`;
+                           $("#home-list").append(bikeView);
+                        }
+                     }
+                  }
+               }
+            }
+         });
+      },
+      error: function() {
+         alert("Error fetching bikes."); 
+      }
+   });
+ }
+ function displayBikeCategory(bike_category) {
+   var lowestPrice = 0;
+   var highestPrice = 100000000000;
+   var lowestGears = 0;
+   var highestGears = 100000000000;
+   var lowestAge = 0;
+   var highestAge = 10000000000;
+   var lowestCondition = 1;
+   var highestCondition = 5;
+   if ($('#lowPrice').prop('checked')) {
+      highestPrice = 999;
+   } if ($('#middlePrice').prop('checked')  ) {
+      lowestPrice = 1000;
+      highestPrice = 5000;
+   } if ($('#highPrice').prop('checked')) {
+      lowestPrice = 5001;
+   } if ($('#lowPrice').prop('checked') && $('#middlePrice').prop('checked')) {
+      lowestPrice = 0;
+      highestPrice = 5000;
+   } if ($('#middlePrice').prop('checked') && $('#highPrice').prop('checked')) {
+      lowestPrice = 1000;
+      highestPrice = 1000000000;
+   } 
+   if ($('#lowGears').prop('checked')) {
+      highestGears = 4;
+   } if ($('#highGears').prop('checked')) {
+      lowestGears = 5;
+   }
+   if ($('#lowGears').prop('checked') && $('#highGears').prop('checked')) {
+      lowestGears = 0;
+      highestGears = 100000000;
+   }
+   if ($('#new').prop('checked')) {
+      highestAge = 1;
+   } if ($('#lowAge').prop('checked')) {
+      lowestAge = 2;
+      highestAge = 5;
+   } if ($('#highAge').prop('checked')) {
+      lowestAge = 6;
+      highestAge = 1000000;
+   }  if ($('#new').prop('checked') && $('#lowAge').prop('checked')) {
+      lowestAge = 0;
+      highestAge = 5;
+   }  if ($('#lowAge').prop('checked') && $('#highAge').prop('checked')) {
+      lowestAge = 2;
+      highestAge = 1000000;
+   } 
+   if ($('#lowCondition').prop('checked')) {
+      highestCondition = 2;
+   } if ($('#highCondition').prop('checked')) {
+      lowestCondition = 3;
+   }
+   if ($('#lowCondition').prop('checked') && $('#highCondition').prop('checked')) {
+      lowestCondition = 1;
+      highestCondition = 5;
+   }
+   
+   
+   var sortByValue = $('#selectSort').val();
+ 
+   localStorage.setItem("sortOption", sortByValue);
+   localStorage.setItem('lowPriceChecked', $('#lowPrice').prop('checked'));
+   localStorage.setItem('middlePriceChecked', $('#middlePrice').prop('checked'));
+   localStorage.setItem('highPriceChecked', $('#highPrice').prop('checked'));
+   localStorage.setItem('lowGearsChecked', $('#lowGears').prop('checked'));
+   localStorage.setItem('highGearsChecked', $('#highGears').prop('checked'));
+   localStorage.setItem('newChecked', $('#new').prop('checked'));
+   localStorage.setItem('lowAgeChecked', $('#lowAge').prop('checked'));
+   localStorage.setItem('highAgeChecked', $('#highAge').prop('checked'));
+   localStorage.setItem('lowConditionChecked', $('#lowCondition').prop('checked'));
+   localStorage.setItem('highConditionChecked', $('#highCondition').prop('checked'));
+   setTimeout(() => {
+      setStoredOption();
+   }, 1);
+   $(".container").html($("#view-home").html());
+   $("#home-list").empty(); 
+   $.ajax({
+      url: host + '/bikes/' + bike_category,
+      type: 'GET',
+      success: function(bikes) {
+         bikes = sortBikes(sortByValue, bikes);
+         bikes.forEach(function (bike) {
+            if (bike.is_listed) {
+               if (bike.price >= lowestPrice && bike.price <= highestPrice) {
+                  if (bike.gears >= lowestGears && bike.gears <= highestGears) {
+                     if (bike.age >= lowestAge && bike.age <= highestAge) {
+                        if (bike.condition >= lowestCondition && bike.condition <= highestCondition) {
+                           var bikeView = `      
+                              <a href="#" onclick="showBike(${bike.id}); return false;">
+                              <div class="card mb-3" id ="card">
+                              <img src="${bike.picture_path}" id="allBikes-pic">
+                                 <div class="card-body allBikes">
+                                    <div>
                                        <p class="card-text bike-title">${bike.model} </p> 
+                                       <p class="card-text">${bike.category} </p>
                                        <p class="card-text">${bike.price} SEK </p>
                                     </div>
                                     <button class="btn allbuttons" id="readMore-button" data-id="${bike.id}">Read more</button>
@@ -378,6 +496,7 @@ function displayAllBikes() {
    });
  }
 
+
 function showMyFavorites() {
    $(".container").html($("#view-myFavorites").html())
    $("#myFavorites-list").empty(); 
@@ -393,6 +512,7 @@ function showMyFavorites() {
                <img src="${bike.picture_path}" id="pic">
                <div class="card-body myBike-card">
                   <h5 class="card-title">${bike.model} </h5> 
+                  <p class="card-text">Category: ${bike.category} </p>
                   <p class="card-text">Price: ${bike.price} SEK </p>
                   <p class="card-text">Gears: ${bike.gears} </p>
                   <p class="card-text">Age: ${bike.age} </p>
@@ -435,10 +555,28 @@ function showBike(bike_id) {
                
                <img src="${bike.picture_path}" id="pic">
                <div class="card-body">
-                        <h5 class="card-title">${bike.model} </h5> 
-                        <p class="card-text">Price: ${bike.price} SEK</p>
+                        <h1 class="description-headline">${bike.model} </h1> 
+                        <h1 class="description-price">${bike.price} SEK</h1>
+                        <p class="card-text">Category: ${bike.category} </p>
+                        <p class="card-text">${bike.price} SEK</p>
                         <p class="card-text">Gears: ${bike.gears} </p>
-                        <p class="card-text">Condition: ${bike.condition} </p>
+                        ${(() => {
+                           let conditionText = '';
+                           if (bike.condition === 1) {
+                               conditionText = 'Poor';
+                           } else if (bike.condition === 2) {
+                               conditionText = 'Fair';
+                           } else if (bike.condition === 3) {
+                               conditionText = 'Good';
+                           } else if (bike.condition === 4) {
+                               conditionText = 'Very good';
+                           } else if (bike.condition === 5) {
+                               conditionText = 'Excellent';
+                           } else {
+                               conditionText = 'Unknown';
+                           }
+                           return `<p class="card-text">Condition: ${conditionText}</p>`;
+                       })()}
                         <p class="card-text">Age: ${bike.age} </p>
                         <button class="btn allbuttons" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>`;
                         if (user_id !== null) {
@@ -489,6 +627,7 @@ function showMyBikes() {
                <div class="card-body">
                   <div>
                      <h5 class="card-title">${bike.model} </h5> 
+                     <p class="card-text">Category: ${bike.category} </p>
                      <p class="card-text">Price: ${bike.price} SEK </p>
                      <p class="card-text">Gears: ${bike.gears} </p>
                      <p class="card-text">Age: ${bike.age} </p>
@@ -527,6 +666,7 @@ function uploadBike() {
    var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
    var user_id = currentUser.id;
    var fileInput = document.getElementById('input-file').files[0];
+   var newCategory = $("#addCategory").val();
 
    var formData = new FormData();
    formData.append('model', newModel);
@@ -536,6 +676,7 @@ function uploadBike() {
    formData.append('condition', newCondition);
    formData.append('user_id', user_id);
    formData.append('picture', fileInput);
+   formData.append('category', newCategory);
    
    $.ajax({
       url: host + '/users/' + user_id + '/bikes',
@@ -546,7 +687,7 @@ function uploadBike() {
       headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
       success: function(response) {
           console.log("Cykeluppladdning lyckades: ", response);
-          $("#addModel, #addPrice, #addGears, #addAge, #addCondition, #input-file").val('');
+          $("#addModel, #addPrice, #addGears, #addAge, #addCondition, #addCategory, #input-file").val('');
           $("#addBikeModal").modal("hide");
           // Här kan du hantera svar från backend, t.ex. visa bekräftelsemeddelande för användaren
       },
@@ -664,6 +805,7 @@ function showMyOrders() {
             <img src="${bike.picture_path}" id="allBikes-pic">
             <div class="card-body">
                         <h5 class="card-title">${bike.model} </h5>
+                        <p class="card-text">Category: ${bike.category} </p>
                         <p class="card-text">Price: ${bike.price} SEK </p>
                      </div>
                   </div>`
@@ -865,17 +1007,18 @@ $("#editBikeForm").submit(function (e) {
    var updatedPrice = $("#editPrice").val();
    var updatedModel = $("#editModel").val();
    var updatedUserID = $("#editUserID").val();
+   var updatedCategory = $("#editCategory").val();
 
    $.ajax({
       url: host + '/bikes/' + bike_id,
       type: 'PUT',
       contentType: 'application/json',
-      data: JSON.stringify({ price: updatedPrice, model: updatedModel, user_id: updatedUserID}),
+      data: JSON.stringify({ price: updatedPrice, model: updatedModel,category: updatedCategory,user_id:updatedUserID}),
       headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
       success: function(bike) {
          console.log("Ajax success");
          displayBikes();
-         $("#editPrice, #editModel, #editUserID").val('');
+         $("#editPrice, #editModel, #editUserID, #editCategory").val('');
          $("#editBikeModal").modal("hide");
       },
       error: function() {
