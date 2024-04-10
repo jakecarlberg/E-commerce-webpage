@@ -17,7 +17,7 @@ function updateNavbar() {
    }
    $('#sign_up, #log_in, #signup_icon, #login_icon').toggleClass('d-none', signedIn);
    $('#applications, #application_icon, #messages, #messages_icon, #orders, #orders_icon, #admin_icon, #admin').toggleClass('d-none', !isAdmin);
-   $('#my_profile, #profile_icon').toggleClass('d-none', !signedIn);
+   $('#my_profile, #profile_icon, #log_out').toggleClass('d-none', !signedIn);
 }
 
 // Function to view applications
@@ -789,7 +789,6 @@ function logOut() {
 
 //  This executes when document is loaded
  $(document).ready(function(){
-    alert("Page was loaded");
     sessionStorage.removeItem("auth");
     viewHome()
  });
@@ -821,19 +820,19 @@ function logOut() {
 //  });
 
 // To only show footer when scrolled down
-document.addEventListener('DOMContentLoaded', function() {
-   window.addEventListener('scroll', function() {
-      var scrollPosition = window.scrollY;
-      var windowHeight = window.innerHeight;
-      var bodyHeight = document.body.offsetHeight;
+// document.addEventListener('DOMContentLoaded', function() {
+//    window.addEventListener('scroll', function() {
+//       var scrollPosition = window.scrollY;
+//       var windowHeight = window.innerHeight;
+//       var bodyHeight = document.body.offsetHeight;
 
-      if (scrollPosition + windowHeight >= bodyHeight) {
-         this.document.getElementById('footer').style.display = 'block';
-      } else {
-         this.document.getElementById('footer').style.display = 'none';
-      }
-   });
-});
+//       if (scrollPosition + windowHeight >= bodyHeight) {
+//          this.document.getElementById('footer').style.display = 'block';
+//       } else {
+//          this.document.getElementById('footer').style.display = 'none';
+//       }
+//    });
+// });
 
 // DESSA BÖR VI TA BORT
 

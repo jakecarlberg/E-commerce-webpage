@@ -17,79 +17,68 @@
       .navbar-nav .nav-item.dropdown:hover .dropdown-menu{
         display: block;
       }
+
     </style>
   </head>
   <body>
 
-  <!-- Navbar -->
+ <!-- Navbar -->
+<nav class="navbar navbar-custom navbar-dark">
  
-  <nav class="navbar navbar-custom navbar-dark">
-    <img src="/ReCycle.png" class="navbar-picture">
+  <img src="/ReCycle.png" class="navbar-picture" onclick="viewHome()">
 
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span> 
-    </button>  
-    
-    <div class="collapse navbar-collapse" id="navbarNav">  -->
-      <ul class="navbar-nav">
-     
-        
-         <li class="nav-item"> 
-          <img src="images/Bild8.png" id="home_icon">
-          <a class="nav-link" href="#" id="home" onclick="viewHome(); closeNavbar()">Bikes <span class="sr-only">(current)</span></a>
-        </li> 
-        <li class="nav-item">
-          <img src="images/Bild3.png" id="signup_icon">
-          <a class="btn btn-outline-success my-2 my-sm-0" href="#" id="sign_up" onclick="signInPage()">Sign up <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <img src="images/Bild1.png" id="login_icon">
-          <a class="btn btn-outline-success my-2 my-sm-0" href="#" id="log_in" onclick="logInPage()">Log in <span class="sr-only">(current)</span></a>
-        </li>
+    <a class="btn btn-custom my-2 my-sm-0" href="#" id="sign_up" onclick="signInPage()">Sign up <span class="sr-only">(current)</span></a>
+    <a class="btn btn-custom my-2 my-sm-0" href="#" id="log_in" onclick="logInPage()">Log in <span class="sr-only">(current)</span></a>
+    <a class="btn btn-custom my-2 my-sm-0" href="#" id="log_out" onclick="logOut()">Sign out <span class="sr-only">(current)</span></a>
+
+    <div class="button-container">
+     <ul class="navbar-nav">
       <li class="nav-item dropdown">
-          <img src="images/Bild8.png" id="home_icon">
-            <a class="nav-link dropdown-toggle" href="#" id="bikes" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Bikes
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownBikes">
-                <a class="dropdown-item" href="#">BMX</a>
-                <a class="dropdown-item" href="#">Mountain Bike</a>
-                <a class="dropdown-item" href="#">Kids</a>
-            </div>
-        </li>
-        <li class="nav-item dropdown">
-          <img src="images/Bild6.png" id="admin_icon">
-          <a class="nav-link dropdown-toggle" href="#" id="admin" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">Admin </a>
-          <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class = "dropdown-item" href="#" onclick="viewApplications(); closeNavbar()">Applications</a>
-            <a class = "dropdown-item" href="#" onclick="viewOrders(); closeNavbar()">Orders</a>
-            <a class = "dropdown-item" href="#" onclick="viewMessages(); closeNavbar()">Messages</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <img src="images/Bild4.png" id="recycle_icon">
-          <a class="nav-link dropdown-toggle" href="#" id="recycle" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">reCycle </a>
-          <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class = "dropdown-item" href="#" onclick="viewAbout(); closeNavbar()"> About us</a>
-            <a class = "dropdown-item" href="#" onclick="viewContact(); closeNavbar()"> Contact us</a>
-            <a class = "dropdown-item" href="#" onclick=logOut()>Join us</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <img src="images/Bild9.png" id="profile_icon">
-          <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">My profile </a>
-          <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class = "dropdown-item" href="#" onclick="showAccount(); closeNavbar()"> My account</a>
-            <a class = "dropdown-item" href="#" onclick="showMyBikes(); closeNavbar()"> My bikes</a>
-            <a class = "dropdown-item" href="#" onclick="showMyOrders(); closeNavbar()"> My orders</a>
-            <a class="dropdown-item" href="#" onclick="showMyFavorites()">My favorites</a>
-            <div class = "dropdown-divider" ></div>
-            <a class="dropdown-item" href="#" onclick=logOut()>Sign out</a>
-          </div>
-        </li>
-      </ul>
-    <!-- </div>  -->
-  </nav> 
+        <img src="images/Bild8.png" id="bike_icon">
+        <a class="nav-link dropdown-toggle" href="#" id="bikes" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Bikes
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownBikes">
+          <a class="dropdown-item" href="#">BMX</a>
+          <a class="dropdown-item" href="#">Mountain Bike</a>
+          <a class="dropdown-item" href="#">Kids</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <img src="images/Bild6.png" id="admin_icon">
+        <a class="nav-link dropdown-toggle" href="#" id="admin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#" onclick="viewApplications()">Applications</a>
+          <a class="dropdown-item" href="#" onclick="viewOrders()">Orders</a>
+          <a class="dropdown-item" href="#" onclick="viewMessages()">Messages</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <img src="images/Bild4.png" id="recycle_icon">
+        <a class="nav-link dropdown-toggle" href="#" id="recycle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ReCycle </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#" onclick="viewAbout()"> About us</a>
+          <a class="dropdown-item" href="#" onclick="viewContact()"> Contact us</a>
+          <a class="dropdown-item" href="#" onclick="logOut()">Join us</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <img src="images/Bild9.png" id="profile_icon">
+        <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My profile </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#" onclick="showAccount()"> My account</a>
+          <a class="dropdown-item" href="#" onclick="showMyBikes()"> My bikes</a>
+          <a class="dropdown-item" href="#" onclick="showMyOrders()"> My orders</a>
+          <a class="dropdown-item" href="#" onclick="showMyFavorites()">My favorites</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" onclick="logOut()">Sign out</a>
+        </div>
+      </li>
+    </ul>
+    </div>
+
+</nav>
+
    <!-- <nav class="navbar navbar-custom navbar-dark">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,30 +114,22 @@
       </form>
     </div>
   </nav> -->
-<script>
-    function closeNavbar() {
-        // Close the navbar by selecting the navbar-toggler button and triggering a click event
-        document.querySelector('.navbar-toggler').click();
+<!-- <script>
+    function closeNavbar(event) {
+      var dropdownMenu = $(event.target).closest('.nav-link dropdown-toggle');
+      $(dropdownMenu).dropdown('hide'); 
     }
-</script>
+</script> -->
 
-
-  <script>
-    function closeNavbar(){
-      document.querySelector('.navbar-toggler').click();
-    }
-  </script>
   <!-- Empty container -->
     <div class="container">
     </div>
 
   <!-- Footer -->
     <footer class="custom-footer" id="footer">
-      <pre class="footer-text">
-        © Copyright 2024
-      </pre>
-
+      <pre class="footer-text">© Copyright 2024</pre>
     </footer> 
+   
 
 <!-- View Home script -->
 <script id="view-home" type="text/html">
@@ -500,7 +481,7 @@
   <h1 id="contact" class="extra-big">
     Contact recycle
   </h1>
-  <div class="two-column-layout">
+  <div class="view-contact2">
     <div class="card mb-3" id="contactCard">
       <div class="card-body" id="contactBody">
         <h2 class="extra-big">Contact info</h2>

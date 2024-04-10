@@ -1,61 +1,81 @@
 /* Navbar */
 .navbar-custom{
   background-color: rgb(74, 113, 157);
-  min-height: 120px;
+  min-height: 12vh;
   position: relative;
 }
 .navbar-custom .navbar-picture{
-position: absolute;
-top: 0%;
-left: 45%;
-width: 200px;
-height: 100px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 100px;
+  cursor: pointer;
 }
+
 .navbar-nav .nav-item {
   display: inline;  
-  margin-right: 20px; 
+  /* margin-right: 30px;  */
+  margin-left: 60px;  
+  font-size: 20px;
 }
 
 .navbar-nav .dropdown-menu {
   margin-top: 0; /* Remove margin-top to align dropdowns */
+  position: absolute;
+  display: inline block;
+  z-index: 9999;
 }
+
+
+.button-container {
+position: absolute;
+top: 80%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 9999;
+}
+
 
 .navbar-nav {
   display: inline;
 }
-#sign_up {
+#sign_up, #log_out {
   position: absolute;
-  top: 40px; /* Adjust top positioning as needed */
-  /* left: 80px; Adjust left positioning as needed */
-  right: 80px;
+  top: 50%;
+  right: 5%;
   display: inline-flex;
   align-items: center;
   margin-left: 10;
   color: white; 
+  border-color: white;
+}
+
+#sign_up:hover, #log_out:hover {
+  color: #000; /* Text color on hover */
+  background-color: #fff; /* Background color on hover */
 }
 
 #log_in {
   position: absolute;
-  top: 40px; /* Adjust top positioning as needed */
-  /* left: 150px;  */
-  right: 150px;
+  top: 50%; 
+  right: 10%;
   display: inline-flex;
   align-items: center;
   margin-left: 10; 
   color: white;
+  border-color: white;
 }
 
-#home_icon {
-height: 20px;
-width: 30px;
-margin-right: 10px; 
-align-items: center;
+#log_in:hover {
+  color: #000; /* Text color on hover */
+  background-color: #fff; /* Background color on hover */
 }
 
-#signup_icon {
+/* #signup_icon {
 position: absolute;
-top: 40px; /* Adjust top positioning as needed */
-/* left: 80px; Adjust left positioning as needed */
+top: 40px; 
 display: inline-flex;
 align-items: center;
 margin-left: 10;
@@ -68,43 +88,43 @@ right: 100px;
 #login_icon {
 height: 20px;
 width: 30px;
-right: 170px; 
+margin-right: 10px;  
+} */
+
+#bike_icon {
+height: 25px;
+width: 38px;
+align-items: center;
 }
 
 #admin_icon {
-height: 20px;
-width: 30px;
-margin-right: 10px; 
+height: 25px;
+width: 38px;
 }
 
 #orders_icon {
 height: 20px;
 width: 30px;
-margin-right: 10px; 
 }
 
 #messages_icon {
 height: 20px;
 width: 30px;
-margin-right: 10px; 
 }
 
 #recycle_icon {
-height: 20px;
-width: 30px;
-margin-right: 10px; 
+height: 25px;
+width: 38px;
 }
 
 #contact_icon {
 height: 20px;
 width: 30px;
-margin-right: 10px; 
 }
 
 #profile_icon {
 height: 20px;
 width: 30px;
-margin-right: 10px; 
 }
 
 
@@ -112,9 +132,8 @@ margin-right: 10px;
 display: inline-flex;
 align-items: center;
 margin-left: 10px;
+font-weight: bold;
 }
-
-
 
 #applications {
 display: inline-flex;
@@ -126,6 +145,7 @@ margin-left: 10px;
 display: inline-flex;
 align-items: center;
 margin-left: 10px;
+font-weight: bold;
 }
 
 #orders {
@@ -147,47 +167,73 @@ margin-left: 10px;
 }
 
 #contact {
-display: inline-flex;
 align-items: center;
-margin-left: 10px;
+display: flex;
+justify-content: center; 
+align-items: center; 
 }
 
 #my_profile {
 display: inline-flex;
 align-items: center;
 margin-left: 10px;
+font-weight: bold;
+
+}
+.view-contact2 {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  margin: 0 auto; 
+  text-align: center;
+}
+
+.view-contact2 .card {
+  display: inline-block; 
+  margin: 20px; 
+  vertical-align: top; 
+  
 }
 
 #admin {
   display: inline-flex;
   align-items: center;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 /* Footer */
 .custom-footer{
-  display : block;
   background-color: rgb(74, 113, 157);
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  height : 85px;
+  height : 8vh;
   width: 100%;
-  color: white;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.custom-footer .footer-text{
-  position: relative;
-  top: 48%;
+
+.custom-footer2{
+  background-color: rgb(74, 113, 157);
+  height : 8vh;
+  width: 100%;
+  margin-top: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-text{
   color: white;
 }
 
 /* Container */
 .container{
-  max-width: fit-content;
+  margin-left: 20%;
+  margin-right: 20%;
   margin: 0 auto;
-  position: relative;
+  position: center;
   padding-bottom: 85px;
+  min-height: 80vh; /* Set minimum height to 100% of viewport height */
 }
 
 /* Texts */
@@ -203,14 +249,15 @@ margin-left: 10px;
   line-height: 1.5;
   text-align: center;
   position: relative;
-  left: 10%;
   max-width: 1000px;
+  margin: 0 auto; /* Add this to center horizontally */
 }
 .allText {
   color: black;
   font-family: serif;
   line-height: 1.5;
   text-align: center;
+  
 }
 
 /* lists */
@@ -264,19 +311,24 @@ margin-left: 10px;
   font-weight: bold;
   text-align: left;
   }
-  #contactCard {
+  /* #contactCard {
     width: 550px; 
     margin-bottom: 20px;
     display: flex;
-  justify-content: center;
-  align-items: center;
-  }
+    justify-content: center;
+    align-items: center;
+  } */
   #contactCardMap {
     width: 550px; 
     margin-bottom: 20px; 
   }
-  #contactBody {
-    text-align: center;
+  #contactCard {
+    width: 550px; 
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    
+
   }
 
   /* Bike cards */
@@ -286,26 +338,32 @@ margin-left: 10px;
   justify-content: space-between;
 }
 #card {
-  width: calc(50%-10px); 
+  /* width: calc(50%-10px);  */
+  width: fit-content;
+  margin-left: 50;
   margin-bottom: 20px;
   margin-right: 10px;
+  border-radius: 25px;
 }
 #pic {
   height: 240px;
   max-width: 400px;
   object-fit: cover;
   object-position: center 25%; 
+  
 }
 #allBikes-pic {
-  height: 240px;
-  width: 400px;
+  height: 190px;
+  width: 330px;
   object-fit: cover;
   object-position: center 25%; 
+
 }
 .card-body {
   color: black;
   font-family: serif;
-  max-width: 400px;
+  /* max-width: 400px; */
+  
 }
 .allBikes {
   display: flex;
@@ -352,7 +410,7 @@ margin-top: 20px;
 }
 #filter-button-group {
   position: relative;
-  left: 15%; 
+  left: 1%; 
   /* 30% */
 }
 .goBack-button {
@@ -365,7 +423,11 @@ margin-top: 20px;
 }
 #contactUsButton {
   position: relative;
-  left: 44%;
+  left: 50%;
+  /* top: 80%; */
+  transform: translateX(-50%);
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 #addNewBikeButton{
   position: relative; 
