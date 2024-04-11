@@ -6,26 +6,31 @@
 }
 .navbar-custom .navbar-picture{
   position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 100px;
+  /* top: 40%; */
+  /* left: 50%;
+  transform: translate(-50%, -50%); */
+  width: 300px;
+  height: 12vh;
   cursor: pointer;
 }
 
 .navbar-nav .nav-item {
   display: inline;  
-  /* margin-right: 30px;  */
-  margin-left: 60px;  
-  font-size: 20px;
+  margin-right: 20px; 
+  text-align: center;
+  font-size: 3vh;
+  bottom: 15px;
 }
 
 .navbar-nav .dropdown-menu {
   margin-top: 0; /* Remove margin-top to align dropdowns */
+  /* width: fit-content; */
+  left:auto;
+  right: 0px;
   position: absolute;
   display: inline block;
   z-index: 9999;
+  background: linear-gradient(to bottom right, #4a71a3,#ffffff);
 }
 
 
@@ -72,6 +77,9 @@ z-index: 9999;
   color: #000; /* Text color on hover */
   background-color: #fff; /* Background color on hover */
 }
+#editAccountModal{
+  z-index: 10000;
+}
 
 /* #signup_icon {
 position: absolute;
@@ -92,39 +100,47 @@ margin-right: 10px;
 } */
 
 #bike_icon {
-height: 25px;
-width: 38px;
+  height: 45px;
+  width: 58px;
 align-items: center;
 }
 
 #admin_icon {
-height: 25px;
-width: 38px;
+  height: 45px;
+  width: 58px;
 }
 
 #orders_icon {
-height: 20px;
-width: 30px;
+  height: 45px;
+  width: 58px;
 }
 
 #messages_icon {
-height: 20px;
-width: 30px;
+  height: 45px;
+  width: 58px;
 }
 
 #recycle_icon {
-height: 25px;
-width: 38px;
+height: 45px;
+width: 58px;
 }
 
 #contact_icon {
-height: 20px;
-width: 30px;
+  height: 45px;
+  width: 58px;
 }
 
 #profile_icon {
-height: 20px;
-width: 30px;
+  height: 45px;
+  width: 58px;
+}
+#profile_icon2 {
+  width: 50%;
+  height: 50%;
+}
+#account-list {
+  width: fit-content;
+  height: fit-content;
 }
 
 
@@ -226,27 +242,27 @@ font-weight: bold;
   color: white;
 }
 
-/* Container */
-.container{
+.container {
   margin-left: 20%;
   margin-right: 20%;
-  margin: 0 auto;
-  position: center;
+  position: relative; /* Adjusted position value */
   padding-bottom: 85px;
-  min-height: 80vh; /* Set minimum height to 100% of viewport height */
+  min-height: 80vh;
+  background-color: #ffffff;
 }
-
 /* Texts */
 .extra-big {
   color: black;
-  font-family: serif;
+  /* font-family: serif; */
   line-height: 1.5;
   text-align: center;
+  font-weight: bold;
 }
 .description-headline {
   color: rgb(68, 55, 55);
-  font-family: serif;
+  /* font-family: serif; */
   text-align: left;
+  font-weight: bold;
 }
 .description-price {
   color: rgb(68, 55, 55);
@@ -281,13 +297,13 @@ font-weight: bold;
   color: rgb(74, 113, 157);
   text-align: center;
 }
-#myBikes-list {
+/* #myBikes-list {
   display:flex;
   width: 100%; 
   margin-right: -2.5%;
   position: relative;
   right: 2.5%;
- }
+ } */
  #applications-list {
   display:flex;
   width: 100%; 
@@ -299,7 +315,13 @@ font-weight: bold;
   width: 100%; 
   margin-right: -2.5%; 
   position: relative;
-  right: 2.5%;
+  /* right: 2.5%; */
+}
+#myBikes-list {
+  display: flex;
+  width: fit-content; 
+  position: relative;
+  /* right: 2.5%; */
 }
 .card-list {
   width: 1000px; 
@@ -346,16 +368,43 @@ font-weight: bold;
 .two-column-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 #card {
   /* width: calc(50%-10px);  */
   width: fit-content;
-  margin-left: 50;
+  margin : 0 auto;
+  /* margin-left: 50; */
   margin-bottom: 20px;
   margin-right: 10px;
   border-radius: 25px;
 }
+#card2 {
+  /* width: calc(50%-10px);  */
+  width: fit-content;
+  margin : 0 auto;
+  /* margin-left: 50; */
+  margin-bottom: 20px;
+  border-radius: 25px;
+}
+#card3{
+  /* width: calc(50%-10px);  */
+  width: fit-content;
+  /* display: inline; */
+  margin : 0 auto;
+  margin-bottom: 20px;
+  border-radius: 25px;
+}
+#card4 {
+  /* width: calc(50%-10px);  */
+  width: fit-content;
+  margin : 0 auto;
+  /* margin-left: 50; */
+  margin-bottom: 20px;
+  /* margin-left: 10px; */
+  border-radius: 25px;
+}
+
 #pic {
   height: 480px;
   max-width: 800px;
@@ -366,7 +415,7 @@ font-weight: bold;
 #allBikes-pic {
   height: 190px;
   width: 330px;
-  object-fit: cover;
+  /* object-fit: cover; */
   object-position: center 25%; 
 
 }
@@ -376,10 +425,14 @@ font-weight: bold;
   /* max-width: 400px; */
   
 }
+body {
+  background: linear-gradient(to bottom right, #4a71a3,#ffffff);
+
+}
 .allBikes {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
 }
 .myBike-card {
   display: flex;
@@ -526,4 +579,147 @@ margin-top: 20px;
   /* Add styles for the image */
   width: 50px; /* Adjust the width as needed */
   height: 50px; /* Adjust the height as needed */
+}
+.search-box{
+
+  margin: 0;
+
+  padding: 0;
+
+  position: absolute;
+
+  top: 3vh;
+
+  bottom: 10vh;
+
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 10001;
+
+  font-family: 'Poppins', sans-serif;
+
+  box-sizing: border-box;
+
+  background: #fff;
+
+  /* width: 600px; */
+
+  border-radius: 5px;
+
+  min-height: 50px;
+
+}
+
+ 
+
+.row {
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 10px 20px ;
+
+}
+
+ 
+
+input{
+
+  flex: 1;
+
+  height: 20px;
+
+  background: transparent;
+
+  border: 0;
+
+  outline: 0;
+
+  font-size: 18px;
+
+  color: #262a2f;
+
+}
+
+ 
+
+button{
+
+  background: transparent;
+
+  border: 0;
+
+  outline: 0;
+
+}
+
+ 
+
+button .fa-solid{
+
+  width: 25px;
+
+  color: #555;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+}
+
+ 
+
+::placeholder{
+
+  color: #555;
+
+}
+
+ 
+
+.result-box ul{
+
+  border-top: 1px solid #131313;
+
+  background-color: rgb(250, 252, 252);
+
+  padding: 15px 10px;
+
+}
+
+ 
+
+.result-box ul li{
+
+  list-style: none;
+
+  border-radius: 3px;
+
+  padding: 15px 10px;
+
+  cursor: pointer;
+
+}
+
+ 
+
+.result-box ul li:hover{
+
+  background: #777a80;
+
+}
+
+ 
+
+.result-box{
+
+  /* min-height: 50px; */
+
+  max-height: 300px;
+
+  overflow-y: scroll;
+
 }

@@ -4,6 +4,19 @@ function viewHome() {
    setTimeout(updateNavbar, 400);
    displayAllBikes();
 }
+var currentCategoryValue;
+
+
+// Get the input element and result box element
+
+const inputBox = document.getElementById("input-text");
+
+const resultsBox = document.querySelector(".result-box");
+
+// Add an event listener to the input box
+
+inputBox.addEventListener("input", search);
+
 
 // wait for synchronising the login
 function updateNavbar() {
@@ -31,8 +44,8 @@ function viewApplications() {
          bikes.forEach(function (bike) {
             if (!bike.is_listed && !bike.is_sold) {
                var bikeView = $(`     
-               <div class="card mb-3" id="card"> 
-                  <img src="${bike.picture_path}" id="pic">             
+               <div class="card mb-3" id="card3"> 
+                  <img src="${bike.picture_path}" id="allBikes-pic">             
                   <div class="card-body">
                      <h5 class="card-title">${bike.model} </h5>
                      <p class="card-text">User ID: ${bike.seller_id}</p>
@@ -364,7 +377,7 @@ function displayAllBikes() {
                                        <p class="card-text bike-title">Category: ${bike.category} </p> 
                                        <p class="card-text">${bike.price} SEK </p>
                                     </div>
-                                    <button class="btn allbuttons" id="readMore-button" data-id="${bike.id}">Read more</button>
+
                                  </div>
                               </div>
                            </a>`;
@@ -375,6 +388,7 @@ function displayAllBikes() {
                }
             }
          });
+         currentCategoryValue = "";
       },
       error: function() {
          alert("Error fetching bikes."); 
@@ -478,7 +492,6 @@ function displayAllBikes() {
                                        <p class="card-text">${bike.category} </p>
                                        <p class="card-text">${bike.price} SEK </p>
                                     </div>
-                                    <button class="btn allbuttons" id="readMore-button" data-id="${bike.id}">Read more</button>
                                  </div>
                               </div>
                            </a>`;
@@ -489,12 +502,17 @@ function displayAllBikes() {
                }
             }
          });
+         currentCategoryValue = bike_category;
       },
       error: function() {
-         alert("Error fetching bikes."); 
+         alert("There are currrently no bikes of this category listed."); 
+         viewHome();
       }
    });
  }
+ function currentCategory() {
+   return currentCategoryValue; // Return the current category value
+}
 
 
 function showMyFavorites() {
@@ -551,7 +569,7 @@ function showBike(bike_id) {
       type: 'GET',
       success: function(bike) {  
          var bikeView = `      
-            <div class="card mb-3" id="card">
+            <div class="card mb-3" id="card2">
                
                <img src="${bike.picture_path}" id="pic">
                <div class="card-body">
@@ -577,7 +595,7 @@ function showBike(bike_id) {
                            }
                            return `<p class="card-text">Condition: ${conditionText}</p>`;
                        })()}
-                        <p class="card-text">Age: ${bike.age} </p>
+                        <p class="card-text">Wheel size: ${bike.age} inches </p>
                         <button class="btn allbuttons" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>`;
                         if (user_id !== null) {
                            var favorited = isFavorite(user_id, bike.id);
@@ -622,7 +640,7 @@ function showMyBikes() {
       success: function(bikes) {
          bikes.forEach(function (bike) {
          var bikeView = `      
-            <div class="card mb-3" id="card">
+            <div class="card mb-3" id="card4">
                <img src="${bike.picture_path}" id="allBikes-pic">
                <div class="card-body">
                   <div>
@@ -771,13 +789,10 @@ function showAccount() {
                <div class="card-body">
                   <p </p>
                </div>
-               <div class="d-flex justify-content-center">
-                  <div class="spinner-border" role="status">
-                     <span class="sr-only">Loading...</span>
-                  </div>
+               <img src="images/Bild1.png" id="profile_icon2">
                </div>
                <div class="card-body">
-                  <h5 class="card-title">${user.name}</h5>
+                  <h5 class="card-title">Name: ${user.name}</h5>
                   <p class="card-text">E-mail: ${user.email} </p>
                   <button class="btn allbuttons" data-toggle="modal" data-target="#editAccountModal" onclick="editUser(${user.id})">Edit information</button>
                </div>
@@ -1108,3 +1123,151 @@ function reloadShowBike(bikeId) {
    // Call your showBike function with the bikeId parameter to reload the content
    showBike(bikeId);
 }
+function search() {
+
+   let availableKeywords = [
+
+      'BMX',
+
+      'Mountain Bike',
+
+      'Electrical Bike',
+
+      'Buy Electrical',
+
+      'Hardcore',
+
+      'Sustainable',
+
+      'Small',
+
+      'Kid',
+
+      'Street'
+
+   ];
+
+ 
+
+   // Get the input value
+
+   let input = inputBox.value;
+
+ 
+
+   // Filter the available keywords based on the input
+
+   let result = availableKeywords.filter((keyword)=>{
+
+      return keyword.toLowerCase().includes(input.toLowerCase());
+
+   });
+
+ 
+
+   // Display the filtered results
+
+   display(result);
+
+}
+
+ 
+
+// Define the display function
+
+function display(result) {
+
+   // Generate the HTML content for the results
+
+   const content = result.map((list)=>{
+
+      return "<li onclick=selectInput(this)>" + list + "</li>"
+
+   });
+
+ 
+
+   // Display the results in the result box
+
+   resultsBox.innerHTML = "<ul>" + content.join('') + "</ul>";
+
+}
+
+ 
+
+// Define the selectInput function
+
+function selectInput(list) {
+
+   // Set the input value to the selected list item
+
+   inputBox.value = list.innerHTML;
+
+ 
+
+   // Convert both the input value and the comparison string to lowercase
+
+   const inputValueLowerCase = inputBox.value.toLowerCase();
+
+ 
+
+   console.log("Input value:", inputBox.value);
+
+ 
+
+   if (inputValueLowerCase.includes('electrical') || inputValueLowerCase.includes('sustainable')) {
+
+      console.log("Redirecting to Electrical Bike page...");
+
+      alert("Redirecting to Electrical Bike page...")
+
+      displayBikeCategory('Electrical Bike');
+
+   } else if (inputValueLowerCase.includes('bmx') || inputValueLowerCase.includes('street')) {
+
+      console.log("Redirecting to BMX page...");
+
+      alert("Redirecting to BMX page...");
+
+      displayBikeCategory('BMX');
+
+   } else if (inputValueLowerCase.includes('mountain') || inputValueLowerCase.includes('hardcore')) {
+
+      console.log("Redirecting to Mountain Bike page...");
+
+      alert("Redirecting to Mountain Bike page...");
+
+      displayBikeCategory('Mountain Bike');
+
+   } else if (inputValueLowerCase.includes('small') || inputValueLowerCase.includes('kid')) {
+
+      console.log("Redirecting to Kid page...");
+
+      alert("Redirecting to Kid page...");
+
+      displayBikeCategory('Kid Bike');
+
+   }
+
+   else {
+
+      console.log("Displaying all bikes...");
+
+      displayAllBikes();
+
+   }
+
+  
+
+   // Clear the results box
+
+   resultsBox.innerHTML = '';
+
+}
+
+
+// function to open join us script
+function viewJoin() {
+   $(".container").html($("#join-us").html());
+ }
+
