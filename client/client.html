@@ -62,7 +62,7 @@
           <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class = "dropdown-item" href="#" onclick="viewAbout()"> About us</a>
             <a class = "dropdown-item" href="#" onclick="viewContact()"> Contact us</a>
-            <a class = "dropdown-item" href="#" onclick=logOut()>Join us</a>
+            <a class = "dropdown-item" href="#" onclick="viewJoin()">Join us</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -73,9 +73,9 @@
             <a class = "dropdown-item" href="#" onclick="showMyBikes()"> My bikes</a>
             <a class = "dropdown-item" href="#" onclick="showMyOrders()"> My orders</a>
             <a class="dropdown-item" href="#" onclick="showMyFavorites()">My favorites</a>
-            <div class = "dropdown-divider" ></div>
+            <!-- <div class = "dropdown-divider" ></div>
             <a class="dropdown-item" href="#" onclick=logOut()>Sign out</a>
-          </div>
+          </div> -->
         </li>
       </ul>
     <!-- </div>  -->
@@ -465,6 +465,43 @@
     </div>
   </script>
 
+  <!-- Join us script -->
+  <script id="join-us" type="text/html">
+    <h1 id="career" class="extra-big"> Ready to make your mark?</h1>
+    <p id="aboutUs"> Guided by the spirit of entrepreneurship, we are frontrunners in reshaping the e-commerce industry. Every day, we work with some of the sharpest and most creative brains in our field to leave our society in better shape for the next generation. We find thrill in the new, the bold and at times the daring. With the freedom to fail fast and explore we make an impact - as individuals and as a team.
+      Ready to make your mark? We are always on the lookout for talent to join our team.</p>
+    
+      <button type="button" class="btn allbuttons" data-toggle="modal" data-target="#BeContactedModal">
+        Be contacted by us
+      </button>
+
+      <div class="modal fade" id="BeContactedModal" tabindex="-1" role="dialog" aria-labelledby="BeContactedModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="BeContactedModalLabel">Be contacted by us</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="BeContactedForm">
+              <div class="form-group">
+                <label for="contactName" class="col-form-label">Name</label>
+                <input type="text" class="form-control" id="contactName" required>
+                <label for="contactEmail" class="col-form-label">E-mail</label>
+                <input type="text" class="form-control" id="contactEmail" required>
+                <label for="contactEmail" class="col-form-label">Areas interested in</label>
+                <input type="text" class="form-control" id="contactEmail" required>
+              </div>
+              <button id="sendButton" class="btn allbuttons">Send</button>
+              <button class="btn allbuttons" data-dismiss="modal">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+  </script>
+  
   <!-- Modal for editing account-->
   <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="editAccountModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

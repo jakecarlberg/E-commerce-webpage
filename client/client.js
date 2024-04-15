@@ -188,6 +188,11 @@ function viewAbout() {
    $(".container").html($("#view-about").html());
 }
 
+// function to open join us script
+function viewJoin() {
+   $(".container").html($("#join-us").html());
+}
+
 // Function to sort the bikes in displayAllBikes()
 function sortBikes(sortByValue, bikes)  {
    if (sortByValue == 0) {
