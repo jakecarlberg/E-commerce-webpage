@@ -28,20 +28,16 @@
  
   <img src="/ReCycle.png" class="navbar-picture" onclick="viewHome()">
   <div class="search-box">
-
-    <div class="row">
-
-      <input type="text" id="input-text" placeholder="Search for anything" autocomplete="off">
-
-      <button><i class="fa-solid fa-magnifying-glass" id="search-icon"></i></button>
-
-    </div>
-
+    <form id="searchForm">
+        <div class="row">
+            <input type="text" id="input-text" name="searchQuery" placeholder="Search for anything" autocomplete="off">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass" id="search-icon"></i></button>
+        </div>
+    </form>
     <div class="result-box">
-
     </div>
-
 </div>
+
 
     <a class="btn btn-custom my-2 my-sm-0" href="#" id="sign_up" onclick="signInPage()">Sign up <span class="sr-only">(current)</span></a>
     <a class="btn btn-custom my-2 my-sm-0" href="#" id="log_in" onclick="logInPage()">Log in <span class="sr-only">(current)</span></a>

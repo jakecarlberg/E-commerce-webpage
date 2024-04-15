@@ -7,17 +7,6 @@ function viewHome() {
 var currentCategoryValue;
 
 
-// Get the input element and result box element
-
-const inputBox = document.getElementById("input-text");
-
-const resultsBox = document.querySelector(".result-box");
-
-// Add an event listener to the input box
-
-inputBox.addEventListener("input", search);
-
-
 // wait for synchronising the login
 function updateNavbar() {
    var signedIn = false;
@@ -1123,148 +1112,107 @@ function reloadShowBike(bikeId) {
    // Call your showBike function with the bikeId parameter to reload the content
    showBike(bikeId);
 }
+
+// Get the input element and result box element
+const inputBox = document.getElementById("input-text");
+const searchForm = document.getElementById("searchForm");
+const resultsBox = document.querySelector(".result-box");
+// Add an event listener to the input box
+inputBox.addEventListener("input", search);
+searchForm.addEventListener("submit", handleSearch);
+
 function search() {
-
    let availableKeywords = [
-
       'BMX',
-
       'Mountain Bike',
-
       'Electrical Bike',
-
       'Buy Electrical',
-
       'Hardcore',
-
       'Sustainable',
-
       'Small',
-
       'Kid',
-
       'Street'
-
    ];
-
- 
-
    // Get the input value
-
    let input = inputBox.value;
-
- 
-
    // Filter the available keywords based on the input
-
    let result = availableKeywords.filter((keyword)=>{
-
       return keyword.toLowerCase().includes(input.toLowerCase());
-
    });
-
- 
-
    // Display the filtered results
-
    display(result);
-
 }
-
- 
-
 // Define the display function
-
 function display(result) {
-
    // Generate the HTML content for the results
-
    const content = result.map((list)=>{
-
       return "<li onclick=selectInput(this)>" + list + "</li>"
-
    });
-
- 
-
    // Display the results in the result box
-
    resultsBox.innerHTML = "<ul>" + content.join('') + "</ul>";
-
 }
-
- 
-
 // Define the selectInput function
-
 function selectInput(list) {
-
    // Set the input value to the selected list item
-
    inputBox.value = list.innerHTML;
-
- 
-
    // Convert both the input value and the comparison string to lowercase
-
    const inputValueLowerCase = inputBox.value.toLowerCase();
-
- 
-
    console.log("Input value:", inputBox.value);
 
- 
-
    if (inputValueLowerCase.includes('electrical') || inputValueLowerCase.includes('sustainable')) {
-
       console.log("Redirecting to Electrical Bike page...");
-
       alert("Redirecting to Electrical Bike page...")
-
       displayBikeCategory('Electrical Bike');
-
    } else if (inputValueLowerCase.includes('bmx') || inputValueLowerCase.includes('street')) {
-
       console.log("Redirecting to BMX page...");
-
       alert("Redirecting to BMX page...");
-
       displayBikeCategory('BMX');
-
    } else if (inputValueLowerCase.includes('mountain') || inputValueLowerCase.includes('hardcore')) {
-
       console.log("Redirecting to Mountain Bike page...");
-
       alert("Redirecting to Mountain Bike page...");
-
       displayBikeCategory('Mountain Bike');
-
    } else if (inputValueLowerCase.includes('small') || inputValueLowerCase.includes('kid')) {
-
       console.log("Redirecting to Kid page...");
-
       alert("Redirecting to Kid page...");
-
       displayBikeCategory('Kid Bike');
-
    }
-
    else {
-
       console.log("Displaying all bikes...");
-
       displayAllBikes();
-
    }
-
-  
-
    // Clear the results box
-
    resultsBox.innerHTML = '';
-
 }
 
+function handleSearch(event) {
+   event.preventDefault(); // Prevent the default form submission
+   const input = document.getElementById("input-text").value.trim().toLowerCase();
+
+   // Process the search input
+   if (input.includes('electrical') || input.includes('sustainable')) {
+       console.log("Redirecting to Electrical Bike page...");
+       alert("Redirecting to Electrical Bike page...")
+       displayBikeCategory('Electrical Bike');
+   } else if (input.includes('bmx') || input.includes('street')) {
+       console.log("Redirecting to BMX page...");
+       alert("Redirecting to BMX page...");
+       displayBikeCategory('BMX');
+   } else if (input.includes('mountain') || input.includes('hardcore')) {
+       console.log("Redirecting to Mountain Bike page...");
+       alert("Redirecting to Mountain Bike page...");
+       displayBikeCategory('Mountain Bike');
+   } else if (input.includes('small') || input.includes('kid')) {
+       console.log("Redirecting to Kid page...");
+       alert("Redirecting to Kid page...");
+       displayBikeCategory('Kid Bike');
+   } else {
+       console.log("Displaying all bikes...");
+       displayAllBikes();
+   }
+
+   // Clear the results box
+   resultsBox.innerHTML = '';
+}
 
 // function to open join us script
 function viewJoin() {

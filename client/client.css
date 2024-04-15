@@ -581,145 +581,75 @@ margin-top: 20px;
   height: 50px; /* Adjust the height as needed */
 }
 .search-box{
-
   margin: 0;
-
   padding: 0;
-
   position: absolute;
-
   top: 3vh;
-
   bottom: 10vh;
-
   left: 50%;
-
   transform: translate(-50%, -50%);
-
   z-index: 10001;
-
   font-family: 'Poppins', sans-serif;
-
   box-sizing: border-box;
-
   background: #fff;
-
   /* width: 600px; */
-
   border-radius: 5px;
-
   min-height: 50px;
-
 }
-
- 
 
 .row {
-
   display: flex;
-
   align-items: center;
-
   padding: 10px 20px ;
-
 }
-
- 
 
 input{
-
   flex: 1;
-
   height: 20px;
-
   background: transparent;
-
   border: 0;
-
   outline: 0;
-
   font-size: 18px;
-
   color: #262a2f;
-
 }
-
- 
 
 button{
-
   background: transparent;
-
   border: 0;
-
   outline: 0;
-
 }
-
- 
 
 button .fa-solid{
-
   width: 25px;
-
   color: #555;
-
   font-size: 22px;
-
   cursor: pointer;
-
 }
-
- 
 
 ::placeholder{
-
   color: #555;
 
 }
 
- 
-
 .result-box ul{
-
   border-top: 1px solid #131313;
-
   background-color: rgb(250, 252, 252);
-
   padding: 15px 10px;
-
 }
-
- 
 
 .result-box ul li{
-
   list-style: none;
-
   border-radius: 3px;
-
   padding: 15px 10px;
-
   cursor: pointer;
-
 }
-
- 
 
 .result-box ul li:hover{
-
   background: #777a80;
-
 }
 
- 
-
 .result-box{
-
   /* min-height: 50px; */
-
   max-height: 300px;
-
   overflow-y: scroll;
-
 }
