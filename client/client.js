@@ -6,7 +6,6 @@ function viewHome() {
 }
 var currentCategoryValue;
 
-
 // wait for synchronising the login
 function updateNavbar() {
    var signedIn = false;
@@ -36,13 +35,13 @@ function viewApplications() {
                <div class="card mb-3" id="card3"> 
                   <img src="${bike.picture_path}" id="allBikes-pic">             
                   <div class="card-body">
-                     <h5 class="card-title">${bike.model} </h5>
-                     <p class="card-text">User ID: ${bike.seller_id}</p>
-                     <p class="card-text">Category: ${bike.category}</p>
-                     <p class="card-text">Price: ${bike.price} SEK</p>
-                     <p class="card-text">Condition: ${bike.condition}</p>
-                     <p class="card-text">Age: ${bike.age} years</p>
-                     <p class="card-text">Gears: ${bike.gears}</p>
+                     <h5 class="card-title merriweather-regular">${bike.model} </h5>
+                     <p class="card-text merriweather-regular">User ID: ${bike.seller_id}</p>
+                     <p class="card-text merriweather-regular">Category: ${bike.category}</p>
+                     <p class="card-text merriweather-regular">Price: ${bike.price} SEK</p>
+                     <p class="card-text merriweather-regular">Condition: ${bike.condition}</p>
+                     <p class="card-text merriweather-regular">Age: ${bike.age} years</p>
+                     <p class="card-text merriweather-regular">Gears: ${bike.gears}</p>
                      <button class="btn allbuttons" id="approve-button" onclick="listBike(${bike.id})" data-id="${bike.id}">Approve</button>
                   </div>
                </div>`);
@@ -51,7 +50,7 @@ function viewApplications() {
          });
       },
       error: function() {
-         alert("Error fetching bikes.");
+         console("Error fetching bikes.");
       }
    });
  }
@@ -81,14 +80,14 @@ function viewOrders() {
             });
             setTimeout(function() {
             var orderView = $(`      
-               <div class="card mb-3" id="card">       
+               <div class="card mb-3" id="card5">       
                   <img src="${bike.picture_path}" id="allBikes-pic">      
                   <div class="card-body">
-                     <h5 class="card-title">Bike: (${bike.id}) ${bike.model} </h5>
-                     <p class="card-text">Category: ${bike.category} </p> 
-                     <p class="card-text">Payment to seller: ${bike.price - 50} SEK</p>   
-                     <p class="card-text">Fee: 50 SEK </p>   
-                     <p class="card-text">Seller: ${seller_email} </p>
+                     <h5 class="card-title merriweather-regular">Bike: (${bike.id}) ${bike.model} </h5>
+                     <p class="card-text merriweather-regular">Category: ${bike.category} </p> 
+                     <p class="card-text merriweather-regular">Payment to seller: ${bike.price - 50} SEK</p>   
+                     <p class="card-text merriweather-regular">Fee: 50 SEK </p>   
+                     <p class="card-text merriweather-regular">Seller: ${seller_email} </p>
                   </div>
                </div>`);
             $("#orders-list").append(orderView);
@@ -97,7 +96,7 @@ function viewOrders() {
          });
       },
       error: function() {
-         alert("Error fetching bikes."); 
+         console("Error fetching bikes."); 
       }
    });
 }
@@ -140,9 +139,9 @@ function viewMessages() {
             var messageView = $(`      
                <div class="card mb-3">               
                   <div class="card-body">
-                     <h5 class="card-title">Name: ${message.name}</h5> 
-                     <h5 class="card-title">E-mail: ${message.email} </h5> 
-                     <p class="card-text">Message: ${message.message} </p>
+                     <h5 class="card-title merriweather-regular">Name: ${message.name}</h5> 
+                     <h5 class="card-title merriweather-regular">E-mail: ${message.email} </h5> 
+                     <p class="card-text merriweather-regular">Message: ${message.message} </p>
                   </div>
                </div>`);
             $("#messages-list").append(messageView);
@@ -362,9 +361,9 @@ function displayAllBikes() {
                                  <div class="card-body allBikes">
                                     <div>
                                        
-                                       <h5 class="card-text bike-title">${bike.model} </h5> 
-                                       <p class="card-text bike-title">Category: ${bike.category} </p> 
-                                       <p class="card-text">${bike.price} SEK </p>
+                                       <h5 class="card-text bike-title merriweather-regular">${bike.model} </h5> 
+                                       <p class="card-text bike-title merriweather-regular">Category: ${bike.category} </p> 
+                                       <p class="card-text merriweather-regular">${bike.price} SEK </p>
                                     </div>
 
                                  </div>
@@ -380,7 +379,7 @@ function displayAllBikes() {
          currentCategoryValue = "";
       },
       error: function() {
-         alert("Error fetching bikes."); 
+         console("Error fetching bikes."); 
       }
    });
  }
@@ -477,9 +476,9 @@ function displayAllBikes() {
                               <img src="${bike.picture_path}" id="allBikes-pic">
                                  <div class="card-body allBikes">
                                     <div>
-                                       <p class="card-text bike-title">${bike.model} </p> 
-                                       <p class="card-text">${bike.category} </p>
-                                       <p class="card-text">${bike.price} SEK </p>
+                                       <p class="card-text bike-title merriweather-regular">${bike.model} </p> 
+                                       <p class="card-text merriweather-regular">${bike.category} </p>
+                                       <p class="card-text merriweather-regular">${bike.price} SEK </p>
                                     </div>
                                  </div>
                               </div>
@@ -502,43 +501,6 @@ function displayAllBikes() {
  function currentCategory() {
    return currentCategoryValue; // Return the current category value
 }
-
-
-function showMyFavorites() {
-   $(".container").html($("#view-myFavorites").html())
-   $("#myFavorites-list").empty(); 
-   var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
-   var user_id = currentUser.id;
-   $.ajax({
-      url: host + '/users/' + user_id + '/favorites',
-      headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
-      success: function(bikes) {
-         bikes.forEach(function (bike) {
-         var bikeView = `      
-            <div class="card mb-3">
-               <img src="${bike.picture_path}" id="pic">
-               <div class="card-body myBike-card">
-                  <h5 class="card-title">${bike.model} </h5> 
-                  <p class="card-text">Category: ${bike.category} </p>
-                  <p class="card-text">Price: ${bike.price} SEK </p>
-                  <p class="card-text">Gears: ${bike.gears} </p>
-                  <p class="card-text">Age: ${bike.age} </p>
-                  <p class="card-text">Condition: ${bike.condition} </p>
-                  <p class="card-text">Listed: ${bike.is_listed} </p>
-                  <button class = "btn allbuttons" onclick = "unfavoriteAndReload(${user_id}, ${bike.id});">Unfavorite</button>
-               </div>
-             </div>`
-         $("#myFavorites-list").append(bikeView);
-         
-      });
-      },
-      error: function() {
-         alert("Error fetching favorites."); 
-      }
-   });
-   
-}
-
 // Function showBike() enter new script for specific bike
 function showBike(bike_id) {
    $(".container").html($("#view-bike").html());
@@ -562,11 +524,11 @@ function showBike(bike_id) {
                
                <img src="${bike.picture_path}" id="pic">
                <div class="card-body">
-                        <h1 class="description-headline">${bike.model} </h1> 
-                        <h1 class="description-price">${bike.price} SEK</h1>
-                        <p class="card-text">Category: ${bike.category} </p>
-                        <p class="card-text">${bike.price} SEK</p>
-                        <p class="card-text">Gears: ${bike.gears} </p>
+                        <h1 class="description-headline merriweather-regular">${bike.model} </h1> 
+                        <h1 class="description-price merriweather-regular">${bike.price} SEK</h1>
+                        <p class="card-text merriweather-regular">Category: ${bike.category} </p>
+                        <p class="card-text merriweather-regular">${bike.price} SEK</p>
+                        <p class="card-text merriweather-regular">Gears: ${bike.gears} </p>
                         ${(() => {
                            let conditionText = '';
                            if (bike.condition === 1) {
@@ -584,35 +546,35 @@ function showBike(bike_id) {
                            }
                            return `<p class="card-text">Condition: ${conditionText}</p>`;
                        })()}
-                        <p class="card-text">Wheel size: ${bike.age} inches </p>
-                        <button class="btn allbuttons" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>`;
-                        if (user_id !== null) {
-                           var favorited = isFavorite(user_id, bike.id);
-                           if (favorited == true){
-                              console.log("bike är true");
-                              var imgSrc = 'star_filled.png';
-                              bikeView += `<button class="btn favorite-button" onclick="toggleFavorite(${user_id}, ${bike.id}); setTimeout(function() { reloadShowBike(${bike.id}); }, 10)" data-id="${user_id}, ${bike.id}">
-                           <img src="${imgSrc}">
-                           </button>`;
-                           
-                           }
-                           else {
-                              console.log("bike är false");
-                              var imgSrc = 'star_unfilled.png';
-                              bikeView += `<button class="btn favorite-button" onclick="toggleFavorite(${user_id}, ${bike.id}); setTimeout(function() { reloadShowBike(${bike.id}); }, 10)" data-id="${user_id}, ${bike.id}">
-                           <img src="${imgSrc}">
-                           </button>`;
+                        <p class="card-text merriweather-regular">Wheel size: ${bike.age} inches </p>
+                        <button class="btn allbuttons" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>
+                        <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+                        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+                        <div class="col-md-12">
+                           <div class="info">
+                              <i class="icon-info-sign"></i>
 
-                           }
-                           
-                           
-                       }
+                              <span class="extra-info">
+                              Poor - The bike is almost not functional
+                              <p></p>
+                              Fair - The bike is funcitonal but has been used alot
+                              <p></p>
+                              Good - The bike is in used condition
+                              <p></p>
+                              Very good - The bike has been looked after but shows small signs of usage
+                              <p></p>
+                              Excellent - The bike is almost brand new
+                              </span>
+                           </div><br />
+                        </div>`;
+                        
+                      
                         bikeView += `</div>
                         </div>`;
          $("#bike-list").append(bikeView);
       },
       error: function() {
-         alert("Error fetching bike."); 
+         console("Error fetching bike."); 
       }
    });
 }
@@ -634,12 +596,13 @@ function showMyBikes() {
                <div class="card-body">
                   <div>
                      <h5 class="card-title">${bike.model} </h5> 
-                     <p class="card-text">Category: ${bike.category} </p>
-                     <p class="card-text">Price: ${bike.price} SEK </p>
-                     <p class="card-text">Gears: ${bike.gears} </p>
-                     <p class="card-text">Age: ${bike.age} </p>
-                     <p class="card-text">Condition: ${bike.condition} </p>
-                     <p class="card-text boldText"<strong>Status: </strong> ${bike.is_listed ? 'Bike is listed' : 'Bike is not listed'} </p>
+                     <p class="card-text merriweather-regular">Category: ${bike.category} </p>
+                     <p class="card-text merriweather-regular">Price: ${bike.price} SEK </p>
+                     <p class="card-text merriweather-regular">Gears: ${bike.gears} </p>
+                     <p class="card-text merriweather-regular">Age: ${bike.age} </p>
+                     <p class="card-text merriweather-regular">Condition: ${bike.condition} </p>
+                     <p class="card-text boldText merriweather-regular"<strong>Status: </strong> ${bike.is_listed ? 'Bike is listed' : 'Bike is not listed'} </p>
+                     <p class="card-text boldText merriweather-regular"<strong>Sold: </strong> ${bike.is_sold ? 'Yes' : 'No'} </p>
                   </div>`
                if (!bike.is_sold) {
                   bikeView += `
@@ -652,7 +615,7 @@ function showMyBikes() {
       });
       },
       error: function() {
-         alert("Error fetching bikes."); 
+         console("Error fetching bikes."); 
       }
    });
  
@@ -774,15 +737,12 @@ function showAccount() {
       headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
       success: function(user) {
          var userView = $(`   
-            <div class="card" style="width: 18rem;">
-               <div class="card-body">
-                  <p </p>
-               </div>
+            <div class="card3" style="width: 18rem;">
                <img src="images/Bild1.png" id="profile_icon2">
                </div>
                <div class="card-body">
-                  <h5 class="card-title">Name: ${user.name}</h5>
-                  <p class="card-text">E-mail: ${user.email} </p>
+                  <h5 class="card-title merriweather-regular">Name: ${user.name}</h5>
+                  <p class="card-text merriweather-regular">E-mail: ${user.email} </p>
                   <button class="btn allbuttons" data-toggle="modal" data-target="#editAccountModal" onclick="editUser(${user.id})">Edit information</button>
                </div>
             </div>`);
@@ -805,12 +765,12 @@ function showMyOrders() {
       success: function(bikes) {
          bikes.forEach(function (bike) {
             var bikeView = `      
-            <div class="card mb-3" id="card">
+            <div class="card mb-3" id="card5">
             <img src="${bike.picture_path}" id="allBikes-pic">
             <div class="card-body">
-                        <h5 class="card-title">${bike.model} </h5>
-                        <p class="card-text">Category: ${bike.category} </p>
-                        <p class="card-text">Price: ${bike.price} SEK </p>
+                        <h5 class="card-title merriweather-regular">${bike.model} </h5>
+                        <p class="card-text merriweather-regular">Category: ${bike.category} </p>
+                        <p class="card-text merriweather-regular">Price: ${bike.price} SEK </p>
                      </div>
                   </div>`
             $("#myOrders-list").append(bikeView);
@@ -1030,84 +990,6 @@ $("#editBikeForm").submit(function (e) {
       } 
    });
 });
-
-function toggleFavorite(userId, bikeId) {
-   $.ajax({
-       url: '/users/' + userId + '/favorite/' + bikeId,
-       type: 'GET',
-       success: function(response) {
-           if (response.favorited) {
-               // Bike is already favorited, so unfavorite it
-               unfavorite(userId, bikeId);
-           } else {
-               // Bike is not favorited, so favorite it
-               favorite(userId, bikeId);
-           }
-       },
-       error: function() {
-           console.error('Error checking favorite status.');
-       }
-   });
-}
-function isFavorite(user_id, bike_id) {
-   var isFavorited;
-   $.ajax({
-       url: host + '/users/' + user_id + '/favorite/' + bike_id,
-       type: 'GET',
-       async: false, // Ensure synchronous execution
-       success: function(response) {
-           isFavorited = response.favorited;
-          
-       },
-       error: function() {
-           console.error('Error checking favorite status.');
-       }
-   });
-   return isFavorited;
-}
-
-
-function favorite(userId, bikeId) {
-   console.log("Deli");
-   $.ajax({
-       url: '/users/' + userId + '/favorite/' + bikeId,
-       type: 'POST',
-       success: function(response) {
-           console.log('Bike favorited successfully.');
-           // Update UI to reflect favorited status
-       },
-       error: function() {
-           console.error('Error favoriting bike.');
-       }
-   });
-}
-
-function unfavorite(userId, bikeId) {
-   $.ajax({
-       url: '/users/' + userId + '/favorite/' + bikeId,
-       type: 'DELETE',
-       success: function(response) {
-           console.log('Bike unfavorited successfully.');
-           // Update UI to reflect unfavorited status
-       },
-       error: function() {
-           console.error('Error unfavoriting bike.');
-       }
-   });
-}
-function unfavoriteAndReload(userId, bikeId) {
-   $.ajax({
-       url: '/users/' + userId + '/favorite/' + bikeId,
-       type: 'DELETE',
-       success: function(response) {
-           console.log('Bike unfavorited successfully.');
-           showMyFavorites();
-       },
-       error: function() {
-           console.error('Error unfavoriting bike.');
-       }
-   });
-}
 function reloadShowBike(bikeId) {
    // Call your showBike function with the bikeId parameter to reload the content
    showBike(bikeId);
@@ -1120,6 +1002,30 @@ const resultsBox = document.querySelector(".result-box");
 // Add an event listener to the input box
 inputBox.addEventListener("input", search);
 searchForm.addEventListener("submit", handleSearch);
+
+document.addEventListener('click', function(event) {
+   var searchBox = document.querySelector('.search-box');
+   var resultBox = document.querySelector('.result-box');
+   var inputText = document.getElementById('input-text');
+   
+   // Check if the clicked element is not inside the search box or result box
+   if (!searchBox.contains(event.target) && !resultBox.contains(event.target) && event.target !== inputText) {
+       // Hide the result box
+       resultBox.style.display = 'none';
+   }
+});
+
+document.getElementById('input-text').addEventListener('input', function(event) {
+   var resultBox = document.querySelector('.result-box');
+   var inputText = document.getElementById('input-text');
+   
+   // Show the result box when typing in the input field
+   resultBox.style.display = 'block';
+   
+   // Populate the result box with search results
+   // (You need to implement this part based on your requirements)
+   // resultBox.innerHTML = ...
+});
 
 function search() {
    let availableKeywords = [
@@ -1135,13 +1041,16 @@ function search() {
    ];
    // Get the input value
    let input = inputBox.value;
+
    // Filter the available keywords based on the input
+
    let result = availableKeywords.filter((keyword)=>{
       return keyword.toLowerCase().includes(input.toLowerCase());
    });
    // Display the filtered results
    display(result);
 }
+
 // Define the display function
 function display(result) {
    // Generate the HTML content for the results
@@ -1151,6 +1060,7 @@ function display(result) {
    // Display the results in the result box
    resultsBox.innerHTML = "<ul>" + content.join('') + "</ul>";
 }
+
 // Define the selectInput function
 function selectInput(list) {
    // Set the input value to the selected list item
@@ -1161,7 +1071,7 @@ function selectInput(list) {
 
    if (inputValueLowerCase.includes('electrical') || inputValueLowerCase.includes('sustainable')) {
       console.log("Redirecting to Electrical Bike page...");
-      alert("Redirecting to Electrical Bike page...")
+      alert("Redirecting to Electrical Bike page...");
       displayBikeCategory('Electrical Bike');
    } else if (inputValueLowerCase.includes('bmx') || inputValueLowerCase.includes('street')) {
       console.log("Redirecting to BMX page...");
@@ -1189,19 +1099,19 @@ function handleSearch(event) {
    const input = document.getElementById("input-text").value.trim().toLowerCase();
 
    // Process the search input
-   if (input.includes('electrical') || input.includes('sustainable')) {
+   if (input.includes('electrical') || input.includes('electric') || input.includes('e-bike') || input.includes('sustainable') || input.includes('eco-friendly') || input.includes('battery') || input.includes('powered') || input.includes('rechargeable')) {
        console.log("Redirecting to Electrical Bike page...");
        alert("Redirecting to Electrical Bike page...")
        displayBikeCategory('Electrical Bike');
-   } else if (input.includes('bmx') || input.includes('street')) {
+   } else if (input.includes('bmx') || input.includes('street') || input.includes('freestyle') || input.includes('trick')) {
        console.log("Redirecting to BMX page...");
        alert("Redirecting to BMX page...");
        displayBikeCategory('BMX');
-   } else if (input.includes('mountain') || input.includes('hardcore')) {
+   } else if (input.includes('mountain') || input.includes('hardcore') || input.includes('off-road') || input.includes('trail') || input.includes('downhill') || input.includes('cross-country')) {
        console.log("Redirecting to Mountain Bike page...");
        alert("Redirecting to Mountain Bike page...");
        displayBikeCategory('Mountain Bike');
-   } else if (input.includes('small') || input.includes('kid')) {
+   } else if (input.includes('small') || input.includes('kid') || input.includes('children') || input.includes('youth') || input.includes('mini') || input.includes('junior')) {
        console.log("Redirecting to Kid page...");
        alert("Redirecting to Kid page...");
        displayBikeCategory('Kid Bike');
@@ -1209,10 +1119,10 @@ function handleSearch(event) {
        console.log("Displaying all bikes...");
        displayAllBikes();
    }
+}
 
    // Clear the results box
    resultsBox.innerHTML = '';
-}
 
 // function to open join us script
 function viewJoin() {

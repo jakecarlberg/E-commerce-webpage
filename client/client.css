@@ -31,8 +31,16 @@
   display: inline block;
   z-index: 9999;
   background: linear-gradient(to bottom right, #4a71a3,#ffffff);
+  /* padding: 8px 20px; */
+  border-bottom-left-radius: 27px;
+  border-bottom-right-radius: 27px;
 }
 
+.merriweather-regular {
+  font-family: "Merriweather", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .button-container {
 position: absolute;
@@ -55,6 +63,8 @@ z-index: 9999;
   margin-left: 10;
   color: white; 
   border-color: white;
+  /* padding: 8px 20px; */
+  border-radius: 27px;
 }
 
 #sign_up:hover, #log_out:hover {
@@ -71,6 +81,8 @@ z-index: 9999;
   margin-left: 10; 
   color: white;
   border-color: white;
+  /* padding: 8px 20px; */
+  border-radius: 27px;
 }
 
 #log_in:hover {
@@ -78,7 +90,19 @@ z-index: 9999;
   background-color: #fff; /* Background color on hover */
 }
 #editAccountModal{
-  z-index: 10000;
+  top: 30%;
+  z-index: 10000000;
+ }
+
+.form-group2{
+  width: 50%; /* Adjust this value to your preference */
+  margin: 0 auto 20px; /* Center the form fields */
+}
+ 
+.btn.allbuttons.login {
+  display: block; /* Change display property to block */
+  margin: 0 auto; /* Center the button */
+  margin-top: 20px;
 }
 
 /* #signup_icon {
@@ -135,8 +159,8 @@ width: 58px;
   width: 58px;
 }
 #profile_icon2 {
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
 }
 #account-list {
   width: fit-content;
@@ -151,11 +175,11 @@ margin-left: 10px;
 font-weight: bold;
 }
 
-#applications {
+/* #applications {
 display: inline-flex;
 align-items: center;
 margin-left: 10px;
-}
+} */
 
 #recycle {
 display: inline-flex;
@@ -164,17 +188,17 @@ margin-left: 10px;
 font-weight: bold;
 }
 
-#orders {
+/* #orders {
 display: inline-flex;
 align-items: center;
 margin-left: 10px;
-}
+} */
 
-#messages {
+/* #messages {
 display: inline-flex;
 align-items: center;
 margin-left: 10px;
-}
+} */
 
 #about_us {
 display: inline-flex;
@@ -252,27 +276,26 @@ font-weight: bold;
 }
 /* Texts */
 .extra-big {
-  color: black;
-  /* font-family: serif; */
+  color: #333333;
   line-height: 1.5;
   text-align: center;
   font-weight: bold;
 }
 .description-headline {
   color: rgb(68, 55, 55);
-  /* font-family: serif; */
+  /* font-family: garamond; */
   text-align: left;
   font-weight: bold;
 }
 .description-price {
   color: rgb(68, 55, 55);
   font-weight: bold;
-  font-family: serif;
+  /* font-family: serif; */
   text-align: left;
 }
 #aboutUs {
   color: black;
-  font-family: serif;
+  /* font-family: serif; */
   line-height: 1.5;
   text-align: center;
   position: relative;
@@ -281,7 +304,7 @@ font-weight: bold;
 }
 .allText {
   color: black;
-  font-family: serif;
+  /* font-family: serif; */
   line-height: 1.5;
   text-align: center;
   
@@ -317,6 +340,12 @@ font-weight: bold;
   position: relative;
   /* right: 2.5%; */
 }
+#myOrders-list{
+  width: 100%; 
+  margin-right: -2.5%; 
+  position: relative;
+  /* right: 2.5%; */
+}
 #myBikes-list {
   display: flex;
   width: fit-content; 
@@ -339,7 +368,7 @@ font-weight: bold;
  }
 .list-group-item {
   color: rgb(74, 113, 157);
-  font-family: serif;
+  /* font-family: serif; */
   font-size: large;
   font-weight: bold;
   text-align: left;
@@ -374,9 +403,17 @@ font-weight: bold;
   /* width: calc(50%-10px);  */
   width: fit-content;
   margin : 0 auto;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  /* margin-right: 10px; */
+  border-radius: 25px;
+}
+#card5 {
+  /* width: calc(50%-10px);  */
+  width: fit-content;
+  margin : 0 auto;
   /* margin-left: 50; */
   margin-bottom: 20px;
-  margin-right: 10px;
   border-radius: 25px;
 }
 #card2 {
@@ -417,11 +454,14 @@ font-weight: bold;
   width: 330px;
   /* object-fit: cover; */
   object-position: center 25%; 
+  border-top-left-radius: 27px;
+  border-top-right-radius: 27px;
+  
 
 }
 .card-body {
   color: black;
-  font-family: serif;
+  /* font-family: serif; */
   /* max-width: 400px; */
   
 }
@@ -456,6 +496,7 @@ max-height: 450px;
 filter: grayscale(100%);
 margin-top: 20px;
 }
+
 .card-img-top{
     width: 100%; 
     height: 288px; 
@@ -470,7 +511,9 @@ margin-top: 20px;
 .allbuttons {
   background-color: rgb(74, 113, 157); 
   color: white;
-  font-family: serif;
+  padding: 8px 20px;
+  border-radius: 27px;
+  /* font-family: serif; */
 }
 #filter-button-group {
   position: relative;
@@ -478,12 +521,13 @@ margin-top: 20px;
   /* 30% */
 }
 .goBack-button {
-  position: relative;
-  left: 41%;
+  position:relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 #selectSort {
   color: black;
-  font-family: serif;
+  /* font-family: serif; */
 }
 #contactUsButton {
   position: relative;
@@ -510,12 +554,12 @@ margin-top: 20px;
  }
  #delete-button{
   position: absolute;
-  left: 78%;
-  top: 90%;
-  background-color: rgb(155, 70, 70);
+  left: 70%;
+  top: 87%;
   margin-right: 10px;
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
   font-size: smaller;
+  background-color: rgb(155, 70, 70);
 }
  #readMore-button{
   position: absolute;
@@ -527,7 +571,7 @@ margin-top: 20px;
 
 /* Cancel and success */
 #cancel_text1{
-  font-family: serif ;
+  font-family: solid 900 ;
   font-size: large;
   text-align: center;
   position: fixed;
@@ -564,22 +608,7 @@ margin-top: 20px;
   height: 360px;
   transform: translate(-50%, -50%);
  }
- .favorite-button {
-  /* Add your button styles here */
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  /* Add other styles as needed */
-}
 
-.favorite-button img {
-  /* Add styles for the image */
-  width: 50px; /* Adjust the width as needed */
-  height: 50px; /* Adjust the height as needed */
-}
 .search-box{
   margin: 0;
   padding: 0;
@@ -653,3 +682,55 @@ button .fa-solid{
   max-height: 300px;
   overflow-y: scroll;
 }
+
+#BeContactedModal {
+  top: 30%;
+  z-index: 10000000;
+ }
+ 
+ .modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 5);
+  z-index: 1000000;
+ }
+ 
+ #contactedButton {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ }
+ .extra-info {
+  display: none;
+  line-height: 30px;
+  font-size: 12px;
+	position: absolute;
+  bottom: 0;
+  left: 50px;
+}
+
+.info:hover .extra-info {
+  display: block;
+}
+
+.info {
+  font-size: 20px;
+  padding-left: 5px;
+  width: 20px;
+  border-radius: 15px;
+  position: absolute;
+  top: 50%;
+  left: 30%;
+}
+
+.info:hover {
+  background-color: rgb(74, 113, 157); 
+  padding: 0 0 0 5px;
+  width: 315px;
+  text-align: left !important;
+}
+ 
