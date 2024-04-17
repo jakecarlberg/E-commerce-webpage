@@ -133,13 +133,8 @@ def bikes():
       bike_list = Bike.query.all()
       serialized_bikes = [bike.serialize() for bike in bike_list ] 
       return jsonify(serialized_bikes)
-     
 
-# Route for fetching one specific bike
-# We save all sold bikes to be accessed by sellers and buyers in their purchase history, 
-# therefore no bikes can be deleted from the database if they have been sold
 @app.route('/bikes/<int:bike_id>', methods=['GET', 'PUT', 'DELETE'])
-# @jwt_required() we want this only for DELETE and PUT but not for GET
 def bikes_int(bike_id):
    bike = Bike.query.get_or_404(bike_id)
    if request.method == 'GET':
@@ -170,16 +165,12 @@ def bikes_int(bike_id):
       return jsonify(200) 
    
 @app.route('/bikes/<string:bike_category>', methods=['GET'])
-# @jwt_required() we want this only for DELETE and PUT but not for GET
 def bikes_string(bike_category):
     bikes = Bike.query.filter_by(category=bike_category).all()
     if not bikes:
         return jsonify({'error': 'No bikes found for this category'}), 404
     return jsonify([bike.serialize() for bike in bikes])
 
-
-# Route for fetching all users (they can be both sellers and buyers)
-# Will this be used?
 @app.route('/users', methods=['GET'], endpoint='users')
 @jwt_required()
 def users():
@@ -188,12 +179,6 @@ def users():
       serialized_users = [user.serialize() for user in user_list]
       return jsonify(serialized_users)
 
-# Route for fetching, editing and deleting a user
-# For editing your profile
-   
-# When deliting your profile you must ensurte that the relationship to orders and bikes are edited. 
-# If there is an order on the bikes the deleted user is selling, the bike remains in the database, 
-# however if there isn't an order the bike can be deleted.
 @app.route('/users/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
 def users_int(user_id):
@@ -429,6 +414,6 @@ def create_checkout_session():
    return checkout_session.url
 
 if __name__ == "__main__":
-   app.run(port=5000)
+   app.run(port=5001)
 
    

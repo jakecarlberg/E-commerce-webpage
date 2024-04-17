@@ -6,9 +6,6 @@
 }
 .navbar-custom .navbar-picture{
   position: absolute;
-  /* top: 40%; */
-  /* left: 50%;
-  transform: translate(-50%, -50%); */
   width: 300px;
   height: 12vh;
   cursor: pointer;
@@ -23,18 +20,14 @@
 }
 
 .navbar-nav .dropdown-menu {
-  margin-top: 0; /* Remove margin-top to align dropdowns */
-  /* width: fit-content; */
+  margin-top: 0; 
   left:auto;
   right: 0px;
   position: absolute;
   display: inline block;
   z-index: 9999;
-  background: linear-gradient(to bottom right, #4a71a3,#ffffff);
-  /* padding: 8px 20px; */
-  border-bottom-left-radius: 27px;
-  border-bottom-right-radius: 27px;
 }
+
 
 .merriweather-regular {
   font-family: "Merriweather", serif;
@@ -63,13 +56,12 @@ z-index: 9999;
   margin-left: 10;
   color: white; 
   border-color: white;
-  /* padding: 8px 20px; */
   border-radius: 27px;
 }
 
 #sign_up:hover, #log_out:hover {
-  color: #000; /* Text color on hover */
-  background-color: #fff; /* Background color on hover */
+  color: #000; 
+  background-color: #fff; 
 }
 
 #log_in {
@@ -81,13 +73,12 @@ z-index: 9999;
   margin-left: 10; 
   color: white;
   border-color: white;
-  /* padding: 8px 20px; */
   border-radius: 27px;
 }
 
 #log_in:hover {
-  color: #000; /* Text color on hover */
-  background-color: #fff; /* Background color on hover */
+  color: #000; 
+  background-color: #fff;
 }
 #editAccountModal{
   top: 30%;
@@ -95,33 +86,15 @@ z-index: 9999;
  }
 
 .form-group2{
-  width: 50%; /* Adjust this value to your preference */
-  margin: 0 auto 20px; /* Center the form fields */
+  width: 50%;
+  margin: 0 auto 20px; 
 }
  
 .btn.allbuttons.login {
-  display: block; /* Change display property to block */
-  margin: 0 auto; /* Center the button */
+  display: block; 
+  margin: 0 auto; 
   margin-top: 20px;
 }
-
-/* #signup_icon {
-position: absolute;
-top: 40px; 
-display: inline-flex;
-align-items: center;
-margin-left: 10;
-color: white;
-height: 20px;
-width: 30px;
-right: 100px; 
-}
-
-#login_icon {
-height: 20px;
-width: 30px;
-margin-right: 10px;  
-} */
 
 #bike_icon {
   height: 45px;
@@ -175,30 +148,12 @@ margin-left: 10px;
 font-weight: bold;
 }
 
-/* #applications {
-display: inline-flex;
-align-items: center;
-margin-left: 10px;
-} */
-
 #recycle {
 display: inline-flex;
 align-items: center;
 margin-left: 10px;
 font-weight: bold;
 }
-
-/* #orders {
-display: inline-flex;
-align-items: center;
-margin-left: 10px;
-} */
-
-/* #messages {
-display: inline-flex;
-align-items: center;
-margin-left: 10px;
-} */
 
 #about_us {
 display: inline-flex;
@@ -265,46 +220,140 @@ font-weight: bold;
 .footer-text{
   color: white;
 }
+.container0 {
+  position: relative;
+  text-align: center;
+  min-height: fit-content;
+  min-width: fit-content;
+  display: none;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+  font-size: 100px;
+  font-weight: bold;
+} 
+.centered2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+  font-size: 80px;
+  font-weight: bold;
+}
+.overlay-text {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+  font-size: 50px;
+  font-weight: bold;
+} 
+.overlay-text2 {
+  position: absolute;
+  top: 43%;
+  left: 24.5%;
+  font-size: 24px;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+} 
+.overlay-text3 {
+  position: absolute;
+  top: 50%;
+  left: 36%;
+  font-size: 24px;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+} 
+.overlay-text4 {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  font-size: 22px;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+} 
 
 .container {
   margin-left: 20%;
   margin-right: 20%;
-  position: relative; /* Adjusted position value */
+  margin-top: 5vh;
+  position: relative;
   padding-bottom: 85px;
   min-height: 80vh;
-  background-color: #ffffff;
+  background-color: #faf7f7;
+  margin-bottom: 5vh;
+  padding: 8px 20px;
+  border-radius: 27px;
 }
+#beast {
+  width: 100%;
+  height: auto;
+  opacity: 0.3; 
+}
+#bmx-backflip {
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3; 
+}
+#alternative {
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3; 
+}
+#manyBikes {
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3; 
+}
+#mountainbike{
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3;
+}
+#kid{
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3;
+}
+#el{
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3;
+}
+
 /* Texts */
 .extra-big {
-  color: #333333;
+  color: rgb(74, 113, 157);
   line-height: 1.5;
   text-align: center;
   font-weight: bold;
 }
 .description-headline {
   color: rgb(68, 55, 55);
-  /* font-family: garamond; */
   text-align: left;
   font-weight: bold;
 }
 .description-price {
   color: rgb(68, 55, 55);
   font-weight: bold;
-  /* font-family: serif; */
   text-align: left;
 }
 #aboutUs {
   color: black;
-  /* font-family: serif; */
   line-height: 1.5;
   text-align: center;
   position: relative;
   max-width: 1000px;
-  margin: 0 auto; /* Add this to center horizontally */
+  margin: 0 auto; 
 }
 .allText {
   color: black;
-  /* font-family: serif; */
   line-height: 1.5;
   text-align: center;
   
@@ -320,13 +369,7 @@ font-weight: bold;
   color: rgb(74, 113, 157);
   text-align: center;
 }
-/* #myBikes-list {
-  display:flex;
-  width: 100%; 
-  margin-right: -2.5%;
-  position: relative;
-  right: 2.5%;
- } */
+ 
  #applications-list {
   display:flex;
   width: 100%; 
@@ -338,19 +381,19 @@ font-weight: bold;
   width: 100%; 
   margin-right: -2.5%; 
   position: relative;
-  /* right: 2.5%; */
+
 }
 #myOrders-list{
   width: 100%; 
   margin-right: -2.5%; 
   position: relative;
-  /* right: 2.5%; */
+
 }
 #myBikes-list {
   display: flex;
   width: fit-content; 
   position: relative;
-  /* right: 2.5%; */
+
 }
 .card-list {
   width: 1000px; 
@@ -368,18 +411,11 @@ font-weight: bold;
  }
 .list-group-item {
   color: rgb(74, 113, 157);
-  /* font-family: serif; */
   font-size: large;
   font-weight: bold;
   text-align: left;
   }
-  /* #contactCard {
-    width: 550px; 
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } */
+
   #contactCardMap {
     width: 550px; 
     margin-bottom: 20px; 
@@ -397,48 +433,37 @@ font-weight: bold;
 .two-column-list {
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 }
 #card {
-  /* width: calc(50%-10px);  */
+
   width: fit-content;
   margin : 0 auto;
   margin-left: 10px;
   margin-bottom: 20px;
-  /* margin-right: 10px; */
   border-radius: 25px;
 }
 #card5 {
-  /* width: calc(50%-10px);  */
   width: fit-content;
   margin : 0 auto;
-  /* margin-left: 50; */
   margin-bottom: 20px;
   border-radius: 25px;
 }
 #card2 {
-  /* width: calc(50%-10px);  */
   width: fit-content;
   margin : 0 auto;
-  /* margin-left: 50; */
   margin-bottom: 20px;
   border-radius: 25px;
 }
 #card3{
-  /* width: calc(50%-10px);  */
   width: fit-content;
-  /* display: inline; */
   margin : 0 auto;
   margin-bottom: 20px;
   border-radius: 25px;
 }
 #card4 {
-  /* width: calc(50%-10px);  */
   width: fit-content;
   margin : 0 auto;
-  /* margin-left: 50; */
   margin-bottom: 20px;
-  /* margin-left: 10px; */
   border-radius: 25px;
 }
 
@@ -452,7 +477,6 @@ font-weight: bold;
 #allBikes-pic {
   height: 190px;
   width: 330px;
-  /* object-fit: cover; */
   object-position: center 25%; 
   border-top-left-radius: 27px;
   border-top-right-radius: 27px;
@@ -461,12 +485,9 @@ font-weight: bold;
 }
 .card-body {
   color: black;
-  /* font-family: serif; */
-  /* max-width: 400px; */
-  
 }
 body {
-  background: linear-gradient(to bottom right, #4a71a3,#ffffff);
+  background: linear-gradient(to bottom right, #4a71a3,#ffffff);  
 
 }
 .allBikes {
@@ -480,17 +501,7 @@ body {
   align-items: center;
   height: fit-content;
 }
-/* .bike-title {
-  color: black;
-  font-family: serif;
-  font-size: large;
-  font-style: italic;
-  font-weight: bold;
-  line-height: 1.5;
-  text-align: center;
- } */
 
-/* About us cards */
 .us {
 max-height: 450px;
 filter: grayscale(100%);
@@ -504,7 +515,7 @@ margin-top: 20px;
     object-position: center 25%; 
 }
 #tilt-right {
-  transform: rotate(1deg); /* Adjust the degree value as needed */
+  transform: rotate(1deg); 
 }
 
 /* Buttons */
@@ -513,12 +524,10 @@ margin-top: 20px;
   color: white;
   padding: 8px 20px;
   border-radius: 27px;
-  /* font-family: serif; */
 }
 #filter-button-group {
   position: relative;
   left: 1%; 
-  /* 30% */
 }
 .goBack-button {
   position:relative;
@@ -527,12 +536,10 @@ margin-top: 20px;
 }
 #selectSort {
   color: black;
-  /* font-family: serif; */
 }
 #contactUsButton {
   position: relative;
   left: 50%;
-  /* top: 80%; */
   transform: translateX(-50%);
   margin-top: 20px;
   margin-bottom: 30px;
@@ -541,7 +548,7 @@ margin-top: 20px;
   position: relative; 
   left: 0.52%;
   margin-bottom: 15px;
-  background-color: rgb(74, 122, 72);
+  background-color: rgb(74, 113, 157); 
  }
  #approve-button{
   position: absolute;
@@ -621,9 +628,8 @@ margin-top: 20px;
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
   background: #fff;
-  /* width: 600px; */
   border-radius: 5px;
-  min-height: 50px;
+  min-height: 40px;
 }
 
 .row {
@@ -674,11 +680,10 @@ button .fa-solid{
 }
 
 .result-box ul li:hover{
-  background: #777a80;
+  background: #d8dee9;
 }
 
 .result-box{
-  /* min-height: 50px; */
   max-height: 300px;
   overflow-y: scroll;
 }
@@ -708,9 +713,13 @@ button .fa-solid{
   display: none;
   line-height: 30px;
   font-size: 12px;
+  color: #ffffff;
 	position: absolute;
   bottom: 0;
   left: 50px;
+  background-color: rgb(74, 113, 157); 
+  padding: 8px 20px;
+  border-radius: 27px;
 }
 
 .info:hover .extra-info {
@@ -723,12 +732,12 @@ button .fa-solid{
   width: 20px;
   border-radius: 15px;
   position: absolute;
-  top: 50%;
-  left: 30%;
+  top: 82.3%;
+  left: 21%;
 }
 
 .info:hover {
-  background-color: rgb(74, 113, 157); 
+  background-color: white;
   padding: 0 0 0 5px;
   width: 315px;
   text-align: left !important;
