@@ -6,28 +6,34 @@
 }
 .navbar-custom .navbar-picture{
   position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 100px;
+  width: 300px;
+  height: 12vh;
   cursor: pointer;
 }
 
 .navbar-nav .nav-item {
   display: inline;  
-  /* margin-right: 30px;  */
-  margin-left: 60px;  
-  font-size: 20px;
+  margin-right: 20px; 
+  text-align: center;
+  font-size: 3vh;
+  bottom: 15px;
 }
 
 .navbar-nav .dropdown-menu {
-  margin-top: 0; /* Remove margin-top to align dropdowns */
+  margin-top: 0; 
+  left:auto;
+  right: 0px;
   position: absolute;
   display: inline block;
   z-index: 9999;
 }
 
+
+.merriweather-regular {
+  font-family: "Merriweather", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 .button-container {
 position: absolute;
@@ -50,11 +56,12 @@ z-index: 9999;
   margin-left: 10;
   color: white; 
   border-color: white;
+  border-radius: 27px;
 }
 
 #sign_up:hover, #log_out:hover {
-  color: #000; /* Text color on hover */
-  background-color: #fff; /* Background color on hover */
+  color: #000; 
+  background-color: #fff; 
 }
 
 #log_in {
@@ -66,65 +73,71 @@ z-index: 9999;
   margin-left: 10; 
   color: white;
   border-color: white;
+  border-radius: 27px;
 }
 
 #log_in:hover {
-  color: #000; /* Text color on hover */
-  background-color: #fff; /* Background color on hover */
+  color: #000; 
+  background-color: #fff;
 }
+#editAccountModal{
+  top: 30%;
+  z-index: 10000000;
+ }
 
-/* #signup_icon {
-position: absolute;
-top: 40px; 
-display: inline-flex;
-align-items: center;
-margin-left: 10;
-color: white;
-height: 20px;
-width: 30px;
-right: 100px; 
+.form-group2{
+  width: 50%;
+  margin: 0 auto 20px; 
 }
-
-#login_icon {
-height: 20px;
-width: 30px;
-margin-right: 10px;  
-} */
+ 
+.btn.allbuttons.login {
+  display: block; 
+  margin: 0 auto; 
+  margin-top: 20px;
+}
 
 #bike_icon {
-height: 25px;
-width: 38px;
+  height: 45px;
+  width: 58px;
 align-items: center;
 }
 
 #admin_icon {
-height: 25px;
-width: 38px;
+  height: 45px;
+  width: 58px;
 }
 
 #orders_icon {
-height: 20px;
-width: 30px;
+  height: 45px;
+  width: 58px;
 }
 
 #messages_icon {
-height: 20px;
-width: 30px;
+  height: 45px;
+  width: 58px;
 }
 
 #recycle_icon {
-height: 25px;
-width: 38px;
+height: 45px;
+width: 58px;
 }
 
 #contact_icon {
-height: 20px;
-width: 30px;
+  height: 45px;
+  width: 58px;
 }
 
 #profile_icon {
-height: 20px;
-width: 30px;
+  height: 45px;
+  width: 58px;
+}
+#profile_icon2 {
+  width: 100%;
+  height: 100%;
+}
+#account-list {
+  width: fit-content;
+  height: fit-content;
 }
 
 
@@ -135,29 +148,11 @@ margin-left: 10px;
 font-weight: bold;
 }
 
-#applications {
-display: inline-flex;
-align-items: center;
-margin-left: 10px;
-}
-
 #recycle {
 display: inline-flex;
 align-items: center;
 margin-left: 10px;
 font-weight: bold;
-}
-
-#orders {
-display: inline-flex;
-align-items: center;
-margin-left: 10px;
-}
-
-#messages {
-display: inline-flex;
-align-items: center;
-margin-left: 10px;
 }
 
 #about_us {
@@ -225,47 +220,140 @@ font-weight: bold;
 .footer-text{
   color: white;
 }
+.container0 {
+  position: relative;
+  text-align: center;
+  min-height: fit-content;
+  min-width: fit-content;
+  display: none;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+  font-size: 100px;
+  font-weight: bold;
+} 
+.centered2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+  font-size: 80px;
+  font-weight: bold;
+}
+.overlay-text {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+  font-size: 50px;
+  font-weight: bold;
+} 
+.overlay-text2 {
+  position: absolute;
+  top: 43%;
+  left: 24.5%;
+  font-size: 24px;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+} 
+.overlay-text3 {
+  position: absolute;
+  top: 50%;
+  left: 36%;
+  font-size: 24px;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+} 
+.overlay-text4 {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  font-size: 22px;
+  transform: translate(-50%, -50%);
+  color:#ffffff;
+} 
 
-/* Container */
-.container{
+.container {
   margin-left: 20%;
   margin-right: 20%;
-  margin: 0 auto;
-  position: center;
+  margin-top: 5vh;
+  position: relative;
   padding-bottom: 85px;
-  min-height: 80vh; /* Set minimum height to 100% of viewport height */
+  min-height: 80vh;
+  background-color: #faf7f7;
+  margin-bottom: 5vh;
+  padding: 8px 20px;
+  border-radius: 27px;
+}
+#beast {
+  width: 100%;
+  height: auto;
+  opacity: 0.3; 
+}
+#bmx-backflip {
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3; 
+}
+#alternative {
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3; 
+}
+#manyBikes {
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3; 
+}
+#mountainbike{
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3;
+}
+#kid{
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3;
+}
+#el{
+  width: 100%;
+  height: 40vh;
+  opacity: 0.3;
 }
 
 /* Texts */
 .extra-big {
-  color: black;
-  font-family: serif;
+  color: rgb(74, 113, 157);
   line-height: 1.5;
   text-align: center;
+  font-weight: bold;
 }
 .description-headline {
   color: rgb(68, 55, 55);
-  font-family: serif;
   text-align: left;
+  font-weight: bold;
 }
 .description-price {
   color: rgb(68, 55, 55);
   font-weight: bold;
-  font-family: serif;
   text-align: left;
 }
 #aboutUs {
   color: black;
-  font-family: serif;
   line-height: 1.5;
   text-align: center;
   position: relative;
   max-width: 1000px;
-  margin: 0 auto; /* Add this to center horizontally */
+  margin: 0 auto; 
 }
 .allText {
   color: black;
-  font-family: serif;
   line-height: 1.5;
   text-align: center;
   
@@ -281,13 +369,7 @@ font-weight: bold;
   color: rgb(74, 113, 157);
   text-align: center;
 }
-#myBikes-list {
-  display:flex;
-  width: 100%; 
-  margin-right: -2.5%;
-  position: relative;
-  right: 2.5%;
- }
+ 
  #applications-list {
   display:flex;
   width: 100%; 
@@ -299,7 +381,19 @@ font-weight: bold;
   width: 100%; 
   margin-right: -2.5%; 
   position: relative;
-  right: 2.5%;
+
+}
+#myOrders-list{
+  width: 100%; 
+  margin-right: -2.5%; 
+  position: relative;
+
+}
+#myBikes-list {
+  display: flex;
+  width: fit-content; 
+  position: relative;
+
 }
 .card-list {
   width: 1000px; 
@@ -317,18 +411,11 @@ font-weight: bold;
  }
 .list-group-item {
   color: rgb(74, 113, 157);
-  font-family: serif;
   font-size: large;
   font-weight: bold;
   text-align: left;
   }
-  /* #contactCard {
-    width: 550px; 
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } */
+
   #contactCardMap {
     width: 550px; 
     margin-bottom: 20px; 
@@ -346,16 +433,40 @@ font-weight: bold;
 .two-column-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 #card {
-  /* width: calc(50%-10px);  */
+
   width: fit-content;
-  margin-left: 50;
+  margin : 0 auto;
+  margin-left: 10px;
   margin-bottom: 20px;
-  margin-right: 10px;
   border-radius: 25px;
 }
+#card5 {
+  width: fit-content;
+  margin : 0 auto;
+  margin-bottom: 20px;
+  border-radius: 25px;
+}
+#card2 {
+  width: fit-content;
+  margin : 0 auto;
+  margin-bottom: 20px;
+  border-radius: 25px;
+}
+#card3{
+  width: fit-content;
+  margin : 0 auto;
+  margin-bottom: 20px;
+  border-radius: 25px;
+}
+#card4 {
+  width: fit-content;
+  margin : 0 auto;
+  margin-bottom: 20px;
+  border-radius: 25px;
+}
+
 #pic {
   height: 480px;
   max-width: 800px;
@@ -366,20 +477,23 @@ font-weight: bold;
 #allBikes-pic {
   height: 190px;
   width: 330px;
-  object-fit: cover;
   object-position: center 25%; 
+  border-top-left-radius: 27px;
+  border-top-right-radius: 27px;
+  
 
 }
 .card-body {
   color: black;
-  font-family: serif;
-  /* max-width: 400px; */
-  
+}
+body {
+  background: linear-gradient(to bottom right, #4a71a3,#ffffff);  
+
 }
 .allBikes {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
 }
 .myBike-card {
   display: flex;
@@ -387,22 +501,13 @@ font-weight: bold;
   align-items: center;
   height: fit-content;
 }
-/* .bike-title {
-  color: black;
-  font-family: serif;
-  font-size: large;
-  font-style: italic;
-  font-weight: bold;
-  line-height: 1.5;
-  text-align: center;
- } */
 
-/* About us cards */
 .us {
 max-height: 450px;
 filter: grayscale(100%);
 margin-top: 20px;
 }
+
 .card-img-top{
     width: 100%; 
     height: 288px; 
@@ -410,32 +515,31 @@ margin-top: 20px;
     object-position: center 25%; 
 }
 #tilt-right {
-  transform: rotate(1deg); /* Adjust the degree value as needed */
+  transform: rotate(1deg); 
 }
 
 /* Buttons */
 .allbuttons {
   background-color: rgb(74, 113, 157); 
   color: white;
-  font-family: serif;
+  padding: 8px 20px;
+  border-radius: 27px;
 }
 #filter-button-group {
   position: relative;
   left: 1%; 
-  /* 30% */
 }
 .goBack-button {
-  position: relative;
-  left: 41%;
+  position:relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 #selectSort {
   color: black;
-  font-family: serif;
 }
 #contactUsButton {
   position: relative;
   left: 50%;
-  /* top: 80%; */
   transform: translateX(-50%);
   margin-top: 20px;
   margin-bottom: 30px;
@@ -444,7 +548,7 @@ margin-top: 20px;
   position: relative; 
   left: 0.52%;
   margin-bottom: 15px;
-  background-color: rgb(74, 122, 72);
+  background-color: rgb(74, 113, 157); 
  }
  #approve-button{
   position: absolute;
@@ -457,12 +561,12 @@ margin-top: 20px;
  }
  #delete-button{
   position: absolute;
-  left: 78%;
-  top: 90%;
-  background-color: rgb(155, 70, 70);
+  left: 70%;
+  top: 87%;
   margin-right: 10px;
-  margin-bottom: 5px; 
+  margin-bottom: 5px;
   font-size: smaller;
+  background-color: rgb(155, 70, 70);
 }
  #readMore-button{
   position: absolute;
@@ -474,7 +578,7 @@ margin-top: 20px;
 
 /* Cancel and success */
 #cancel_text1{
-  font-family: serif ;
+  font-family: solid 900 ;
   font-size: large;
   text-align: center;
   position: fixed;
@@ -511,19 +615,131 @@ margin-top: 20px;
   height: 360px;
   transform: translate(-50%, -50%);
  }
- .favorite-button {
-  /* Add your button styles here */
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+
+.search-box{
+  margin: 0;
+  padding: 0;
   position: absolute;
-  bottom: 0;
-  right: 0;
-  /* Add other styles as needed */
+  top: 3vh;
+  bottom: 10vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10001;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 5px;
+  min-height: 40px;
 }
 
-.favorite-button img {
-  /* Add styles for the image */
-  width: 50px; /* Adjust the width as needed */
-  height: 50px; /* Adjust the height as needed */
+.row {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px ;
 }
+
+input{
+  flex: 1;
+  height: 20px;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-size: 18px;
+  color: #262a2f;
+}
+
+button{
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+button .fa-solid{
+  width: 25px;
+  color: #555;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+::placeholder{
+  color: #555;
+
+}
+
+.result-box ul{
+  border-top: 1px solid #131313;
+  background-color: rgb(250, 252, 252);
+  padding: 15px 10px;
+}
+
+.result-box ul li{
+  list-style: none;
+  border-radius: 3px;
+  padding: 15px 10px;
+  cursor: pointer;
+}
+
+.result-box ul li:hover{
+  background: #d8dee9;
+}
+
+.result-box{
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+#BeContactedModal {
+  top: 30%;
+  z-index: 10000000;
+ }
+ 
+ .modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 5);
+  z-index: 1000000;
+ }
+ 
+ #contactedButton {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+ }
+ .extra-info {
+  display: none;
+  line-height: 30px;
+  font-size: 12px;
+  color: #ffffff;
+	position: absolute;
+  bottom: 0;
+  left: 50px;
+  background-color: rgb(74, 113, 157); 
+  padding: 8px 20px;
+  border-radius: 27px;
+}
+
+.info:hover .extra-info {
+  display: block;
+}
+
+.info {
+  font-size: 20px;
+  padding-left: 5px;
+  width: 20px;
+  border-radius: 15px;
+  position: absolute;
+  top: 82.3%;
+  left: 40%;
+}
+
+.info:hover {
+  background-color: white;
+  padding: 0 0 0 5px;
+  width: 315px;
+  text-align: left !important;
+}
+ 

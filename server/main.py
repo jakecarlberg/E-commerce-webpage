@@ -28,20 +28,15 @@ jwt = JWTManager(app)
 # The User has attributes describing their info, bikes, and sales orders
 # As well as the boolean if the said user is an admin, able to approve the
 # listing of bikes
-favorites = db.Table('favorites',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-    db.Column('bike_id', db.Integer, db.ForeignKey('bike.id'), primary_key=True)
-)
 
 class User(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    name = db.Column(db.String, nullable=False)
    email = db.Column(db.String, nullable=False)
-   is_admin = db.Column(db.Boolean, nullable=False, default=True)
+   is_admin = db.Column(db.Boolean, nullable=False, default=False)
    password_hash = db.Column(db.String, nullable=True)
    bikes = db.relationship('Bike', backref = 'user', lazy = True) # Bikes for sale or sold for seller
    orders = db.relationship('Order', backref='user_orders', lazy=True) # Completed purchases as buyer
-   favorites = db.relationship('Bike', secondary=favorites, backref='favorited_by')
 
    def __repr__(self):
       return '<User {}: Name {} Email {}'.format(self.id, self.name, self.email)
@@ -133,13 +128,8 @@ def bikes():
       bike_list = Bike.query.all()
       serialized_bikes = [bike.serialize() for bike in bike_list ] 
       return jsonify(serialized_bikes)
-     
 
-# Route for fetching one specific bike
-# We save all sold bikes to be accessed by sellers and buyers in their purchase history, 
-# therefore no bikes can be deleted from the database if they have been sold
 @app.route('/bikes/<int:bike_id>', methods=['GET', 'PUT', 'DELETE'])
-# @jwt_required() we want this only for DELETE and PUT but not for GET
 def bikes_int(bike_id):
    bike = Bike.query.get_or_404(bike_id)
    if request.method == 'GET':
@@ -170,16 +160,12 @@ def bikes_int(bike_id):
       return jsonify(200) 
    
 @app.route('/bikes/<string:bike_category>', methods=['GET'])
-# @jwt_required() we want this only for DELETE and PUT but not for GET
 def bikes_string(bike_category):
     bikes = Bike.query.filter_by(category=bike_category).all()
     if not bikes:
         return jsonify({'error': 'No bikes found for this category'}), 404
     return jsonify([bike.serialize() for bike in bikes])
 
-
-# Route for fetching all users (they can be both sellers and buyers)
-# Will this be used?
 @app.route('/users', methods=['GET'], endpoint='users')
 @jwt_required()
 def users():
@@ -188,12 +174,6 @@ def users():
       serialized_users = [user.serialize() for user in user_list]
       return jsonify(serialized_users)
 
-# Route for fetching, editing and deleting a user
-# For editing your profile
-   
-# When deliting your profile you must ensurte that the relationship to orders and bikes are edited. 
-# If there is an order on the bikes the deleted user is selling, the bike remains in the database, 
-# however if there isn't an order the bike can be deleted.
 @app.route('/users/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required()
 def users_int(user_id):
@@ -357,44 +337,6 @@ def messages():
       db.session.add(new_message)
       db.session.commit()
       return jsonify(new_message.serialize())
-
-@app.route('/users/<int:user_id>/favorite/<int:bike_id>', methods=['POST'])
-def add_favorite(user_id, bike_id):
-    user = User.query.get_or_404(user_id)
-    bike = Bike.query.get_or_404(bike_id)
-    user.favorites.append(bike)
-    db.session.commit()
-    return jsonify(message="Bike added to favorites")
-
-@app.route('/users/<int:user_id>/favorite/<int:bike_id>', methods=['DELETE'])
-def remove_favorite(user_id, bike_id):
-    user = User.query.get_or_404(user_id)
-    bike = Bike.query.get_or_404(bike_id)
-    user.favorites.remove(bike)
-    db.session.commit()
-    return jsonify(message="Bike removed from favorites")
-
-@app.route('/users/<int:user_id>/favorite/<int:bike_id>', methods=['GET'])
-def check_favorite(user_id, bike_id):
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
-
-    bike = Bike.query.get(bike_id)
-    if not bike:
-        return jsonify({'error': 'Bike not found'}), 404
-
-    favorited = bike in user.favorites
-    return jsonify({'favorited': favorited}), 200
-
-@app.route('/users/<int:user_id>/favorites', methods=['GET'])
-def show_favorites(user_id):
-   user = User.query.get_or_404(user_id)
-   favorite_list = user.favorites
-   serialized_favorite = [favorite.serialize() for favorite in favorite_list]
-   return jsonify(serialized_favorite)
- 
-
 
 
 @app.route("/")

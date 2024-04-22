@@ -19,6 +19,11 @@
       }
 
     </style>
+     <script src=https://kit.fontawesome.com/3478cfed21.js crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
   </head>
   <body>
 
@@ -26,10 +31,21 @@
 <nav class="navbar navbar-custom navbar-dark">
  
   <img src="/ReCycle.png" class="navbar-picture" onclick="viewHome()">
+  <div class="search-box">
+    <form id="searchForm">
+        <div class="row">
+            <input type="text" id="input-text" name="searchQuery" placeholder="Search for anything" autocomplete="off">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass" id="search-icon"></i></button>
+        </div>
+    </form>
+    <div class="result-box">
+    </div>
+</div>
 
-    <a class="btn btn-custom my-2 my-sm-0" href="#" id="sign_up" onclick="signInPage()">Sign up <span class="sr-only">(current)</span></a>
-    <a class="btn btn-custom my-2 my-sm-0" href="#" id="log_in" onclick="logInPage()">Log in <span class="sr-only">(current)</span></a>
-    <a class="btn btn-custom my-2 my-sm-0" href="#" id="log_out" onclick="logOut()">Sign out <span class="sr-only">(current)</span></a>
+
+    <a class="btn btn-custom my-2 my-sm-0 merriweather-regular" href="#" id="sign_up" onclick="signInPage()">Sign Up <span class="sr-only">(current)</span></a>
+    <a class="btn btn-custom my-2 my-sm-0 merriweather-regular" href="#" id="log_in" onclick="logInPage()">Log In <span class="sr-only">(current)</span></a>
+    <a class="btn btn-custom my-2 my-sm-0 merriweather-regular" href="#" id="log_out" onclick="logOut()">Sign Out <span class="sr-only">(current)</span></a>
 
     <div class="button-container">
      <ul class="navbar-nav">
@@ -39,92 +55,51 @@
                 Bikes
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownBikes">
-                <a class="dropdown-item" href="#" onclick="displayAllBikes()">All bikes</a>
-                <a class="dropdown-item" href="#" onclick="displayBikeCategory('BMX')">BMX</a>
-                <a class="dropdown-item" href="#" onclick="displayBikeCategory('Mountain Bike')">Mountain Bike</a>
-                <a class="dropdown-item" href="#" onclick="displayBikeCategory('Kid Bike')">Kid Bike</a>
-                <a class="dropdown-item" href="#" onclick="displayBikeCategory('Electrical Bike')">Electrical Bike</a>
-                <a class="dropdown-item" href="#" onclick="displayBikeCategory('Alternative Bike')">Alternative Bike</a>
+                <a class="dropdown-item merriweather-regular" href="#" onclick="displayAllBikes2()">All bikes</a>
+                <a class="dropdown-item merriweather-regular" href="#" onclick="displayBikeCategory('BMX')">BMX</a>
+                <a class="dropdown-item merriweather-regular" href="#" onclick="displayBikeCategory('Mountain Bike')">Mountain Bike</a>
+                <a class="dropdown-item merriweather-regular" href="#" onclick="displayBikeCategory('Kid Bike')">Kid Bike</a>
+                <a class="dropdown-item merriweather-regular" href="#" onclick="displayBikeCategory('Electrical Bike')">Electrical Bike</a>
+                <a class="dropdown-item merriweather-regular" href="#" onclick="displayBikeCategory('Alternative Bike')">Alternative Bike</a>
             </div>
         </li>
         <li class="nav-item dropdown">
           <img src="images/Bild6.png" id="admin_icon">
           <a class="nav-link dropdown-toggle" href="#" id="admin" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">Admin </a>
           <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class = "dropdown-item" href="#" onclick="viewApplications()">Applications</a>
-            <a class = "dropdown-item" href="#" onclick="viewOrders()">Orders</a>
-            <a class = "dropdown-item" href="#" onclick="viewMessages()">Messages</a>
+            <a class = "dropdown-item merriweather-regular" href="#" onclick="viewApplications()">Applications</a>
+            <a class = "dropdown-item merriweather-regular" href="#" onclick="viewOrders()">Orders</a>
+            <a class = "dropdown-item merriweather-regular" href="#" onclick="viewMessages()">Messages</a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <img src="images/Bild4.png" id="recycle_icon">
-          <a class="nav-link dropdown-toggle" href="#" id="recycle" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">reCycle </a>
+          <a class="nav-link dropdown-toggle" href="#" id="recycle" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">ReCycle </a>
           <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class = "dropdown-item" href="#" onclick="viewAbout()"> About us</a>
-            <a class = "dropdown-item" href="#" onclick="viewContact()"> Contact us</a>
-            <a class = "dropdown-item" href="#" onclick="viewJoin()">Join us</a>
+            <a class = "dropdown-item merriweather-regular" href="#" onclick="viewAbout()"> About us</a>
+            <a class = "dropdown-item merriweather-regular" href="#" onclick="viewContact()"> Contact us</a>
+            <a class = "dropdown-item merriweather-regular" href="#" onclick="viewJoin()">Join us</a>
           </div>
         </li>
         <li class="nav-item dropdown">
           <img src="images/Bild9.png" id="profile_icon">
-          <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">My profile </a>
+          <a class="nav-link dropdown-toggle" href="#" id="my_profile" role="button" data-toggle = "dropdown" aria-haspopup = "true" area-expanded = "false">My Profile </a>
           <div class ="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class = "dropdown-item" href="#" onclick="showAccount()"> My account</a>
-            <a class = "dropdown-item" href="#" onclick="showMyBikes()"> My bikes</a>
-            <a class = "dropdown-item" href="#" onclick="showMyOrders()"> My orders</a>
-            <a class="dropdown-item" href="#" onclick="showMyFavorites()">My favorites</a>
-            <!-- <div class = "dropdown-divider" ></div>
-            <a class="dropdown-item" href="#" onclick=logOut()>Sign out</a>
-          </div> -->
-        </li>
-      </ul>
-    <!-- </div>  -->
-  </nav> 
-   <!-- <nav class="navbar navbar-custom navbar-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class = "dropdown-item merriweather-regular" href="#" onclick="showAccount()"> My account</a>
+            <a class = "dropdown-item merriweather-regular" href="#" onclick="showMyBikes()"> My bikes</a>
+            <a class = "dropdown-item merriweather-regular" href="#" onclick="showMyOrders()"> My orders</a>
+ 
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log in</button>
-      </form>
-    </div>
-  </nav> -->
-<!-- <script>
-    function closeNavbar(event) {
-      var dropdownMenu = $(event.target).closest('.nav-link dropdown-toggle');
-      $(dropdownMenu).dropdown('hide'); 
-    }
-</script> -->
+  </nav> 
 
   <!-- Empty container -->
-    <div class="container">
-    </div>
+  <div class="container0">
+  </div>
+  <div class="container">
+  </div>
+
 
   <!-- Footer -->
     <footer class="custom-footer" id="footer">
@@ -133,9 +108,47 @@
    
 
 <!-- View Home script -->
+<script id ="view-home2" type="text/html">
+  <h1 id="welcome" class="extra-big merriweather-regular">
+    <img src="images/beast.png" id="beast">
+    <div class="overlay-text">Welcome to ReCycle, happy cycling!</div>
+    <div class="overlay-text2">From Streets to Trails, Your Next Journey Begins Here!</div>
+    <div class="overlay-text3">Explore our collection of pre-owned bikes, offering budget-friendly options for every rider</div>
+    <div class="overlay-text4">
+      Step 1: Find the bike you want<br>
+      Step 2: Safely purchase the bike and await email confirmation from reCycle<br>
+      Step 3: Pick up your bike hassle free!
+    </div>
+  </h1>
+</script>
+
+<script id ="view-bmx" type="text/html">
+    <img src="images/bmx-backflip.jpg" id="bmx-backflip">
+    <div class="centered">BMX</div>
+</script>
+<script id ="view-alternative" type="text/html">
+  <img src="images/tandem.jpg" id="alternative">
+  <div class="centered">Alternative Bikes</div>
+</script>
+<script id ="view-manyBikes" type="text/html">
+  <img src="images/manyBikes.jpg" id="manyBikes">
+  <div class="centered2">All bikes currently for sale</div>
+</script>
+<script id ="view-mountainbike" type="text/html">
+  <img src="images/mountainbike.jpeg" id="mountainbike">
+  <div class="centered">Mountain Bikes</div>
+</script>
+<script id ="view-el" type="text/html">
+  <img src="images/el.jpeg" id="el">
+  <div class="centered">Electrical Bikes</div>
+</script>
+<script id ="view-kid" type="text/html">
+  <img src="images/kid.jpeg" id="kid">
+  <div class="centered">Bikes for kids</div>
+</script>
 <script id="view-home" type="text/html">
-  <h1 id="welcome" class="extra-big">
-    Our Bikes
+  <h1 id="welcome" class="extra-big merriweather-regular">
+    Bikes currently for sale
   </h1>
   <div class="btn-group" id="filter-button-group">
     <button type="button" class="btn allbuttons dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filters</button>
@@ -186,33 +199,6 @@
           </div>
         </div>
       </fieldset>
-
-      <fieldset class="form-group">
-        <div class="row">
-          <legend >Age</legend>
-          <div class="col-sm-10">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="gridRadios" id="new" value="1" onclick="checkBox()">
-              <label class="form-check-label" for="new">
-                New
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="gridRadios" id="lowAge" value="3">
-              <label class="form-check-label" for="lowAge">
-                2 - 5 years 
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="gridRadios" id="highAge" value="5" onclick="checkBox()">
-              <label class="form-check-label" for="highAge">
-                > 5 years
-              </label>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-
       <fieldset class="form-group">
         <div class="row">
           <legend >Condition</legend>
@@ -220,33 +206,48 @@
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="gridRadios" id="lowCondition" value="1">
               <label class="form-check-label" for="lowCondition">
-                1 - 2
+                Poor
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="gridRadios" id="highCondition" value="3">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="lowCondition" value="2">
+              <label class="form-check-label" for="lowCondition">
+                Fair
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="lowCondition" value="3">
+              <label class="form-check-label" for="lowCondition">
+                Good
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="lowCondition" value="4">
+              <label class="form-check-label" for="lowCondition">
+                Very good
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="gridRadios" id="highCondition" value="5">
               <label class="form-check-label" for="highCondition">
-                3 - 5
+                Excellent
               </label>
             </div>
           </div>
         </div>
       </fieldset>
-      <button class="btn allbuttons" onclick ="displayAllBikes()">Filter</button> 
+      <button class="btn allbuttons" onclick="currentCategory() === '' ? displayAllBikes() : displayBikeCategory(currentCategory())">Filter</button>
     </form>
-    <form style="margin-left: 10px;" >
+    <form style="margin-left: 42vw;" >
       <div class="form-row align-items-center" >
         <div class="col-auto my-1">
           <label class="mr-sm-2 sr-only" for="selectSort">Sort by</label>
           <select class="custom-select mr-sm-2" id="selectSort">       
-            <option value="0">Recently posted</option>
-            <option value="1">Lowest price</option>
-            <option value="2">Lowest age</option>
-            <option value="3">Best condition</option>
+            <option value="0" onclick="currentCategory() === '' ? displayAllBikes() : displayBikeCategory(currentCategory())">Recently posted</option>
+            <option value="1" onclick="currentCategory() === '' ? displayAllBikes() : displayBikeCategory(currentCategory())">Lowest price</option>
+            <option value="2" onclick="currentCategory() === '' ? displayAllBikes() : displayBikeCategory(currentCategory())">Smallest size</option>
+            <option value="3" onclick="currentCategory() === '' ? displayAllBikes() : displayBikeCategory(currentCategory())">Best condition</option>
           </select>
-        </div>
-        <div class="col-auto my-1">
-          <button class="btn allbuttons sort-button" onclick="displayAllBikes()">Sort</button> 
         </div>
       </div>
     </form>
@@ -258,10 +259,10 @@
 
   <!-- View Bike script -->
   <script id="view-bike" type="text/html">
-    <h1 id="bike" class="extra-big">
+    <h1 id="bike" class="extra-big merriweather-regular">
       Product description
     </h1>
-    <button class = "btn allbuttons goBack-button" onclick = "displayAllBikes()">Back</button>
+    <button class = "btn allbuttons goBack-button" id="goBack-button" onclick = "displayAllBikes()">Back</button>
     <p></p>
     <ul id="bike-list" class="list-group-flush">
     </ul>
@@ -270,17 +271,17 @@
 
   <!-- View user's bikes script -->
   <script id="view-myBikes" type="text/html">
-    <h1 id="myBikes" class="extra-big">
+    <h1 id="myBikes" class="extra-big merriweather-regular">
       My bikes for sale
     </h1>
     <button id="addNewBikeButton" class="btn allbuttons addBike-button" onclick="addBike()">Upload bike for sale</button>
-    <ul id="myBikes-list" class="list-group-flush two-column-list card-list">
+    <ul id="myBikes-list" class="list-group-flush two-column-list">
     </ul>
   </script>
      
   <!-- View user's bikes script -->
   <script id="view-addBike" type="text/html">
-    <h1 id="myNewBike" class="extra-big">
+    <h1 id="myNewBike" class="extra-big merriweather-regular">
       Apply to upload a new bike
     </h1>
     <form id="addBikeForm" enctype="multipart/form-data" method="POST">
@@ -293,17 +294,15 @@
           <option value="Electrical Bike">Electrical Bike</option>
           <option value="Alternative Bike">Alternative Bike</option>
         </select>
-        <!-- <input type="text" class="form-control" id="addCategory" required> -->
         <label for="addModel" class="col-form-label">Caption</label>
         <input type="text" class="form-control" id="addModel" required>
         <label for="addPrice" class="col-form-label">Price</label>
         <input type="text" class="form-control" id="addPrice" required>
+        <small id="conditionHelp" class="form-text text-muted merriweather-regular">A small administration fee of 50 SEK will be added to be paid by the buyer</small>
         <label for="addGears" class="col-form-label">Number of gears</label>
         <input type="text" class="form-control" id="addGears">
-        <label for="addAge" class="col-form-label">Tum</label>
+        <label for="addAge" class="col-form-label">Wheel size (inches)</label>
         <input type="text" class="form-control" id="addAge">
-        <!-- <label for="addCondition" class="col-form-label">Condition</label>
-        <input type="text" class="form-control" id="addCondition"> -->
         <label for="addCondition" class="col-form-label">Condition</label>
         <select class="form-control" id="addCondition" required>
           <option value="1">Bike is falling apart</option>
@@ -312,22 +311,12 @@
           <option value="4">Good Condition</option>
           <option value="5">Almost new Bike</option>
         </select>
-        <small id="conditionHelp" class="form-text text-muted">More information here</small>
       </div>
       <div class="form-group">
         <img src="images/bike.png", id = "Bikepic">
         <label for="input-file">Upload image</label>>
         <input type="file" id="input-file", accept="image/jpeg, image/png, image/jpg">
       </div>
-      <!-- <script>
-        let Bikepic = document.getElementById("Bikepic");
-        let inputFile = document.getElementById("input-file");
-        inputFile.onchange =function(){
-          Bikepic.src =  URL.createObjectURL(inputFile.files[0])
-        }
-      </script> 
-    This script makes the ffollowing buttons appear on every script. This code does not seem to affect the uploading of a picture
-    -->
       <button id="addBikeButton" class="btn allbuttons" onclick="uploadBike()">Apply to upload</button>
     </form>
     </ul>
@@ -336,25 +325,18 @@
 
   <!-- View user's orders script -->
   <script id="view-myOrders" type="text/html">
-    <h1 id="myOrders" class="extra-big">
+    <h1 id="myOrders" class="extra-big merriweather-regular">
       My purchased bikes
     </h1>
     <ul id="myOrders-list" class="list-group-flush two-column-list">
     </ul>
   </script>
 
-  <!-- View user's favorites script -->
-  <script id="view-myFavorites" type="text/html">
-    <h1 id="myFavorites" class="extra-big">
-      My favorite bikes
-    </h1>
-    <ul id="myFavorites-list" class="list-group-flush">
-    </ul>
-  </script>
+ 
 
   <!-- View Account script -->
   <script id="view-account" type="text/html">
-    <h1 id="account" class="extra-big">
+    <h1 id="account" class="extra-big merriweather-regular">
       My account
     </h1>
     <ul id="account-list" class="list-group-flush">
@@ -363,7 +345,7 @@
 
   <!-- View Applications script -->
   <script id="view-applications" type="text/html">
-    <h1 id="applications" class="extra-big">
+    <h1 id="applications" class="extra-big merriweather-regular">
       Pending applications
     </h1>
     <ul id="applications-list" class="list-group-flush two-column-list">
@@ -372,7 +354,7 @@
 
   <!-- View Orders script -->
   <script id="view-orders" type="text/html">
-    <h1 id="orders" class="extra-big">
+    <h1 id="orders" class="extra-big merriweather-regular">
       Orders
     </h1>
     <ul id="orders-list" class="list-group-flush two-column-list">
@@ -381,7 +363,7 @@
 
   <!-- View Messages script -->
   <script id="view-messages" type="text/html">
-    <h1 id="messages" class="extra-big">
+    <h1 id="messages" class="extra-big merriweather-regular">
       Received messages
     </h1>
     <ul id="messages-list" class="list-group-flush">
@@ -390,7 +372,7 @@
 
   <!-- View About us script -->
   <script id="view-about" type="text/html">
-    <h1 id="about" class="extra-big">
+    <h1 id="about" class="extra-big merriweather-regular">
       About reCycle
     </h1>
     <p id="aboutUs"> At reCycle, we are passionate about promoting sustainable transportation solutions while also providing affordable options for cycling enthusiasts. As a leading provider of second-hand bicycles, we believe in giving new life to pre-owned bikes, reducing waste, and contributing to a greener environment.</p>
@@ -400,36 +382,36 @@
     
     <button id="contactUsButton" class="btn allbuttons" onclick="viewContact()">Contact us here</button>
 
-    <h2 class="extra-big">
+    <h2 class="extra-big merriweather-regular">
       Our team
     </h2>
     <div class="card-deck">
       <div class="card us">
         <img src="/Joachim.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Joachim Andersson</h5>
-          <p class="card-text">GIT-master</p>
+          <h5 class="card-title merriweather-regular">Joachim Andersson</h5>
+          <p class="card-text merriweather-regular">GIT-master</p>
         </div>
       </div>
       <div class="card us">
         <img src="/Jacob.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Jacob Carlberg</h5>
-          <p class="card-text">Front-end developer</p>
+          <h5 class="card-title merriweather-regular">Jacob Carlberg</h5>
+          <p class="card-text merriweather-regular">Front-end developer</p>
         </div>
       </div>
       <div class="card us">
         <img src="/Sten.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Sten Gårdmark</h5>
-          <p class="card-text">Architect</p>
+          <h5 class="card-title merriweather-regular">Sten Gårdmark</h5>
+          <p class="card-text merriweather-regular">Architect</p>
         </div>
       </div>
       <div class="card us">
         <img src="/Victoria.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Victoria Johansson</h5>
-          <p class="card-text">Merge-approver</p>
+          <h5 class="card-title merriweather-regular">Victoria Johansson</h5>
+          <p class="card-text merriweather-regular">Merge-approver</p>
         </div>
       </div>
     </div>
@@ -437,15 +419,15 @@
       <div class="card us">
         <img src="/Olle.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Olle Lövborg</h5>
-          <p class="card-text">Scrum master</p>
+          <h5 class="card-title merriweather-regular">Olle Lövborg</h5>
+          <p class="card-text merriweather-regular">Scrum master</p>
         </div>
       </div>
       <div class="card us">
         <img src="/Robin.png" class="card-img-top" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Robin Ridell</h5>
-          <p class="card-text">Chairman</p>
+          <h5 class="card-title merriweather-regular">Robin Ridell</h5>
+          <p class="card-text merriweather-regular">Chairman</p>
         </div>
       </div>
       <div class="card us">
@@ -458,56 +440,56 @@
       <div class="card us">
         <img src="/William.png" class="card-img-top" alt="Card image cap" >
         <div class="card-body">
-          <h5 class="card-title">William Öbrink</h5>
-          <p class="card-text">Back-end developer</p>
+          <h5 class="card-title merriweather-regular">William Öbrink</h5>
+          <p class="card-text merriweather-regular">Back-end developer</p>
         </div>
       </div>
     </div>
   </script>
 
   <!-- Join us script -->
-  <script id="join-us" type="text/html">
-    <h1 id="career" class="extra-big"> Ready to make your mark?</h1>
-    <p id="aboutUs"> Guided by the spirit of entrepreneurship, we are frontrunners in reshaping the e-commerce industry. Every day, we work with some of the sharpest and most creative brains in our field to leave our society in better shape for the next generation. We find thrill in the new, the bold and at times the daring. With the freedom to fail fast and explore we make an impact - as individuals and as a team.
-      Ready to make your mark? We are always on the lookout for talent to join our team.</p>
-    
-      <button type="button" class="btn allbuttons" data-toggle="modal" data-target="#BeContactedModal">
-        Be contacted by us
-      </button>
+ <script id="join-us" type="text/html">
+  <h1 id="career" class="extra-big merriweather-regular"> Ready to make your mark?</h1>
+  <p id="aboutUs"> Guided by the spirit of entrepreneurship, we are frontrunners in reshaping the e-commerce industry. Every day, we work with some of the sharpest and most creative brains in our field to leave our society in better shape for the next generation. We find thrill in the new, the bold and at times the daring. With the freedom to fail fast and explore we make an impact - as individuals and as a team.
+    Ready to make your mark? We are always on the lookout for talent to join our team.</p>
+  
+    <button type="button" class="btn allbuttons" id="contactedButton" data-toggle="modal" data-target="#BeContactedModal">
+      Be contacted by us
+    </button>
 
-      <div class="modal fade" id="BeContactedModal" tabindex="-1" role="dialog" aria-labelledby="BeContactedModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="BeContactedModalLabel">Be contacted by us</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form id="BeContactedForm">
-              <div class="form-group">
-                <label for="contactName" class="col-form-label">Name</label>
-                <input type="text" class="form-control" id="contactName" required>
-                <label for="contactEmail" class="col-form-label">E-mail</label>
-                <input type="text" class="form-control" id="contactEmail" required>
-                <label for="contactEmail" class="col-form-label">Areas interested in</label>
-                <input type="text" class="form-control" id="contactEmail" required>
-              </div>
-              <button id="sendButton" class="btn allbuttons">Send</button>
-              <button class="btn allbuttons" data-dismiss="modal">Cancel</button>
-            </form>
+    <div class="modal fade" id="BeContactedModal" tabindex="-1" role="dialog" aria-labelledby="BeContactedModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title merriweather-regular" id="BeContactedModalLabel">Be contacted by us</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
+          <div class="modal-body">
+            <form id="BeContactedForm">
+            <div class="form-group">
+              <label for="contactName" class="col-form-label merriweather-regular">Name</label>
+              <input type="text" class="form-control" id="contactName" required>
+              <label for="contactEmail" class="col-form-label merriweather-regular">E-mail</label>
+              <input type="text" class="form-control" id="contactEmail" required>
+              <label for="contactEmail" class="col-form-label merriweather-regular">Areas interested in</label>
+              <input type="text" class="form-control" id="contactEmail" required>
+            </div>
+            <button id="sendButton" class="btn allbuttons">Send</button>
+            <button class="btn allbuttons" data-dismiss="modal">Cancel</button>
+          </form>
         </div>
       </div>
-  </script>
-  
+    </div>
+</script>
+
   <!-- Modal for editing account-->
   <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="editAccountModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editAccountModalLabel">Edit information</h5>
+          <h5 class="modal-title merriweather-regular" id="editAccountModalLabel">Edit information</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -515,17 +497,17 @@
         <div class="modal-body">
           <form id="editAccountForm">
           <div class="form-group">
-            <label for="editName" class="col-form-label">Name</label>
+            <label for="editName" class="col-form-label merriweather-regular">Name</label>
             <input type="text" class="form-control" id="editName" required>
-            <label for="editEmail" class="col-form-label">E-mail</label>
+            <label for="editEmail" class="col-form-label merriweather-regular">E-mail</label>
             <input type="text" class="form-control" id="editEmail" required>
           </div>
           <div class="form-group d-none" id="hiddenFormGroup">
             <label for="hiddenField">Hidden Field</label>
             <input type="text" class="form-control" id="editUserID" name="hiddenField">
           </div>
-          <button id="saveChangesButton" class="btn allbuttons" onclick="saveChanges()">Save changes</button>
-          <button class="btn allbuttons" data-dismiss="modal">Cancel</button>
+          <button id="saveChangesButton" class="btn allbuttons merriweather-regular" onclick="saveChanges()">Save changes</button>
+          <button class="btn allbuttons merriweather-regular" data-dismiss="modal">Cancel</button>
         </form>
       </div>
     </div>
@@ -533,54 +515,54 @@
  
 <!-- View Contacts script -->
 <script id="view-contact" type="text/html">
-  <h1 id="contact" class="extra-big">
+  <h1 id="contact" class="extra-big merriweather-regular">
     Contact recycle
   </h1>
   <div class="view-contact2">
     <div class="card mb-3" id="contactCard">
       <div class="card-body" id="contactBody">
-        <h2 class="extra-big">Contact info</h2>
-        <p class="allText">For questions regarding purchase, please contact:</p>
+        <h2 class="extra-big merriweather-regular">Contact info</h2>
+        <p class="allText merriweather-regular">For questions regarding purchase, please contact:</p>
         <a href="mailto:purchase@reCycle.se">purchase@reCycle.se</a>
         <p></p>
-        <p class="allText">For questions regarding sales, please contact:</p>
+        <p class="allText merriweather-regular">For questions regarding sales, please contact:</p>
         <a href="mailto:sales@reCycle.se">sales@reCycle.se</a>
         <p></p>
-        <p class="allText">For questions regarding the web application, please contact:</p>
+        <p class="allText merriweather-regular">For questions regarding the web application, please contact:</p>
         <a href="mailto:front-end@reCycle.se">front-end@reCycle.se</a>
       </div>
     </div>
     <div class="card mb-3" id="contactCard">
       <div class="card-body" id="contactBody">
-        <h2 class="extra-big">Not sure who to contact? Fill in this form</h2>
+        <h2 class="extra-big merriweather-regular">Not sure who to contact? Fill in this form</h2>
         <form id="contactUsForm">
           <div class="form-group">
             <label for="inputName">Name</label>
-            <input type="text" class="form-control" id="inputName" required>
+            <input type="text" class="form-control merriweather-regular" id="inputName" required>
           </div>
           <div class="form-group">
             <label for="inputEmail">E-mail</label>
             <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" required>
-            <small id="emailHelp" class="form-text text-muted">Enter a valid e-mail</small>
+            <small id="emailHelp" class="form-text text-muted merriweather-regular">Enter a valid e-mail</small>
           </div>
           <div class="form-group">
             <label for="inputMessage">Message</label>
             <input type="text" class="form-control" id="inputMessage" required>
           </div>
-          <button type="submit" class="btn allbuttons">Send message</button>
+          <button type="submit" class="btn allbuttons" onclick="sendMessageButton()">Send message</button>
         </form>
       </div>
     </div>
     <div class="card mb-3" id="contactCard">
       <div class="card-body" id="contactBody">
-        <h2 class="extra-big">Address</h2>
-        <p class="allText">Visit our office to deliver and pick up your bike at the following address:</p>
-        <p class="allText">Kårallen, universistet</p>
-        <p class="allText">581 83 Linköping</p>
-        <p class="allText">Sweden</p>
-        <h2 class="extra-big" >Opening hours</h2>
-        <p class="allText">Monday to Friday: 08:00-17:00</p>
-        <p class="allText">Saturday and Sunday: closed</p>
+        <h2 class="extra-big merriweather-regular">Address</h2>
+        <p class="allText merriweather-regular">Visit our office to deliver and pick up your bike at the following address:</p>
+        <p class="allText merriweather-regular">Kårallen, universistet</p>
+        <p class="allText merriweather-regular">581 83 Linköping</p>
+        <p class="allText merriweather-regular">Sweden</p>
+        <h2 class="extra-big merriweather-regular" >Opening hours</h2>
+        <p class="allText merriweather-regular">Monday to Friday: 08:00-17:00</p>
+        <p class="allText merriweather-regular">Saturday and Sunday: closed</p>
       </div>
     </div>
     <div class="card mb-3" id="contactCardMap">
@@ -593,43 +575,43 @@
 
   <!-- View Sign up Script-->
    <script id="view-sign-up" type="text/html">
-    <h1 id="welcome" class="extra-big">
+    <h1 id="welcome" class="extra-big merriweather-regular">
       Create an account
     </h1>
     <form id="signupForm">
-      <div class="form-group">
+      <div class="form-group2 merriweather-regular">
         <label for="exampleInputName">Name</label>
         <input type="name" class="form-control" id="exampleInputName">
       </div>
-      <div class="form-group">
+      <div class="form-group2 merriweather-regular">
         <label for="exampleInputEmail1">E-mail address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         <small id="emailHelp" class="form-text text-muted">Please enter a valid E-mail address</small>
       </div>
-      <div class="form-group">
+      <div class="form-group2 merriweather-regular">
         <label for="exampleInputPassword">Password</label>
         <input type="password" class="form-control" id="exampleInputPassword">
       </div>
-      <button input type="submit" class="btn allbuttons" onclick="signIn()">Register</button>
+      <button input type="submit" class="btn allbuttons login" onclick="signIn()">Register</button>
     </form>
   </script>
 
   <!-- View Login Script-->
   <script id="view-login" type="text/html">
-    <h1 id="welcome" class="extra-big">
+    <h1 id="welcome" class="extra-big merriweather-regular">
       Log in here
     </h1>
     <form id="logInForm">
-      <div class="form-group">
+      <div class="form-group2 merriweather-regular">
         <label for="inputEmail">E-mail address</label>
         <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
-        <small id="emailHelp" class="form-text text-muted">Please enter a valid E-mail address</small>
+        <small id="emailHelp" class="form-text text-muted merriweather-regular">Please enter a valid E-mail address</small>
       </div>
-      <div class="form-group">
+      <div class="form-group2 merriweather-regular">
         <label for="inputPassword">Password</label>
         <input type="password" class="form-control" id="inputPassword">
       </div>
-      <button class="btn allbuttons" onclick="logIn()">Log in</button>
+      <button class="btn allbuttons login" onclick="logIn()">Log in</button>
     </form>
   </script>
 

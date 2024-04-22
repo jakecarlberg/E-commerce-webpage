@@ -4,6 +4,7 @@ function viewHome() {
    setTimeout(updateNavbar, 400);
    displayAllBikes();
 }
+var currentCategoryValue;
 
 // wait for synchronising the login
 function updateNavbar() {
@@ -23,6 +24,7 @@ function updateNavbar() {
 // Function to view applications
 function viewApplications() {
    $(".container").html($("#view-applications").html())
+   $(".container0").hide();
    $("#applications-list").empty();
    $.ajax({
       url: host + '/bikes',
@@ -31,16 +33,16 @@ function viewApplications() {
          bikes.forEach(function (bike) {
             if (!bike.is_listed && !bike.is_sold) {
                var bikeView = $(`     
-               <div class="card mb-3" id="card"> 
-                  <img src="${bike.picture_path}" id="pic">             
+               <div class="card mb-3" id="card3"> 
+                  <img src="${bike.picture_path}" id="allBikes-pic">             
                   <div class="card-body">
-                     <h5 class="card-title">${bike.model} </h5>
-                     <p class="card-text">User ID: ${bike.seller_id}</p>
-                     <p class="card-text">Category: ${bike.category}</p>
-                     <p class="card-text">Price: ${bike.price} SEK</p>
-                     <p class="card-text">Condition: ${bike.condition}</p>
-                     <p class="card-text">Age: ${bike.age} years</p>
-                     <p class="card-text">Gears: ${bike.gears}</p>
+                     <h5 class="card-title merriweather-regular">${bike.model} </h5>
+                     <p class="card-text merriweather-regular">User ID: ${bike.seller_id}</p>
+                     <p class="card-text merriweather-regular">Category: ${bike.category}</p>
+                     <p class="card-text merriweather-regular">Price: ${bike.price} SEK</p>
+                     <p class="card-text merriweather-regular">Condition: ${bike.condition}</p>
+                     <p class="card-text merriweather-regular">Wheel size: ${bike.age} inches</p>
+                     <p class="card-text merriweather-regular">Gears: ${bike.gears}</p>
                      <button class="btn allbuttons" id="approve-button" onclick="listBike(${bike.id})" data-id="${bike.id}">Approve</button>
                   </div>
                </div>`);
@@ -49,7 +51,7 @@ function viewApplications() {
          });
       },
       error: function() {
-         alert("Error fetching bikes.");
+         console("Error fetching bikes.");
       }
    });
  }
@@ -57,6 +59,7 @@ function viewApplications() {
 // Function to view orders as admin
 function viewOrders() {
    $(".container").html($("#view-orders").html())
+   $(".container0").hide();
    $("#orders-list").empty(); 
    seller_email = 'no email';
    $.ajax({
@@ -79,14 +82,14 @@ function viewOrders() {
             });
             setTimeout(function() {
             var orderView = $(`      
-               <div class="card mb-3" id="card">       
+               <div class="card mb-3" id="card5">       
                   <img src="${bike.picture_path}" id="allBikes-pic">      
                   <div class="card-body">
-                     <h5 class="card-title">Bike: (${bike.id}) ${bike.model} </h5>
-                     <p class="card-text">Category: ${bike.category} </p> 
-                     <p class="card-text">Payment to seller: ${bike.price - 50} SEK</p>   
-                     <p class="card-text">Fee: 50 SEK </p>   
-                     <p class="card-text">Seller: ${seller_email} </p>
+                     <h5 class="card-title merriweather-regular">Bike: (${bike.id}) ${bike.model} </h5>
+                     <p class="card-text merriweather-regular">Category: ${bike.category} </p> 
+                     <p class="card-text merriweather-regular">Payment to seller: ${bike.price - 50} SEK</p>   
+                     <p class="card-text merriweather-regular">Fee: 50 SEK </p>   
+                     <p class="card-text merriweather-regular">Seller: ${seller_email} </p>
                   </div>
                </div>`);
             $("#orders-list").append(orderView);
@@ -95,7 +98,7 @@ function viewOrders() {
          });
       },
       error: function() {
-         alert("Error fetching bikes."); 
+         console("Error fetching bikes."); 
       }
    });
 }
@@ -128,6 +131,7 @@ function listBike(bike_id) {
 // Function to open messages script by admin
 function viewMessages() {
    $(".container").html($("#view-messages").html());
+   $(".container0").hide();
    $("#messages-list").empty();
    $.ajax({
       url: host + '/messages',
@@ -138,9 +142,9 @@ function viewMessages() {
             var messageView = $(`      
                <div class="card mb-3">               
                   <div class="card-body">
-                     <h5 class="card-title">Name: ${message.name}</h5> 
-                     <h5 class="card-title">E-mail: ${message.email} </h5> 
-                     <p class="card-text">Message: ${message.message} </p>
+                     <h5 class="card-title merriweather-regular">Name: ${message.name}</h5> 
+                     <h5 class="card-title merriweather-regular">E-mail: ${message.email} </h5> 
+                     <p class="card-text merriweather-regular">Message: ${message.message} </p>
                   </div>
                </div>`);
             $("#messages-list").append(messageView);
@@ -155,6 +159,7 @@ function viewMessages() {
 // function to open contacts script
 function viewContact() {
    $(".container").html($("#view-contact").html());
+   $(".container0").hide();
 }
 
 // function to send message
@@ -186,6 +191,7 @@ function sendMessageButton() {
 // function to open about us script
 function viewAbout() {
    $(".container").html($("#view-about").html());
+   $(".container0").hide();
 }
 
 // function to open join us script
@@ -346,6 +352,9 @@ function displayAllBikes() {
       setStoredOption();
    }, 1);
    $(".container").html($("#view-home").html());
+   $(".container0").html($("#view-home2").html());
+   $(".container0").show();
+
    $("#home-list").empty(); 
    $.ajax({
       url: host + '/bikes',
@@ -365,11 +374,11 @@ function displayAllBikes() {
                                  <div class="card-body allBikes">
                                     <div>
                                        
-                                       <h5 class="card-text bike-title">${bike.model} </h5> 
-                                       <p class="card-text bike-title">Category: ${bike.category} </p> 
-                                       <p class="card-text">${bike.price} SEK </p>
+                                       <h5 class="card-text bike-title merriweather-regular">${bike.model} </h5> 
+                                       <p class="card-text bike-title merriweather-regular">Category: ${bike.category} </p> 
+                                       <p class="card-text merriweather-regular">${bike.price} SEK </p>
                                     </div>
-                                    <button class="btn allbuttons" id="readMore-button" data-id="${bike.id}">Read more</button>
+
                                  </div>
                               </div>
                            </a>`;
@@ -380,12 +389,155 @@ function displayAllBikes() {
                }
             }
          });
+         currentCategoryValue = "";
       },
       error: function() {
-         alert("Error fetching bikes."); 
+         console("Error fetching bikes."); 
       }
    });
  }
+ function displayAllBikes2() {
+   var lowestPrice = 0;
+   var highestPrice = 100000000000;
+   var lowestGears = 0;
+   var highestGears = 100000000000;
+   var lowestAge = 0;
+   var highestAge = 10000000000;
+   var lowestCondition = 1;
+   var highestCondition = 5;
+   if ($('#lowPrice').prop('checked')) {
+      highestPrice = 999;
+   } if ($('#middlePrice').prop('checked')  ) {
+      lowestPrice = 1000;
+      highestPrice = 5000;
+   } if ($('#highPrice').prop('checked')) {
+      lowestPrice = 5001;
+   } if ($('#lowPrice').prop('checked') && $('#middlePrice').prop('checked')) {
+      lowestPrice = 0;
+      highestPrice = 5000;
+   } if ($('#middlePrice').prop('checked') && $('#highPrice').prop('checked')) {
+      lowestPrice = 1000;
+      highestPrice = 1000000000;
+   } 
+   if ($('#lowGears').prop('checked')) {
+      highestGears = 4;
+   } if ($('#highGears').prop('checked')) {
+      lowestGears = 5;
+   }
+   if ($('#lowGears').prop('checked') && $('#highGears').prop('checked')) {
+      lowestGears = 0;
+      highestGears = 100000000;
+   }
+   if ($('#new').prop('checked')) {
+      highestAge = 1;
+   } if ($('#lowAge').prop('checked')) {
+      lowestAge = 2;
+      highestAge = 5;
+   } if ($('#highAge').prop('checked')) {
+      lowestAge = 6;
+      highestAge = 1000000;
+   }  if ($('#new').prop('checked') && $('#lowAge').prop('checked')) {
+      lowestAge = 0;
+      highestAge = 5;
+   }  if ($('#lowAge').prop('checked') && $('#highAge').prop('checked')) {
+      lowestAge = 2;
+      highestAge = 1000000;
+   } 
+   if ($('#lowCondition').prop('checked')) {
+      highestCondition = 2;
+   } if ($('#highCondition').prop('checked')) {
+      lowestCondition = 3;
+   }
+   if ($('#lowCondition').prop('checked') && $('#highCondition').prop('checked')) {
+      lowestCondition = 1;
+      highestCondition = 5;
+   }
+   
+   var sortByValue = $('#selectSort').val();
+ 
+   localStorage.setItem("sortOption", sortByValue);
+   localStorage.setItem('lowPriceChecked', $('#lowPrice').prop('checked'));
+   localStorage.setItem('middlePriceChecked', $('#middlePrice').prop('checked'));
+   localStorage.setItem('highPriceChecked', $('#highPrice').prop('checked'));
+   localStorage.setItem('lowGearsChecked', $('#lowGears').prop('checked'));
+   localStorage.setItem('highGearsChecked', $('#highGears').prop('checked'));
+   localStorage.setItem('newChecked', $('#new').prop('checked'));
+   localStorage.setItem('lowAgeChecked', $('#lowAge').prop('checked'));
+   localStorage.setItem('highAgeChecked', $('#highAge').prop('checked'));
+   localStorage.setItem('lowConditionChecked', $('#lowCondition').prop('checked'));
+   localStorage.setItem('highConditionChecked', $('#highCondition').prop('checked'));
+   setTimeout(() => {
+      setStoredOption();
+   }, 1);
+   $(".container").html($("#view-home").html());
+   viewManyBikes();
+
+   $("#home-list").empty(); 
+   $.ajax({
+      url: host + '/bikes',
+      type: 'GET',
+      success: function(bikes) {
+         bikes = sortBikes(sortByValue, bikes);
+         bikes.forEach(function (bike) {
+            if (bike.is_listed) {
+               if (bike.price >= lowestPrice && bike.price <= highestPrice) {
+                  if (bike.gears >= lowestGears && bike.gears <= highestGears) {
+                     if (bike.age >= lowestAge && bike.age <= highestAge) {
+                        if (bike.condition >= lowestCondition && bike.condition <= highestCondition) {
+                           var bikeView = `      
+                              <a href="#" onclick="showBike(${bike.id}); return false;">
+                              <div class="card mb-3" id ="card">
+                              <img src="${bike.picture_path}" id="allBikes-pic">
+                                 <div class="card-body allBikes">
+                                    <div>
+                                       
+                                       <h5 class="card-text bike-title merriweather-regular">${bike.model} </h5> 
+                                       <p class="card-text bike-title merriweather-regular">Category: ${bike.category} </p> 
+                                       <p class="card-text merriweather-regular">${bike.price} SEK </p>
+                                    </div>
+
+                                 </div>
+                              </div>
+                           </a>`;
+                           $("#home-list").append(bikeView);
+                        }
+                     }
+                  }
+               }
+            }
+         });
+         currentCategoryValue = "";
+      },
+      error: function() {
+         console("Error fetching bikes."); 
+      }
+   });
+ }
+ function viewBMX() {
+   $(".container0").html($("#view-bmx").html());
+   $(".container0").show();
+ } 
+ function viewMountainBike() {
+   $(".container0").html($("#view-mountainbike").html());
+   $(".container0").show();
+ }
+ function viewKid() {
+   $(".container0").html($("#view-kid").html());
+   $(".container0").show();
+ } 
+ function viewEl() {
+   $(".container0").html($("#view-el").html());
+   $(".container0").show();
+ } 
+ function viewAlternative() {
+   $(".container0").html($("#view-alternative").html());
+   $(".container0").show();
+ } 
+ function viewManyBikes() {
+   $(".container0").html($("#view-manyBikes").html());
+   $(".container0").show();
+ } 
+ 
  function displayBikeCategory(bike_category) {
    var lowestPrice = 0;
    var highestPrice = 100000000000;
@@ -461,6 +613,21 @@ function displayAllBikes() {
       setStoredOption();
    }, 1);
    $(".container").html($("#view-home").html());
+   if (bike_category === 'BMX') {
+      viewBMX(); 
+   }
+   if (bike_category === 'Mountain Bike') {
+      viewMountainBike(); 
+   }
+   if (bike_category === 'Kid Bike') {
+      viewKid(); 
+   }
+   if (bike_category === 'Electrical Bike') {
+      viewEl(); 
+   }
+   if (bike_category === 'Alternative Bike') {
+      viewAlternative(); 
+   }
    $("#home-list").empty(); 
    $.ajax({
       url: host + '/bikes/' + bike_category,
@@ -479,11 +646,10 @@ function displayAllBikes() {
                               <img src="${bike.picture_path}" id="allBikes-pic">
                                  <div class="card-body allBikes">
                                     <div>
-                                       <p class="card-text bike-title">${bike.model} </p> 
-                                       <p class="card-text">${bike.category} </p>
-                                       <p class="card-text">${bike.price} SEK </p>
+                                       <p class="card-text bike-title merriweather-regular">${bike.model} </p> 
+                                       <p class="card-text merriweather-regular">${bike.category} </p>
+                                       <p class="card-text merriweather-regular">${bike.price} SEK </p>
                                     </div>
-                                    <button class="btn allbuttons" id="readMore-button" data-id="${bike.id}">Read more</button>
                                  </div>
                               </div>
                            </a>`;
@@ -494,52 +660,21 @@ function displayAllBikes() {
                }
             }
          });
+         currentCategoryValue = bike_category;
       },
       error: function() {
-         alert("Error fetching bikes."); 
+         alert("There are currrently no bikes of this category listed."); 
+         viewHome();
       }
    });
  }
-
-
-function showMyFavorites() {
-   $(".container").html($("#view-myFavorites").html())
-   $("#myFavorites-list").empty(); 
-   var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
-   var user_id = currentUser.id;
-   $.ajax({
-      url: host + '/users/' + user_id + '/favorites',
-      headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
-      success: function(bikes) {
-         bikes.forEach(function (bike) {
-         var bikeView = `      
-            <div class="card mb-3">
-               <img src="${bike.picture_path}" id="pic">
-               <div class="card-body myBike-card">
-                  <h5 class="card-title">${bike.model} </h5> 
-                  <p class="card-text">Category: ${bike.category} </p>
-                  <p class="card-text">Price: ${bike.price} SEK </p>
-                  <p class="card-text">Gears: ${bike.gears} </p>
-                  <p class="card-text">Age: ${bike.age} </p>
-                  <p class="card-text">Condition: ${bike.condition} </p>
-                  <p class="card-text">Listed: ${bike.is_listed} </p>
-                  <button class = "btn allbuttons" onclick = "unfavoriteAndReload(${user_id}, ${bike.id});">Unfavorite</button>
-               </div>
-             </div>`
-         $("#myFavorites-list").append(bikeView);
-         
-      });
-      },
-      error: function() {
-         alert("Error fetching favorites."); 
-      }
-   });
-   
+ function currentCategory() {
+   return currentCategoryValue; // Return the current category value
 }
-
 // Function showBike() enter new script for specific bike
 function showBike(bike_id) {
    $(".container").html($("#view-bike").html());
+   $(".container0").hide();
    $("#bike-list").empty(); 
    var authData = sessionStorage.getItem('auth');
    if (authData !== null) {
@@ -556,15 +691,14 @@ function showBike(bike_id) {
       type: 'GET',
       success: function(bike) {  
          var bikeView = `      
-            <div class="card mb-3" id="card">
+            <div class="card mb-3" id="card2">
                
                <img src="${bike.picture_path}" id="pic">
                <div class="card-body">
-                        <h1 class="description-headline">${bike.model} </h1> 
-                        <h1 class="description-price">${bike.price} SEK</h1>
-                        <p class="card-text">Category: ${bike.category} </p>
-                        <p class="card-text">${bike.price} SEK</p>
-                        <p class="card-text">Gears: ${bike.gears} </p>
+                        <h1 class="description-headline merriweather-regular">${bike.model} </h1> 
+                        <p class="card-text merriweather-regular">Category: ${bike.category} </p>
+                        <p class="card-text merriweather-regular">${bike.price} SEK</p>
+                        <p class="card-text merriweather-regular">Gears: ${bike.gears} </p>
                         ${(() => {
                            let conditionText = '';
                            if (bike.condition === 1) {
@@ -580,37 +714,35 @@ function showBike(bike_id) {
                            } else {
                                conditionText = 'Unknown';
                            }
-                           return `<p class="card-text">Condition: ${conditionText}</p>`;
+                           return `<p class="card-text merriweather-regular">Condition: ${conditionText} 
+                           <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+                       
+                        
+                           <div class="info">
+                           <i class="icon-info-sign"></i>
+                           <span class="extra-info">
+                               <p><strong>Poor</strong> - The bike is almost not functional</p>
+                               <p><strong>Fair</strong> - The bike has been used alot</p>
+                               <p><strong>Good</strong> - The bike is in used condition</p>
+                               <p><strong>Very good</strong> - The bike has been looked after but shows small signs of usage</p>
+                               <p><strong>Excellent</strong> - The bike is almost brand new</p>
+                           </span>
+                       </div>
+                       
+                        </p>`;
+                           
                        })()}
-                        <p class="card-text">Age: ${bike.age} </p>
-                        <button class="btn allbuttons" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>`;
-                        if (user_id !== null) {
-                           var favorited = isFavorite(user_id, bike.id);
-                           if (favorited == true){
-                              console.log("bike är true");
-                              var imgSrc = 'star_filled.png';
-                              bikeView += `<button class="btn favorite-button" onclick="toggleFavorite(${user_id}, ${bike.id}); setTimeout(function() { reloadShowBike(${bike.id}); }, 10)" data-id="${user_id}, ${bike.id}">
-                           <img src="${imgSrc}">
-                           </button>`;
-                           
-                           }
-                           else {
-                              console.log("bike är false");
-                              var imgSrc = 'star_unfilled.png';
-                              bikeView += `<button class="btn favorite-button" onclick="toggleFavorite(${user_id}, ${bike.id}); setTimeout(function() { reloadShowBike(${bike.id}); }, 10)" data-id="${user_id}, ${bike.id}">
-                           <img src="${imgSrc}">
-                           </button>`;
-
-                           }
-                           
-                           
-                       }
+                        <p class="card-text merriweather-regular">Wheel size: ${bike.age} inches </p>
+                        <button class="btn allbuttons" onclick="purchaseBikeButton(${bike.id})" data-id="${bike.id}">Purchase</button>
+                        `;
+                        
+                      
                         bikeView += `</div>
                         </div>`;
          $("#bike-list").append(bikeView);
       },
       error: function() {
-         alert("Error fetching bike."); 
+         console("Error fetching bike."); 
       }
    });
 }
@@ -618,6 +750,7 @@ function showBike(bike_id) {
 // Function displaying the users bikes for sale (and sold)
 function showMyBikes() {
    $(".container").html($("#view-myBikes").html())
+   $(".container0").hide();
    $("#myBikes-list").empty(); 
    var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
    var user_id = currentUser.id;
@@ -627,17 +760,18 @@ function showMyBikes() {
       success: function(bikes) {
          bikes.forEach(function (bike) {
          var bikeView = `      
-            <div class="card mb-3" id="card">
+            <div class="card mb-3" id="card4">
                <img src="${bike.picture_path}" id="allBikes-pic">
                <div class="card-body">
                   <div>
                      <h5 class="card-title">${bike.model} </h5> 
-                     <p class="card-text">Category: ${bike.category} </p>
-                     <p class="card-text">Price: ${bike.price} SEK </p>
-                     <p class="card-text">Gears: ${bike.gears} </p>
-                     <p class="card-text">Age: ${bike.age} </p>
-                     <p class="card-text">Condition: ${bike.condition} </p>
-                     <p class="card-text boldText"<strong>Status: </strong> ${bike.is_listed ? 'Bike is listed' : 'Bike is not listed'} </p>
+                     <p class="card-text merriweather-regular">Category: ${bike.category} </p>
+                     <p class="card-text merriweather-regular">Price: ${bike.price} SEK </p>
+                     <p class="card-text merriweather-regular">Gears: ${bike.gears} </p>
+                     <p class="card-text merriweather-regular">Wheel size: ${bike.age} </p>
+                     <p class="card-text merriweather-regular">Condition: ${bike.condition} </p>
+                     <p class="card-text boldText merriweather-regular"<strong>Status: </strong> ${bike.is_listed ? 'Bike is listed' : 'Bike is not listed'} </p>
+                     <p class="card-text boldText merriweather-regular"<strong>Sold: </strong> ${bike.is_sold ? 'Yes' : 'No'} </p>
                   </div>`
                if (!bike.is_sold) {
                   bikeView += `
@@ -650,7 +784,7 @@ function showMyBikes() {
       });
       },
       error: function() {
-         alert("Error fetching bikes."); 
+         console("Error fetching bikes."); 
       }
    });
  
@@ -659,6 +793,7 @@ function showMyBikes() {
 // Function for uploading a new bike
 function addBike() {
    $(".container").html($("#view-addBike").html())
+   $(".container0").hide();
 }
 
 // Function for applying for posting bike
@@ -763,6 +898,7 @@ function deleteLatestOrder(){
 // Function to enter my account from navbar dropdown using a modal
 function showAccount() {
    $(".container").html($("#view-account").html())
+   $(".container0").hide();
    $("#account-list").empty(); 
    var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
    var user_id = currentUser.id;
@@ -772,18 +908,12 @@ function showAccount() {
       headers: {"Authorization": "Bearer " + JSON.parse(sessionStorage.getItem('auth')).token},
       success: function(user) {
          var userView = $(`   
-            <div class="card" style="width: 18rem;">
-               <div class="card-body">
-                  <p </p>
-               </div>
-               <div class="d-flex justify-content-center">
-                  <div class="spinner-border" role="status">
-                     <span class="sr-only">Loading...</span>
-                  </div>
+            <div class="card3" style="width: 18rem;">
+               <img src="images/Bild1.png" id="profile_icon2">
                </div>
                <div class="card-body">
-                  <h5 class="card-title">${user.name}</h5>
-                  <p class="card-text">E-mail: ${user.email} </p>
+                  <h5 class="card-title merriweather-regular">Name: ${user.name}</h5>
+                  <p class="card-text merriweather-regular">E-mail: ${user.email} </p>
                   <button class="btn allbuttons" data-toggle="modal" data-target="#editAccountModal" onclick="editUser(${user.id})">Edit information</button>
                </div>
             </div>`);
@@ -795,6 +925,7 @@ function showAccount() {
 // Function showOrder() enter new script for specific bike
 function showMyOrders() {
    $(".container").html($("#view-myOrders").html())
+   $(".container0").hide();
    $("#myOrders-list").empty(); 
    var currentUser = JSON.parse(sessionStorage.getItem('auth')).user;
    var user_id = currentUser.id;
@@ -806,12 +937,12 @@ function showMyOrders() {
       success: function(bikes) {
          bikes.forEach(function (bike) {
             var bikeView = `      
-            <div class="card mb-3" id="card">
+            <div class="card mb-3" id="card5">
             <img src="${bike.picture_path}" id="allBikes-pic">
             <div class="card-body">
-                        <h5 class="card-title">${bike.model} </h5>
-                        <p class="card-text">Category: ${bike.category} </p>
-                        <p class="card-text">Price: ${bike.price} SEK </p>
+                        <h5 class="card-title merriweather-regular">${bike.model} </h5>
+                        <p class="card-text merriweather-regular">Category: ${bike.category} </p>
+                        <p class="card-text merriweather-regular">Price: ${bike.price} SEK </p>
                      </div>
                   </div>`
             $("#myOrders-list").append(bikeView);
@@ -873,6 +1004,7 @@ function saveChanges() {
 // sign in page
 function signInPage() {
    $(".container").html($("#view-sign-up").html())
+   $(".container0").hide();
 }
 
 // submit signup
@@ -903,6 +1035,7 @@ function signIn(){
 // log in page
 function logInPage(){
    $(".container").html($("#view-login").html())
+   $(".container0").hide();
 }
 
 // submit log in
@@ -960,29 +1093,6 @@ function logOut() {
    }, 1000);
 }
 
-//Contact-page will not be available on webbsida_1
-//  $(".nav-link:contains('Kontakt')").click(function (e) {
-//     e.preventDefault();
-//     $(".container").html($("#view-contacts").html())
-//  });
-
-// To only show footer when scrolled down
-// document.addEventListener('DOMContentLoaded', function() {
-//    window.addEventListener('scroll', function() {
-//       var scrollPosition = window.scrollY;
-//       var windowHeight = window.innerHeight;
-//       var bodyHeight = document.body.offsetHeight;
-
-//       if (scrollPosition + windowHeight >= bodyHeight) {
-//          this.document.getElementById('footer').style.display = 'block';
-//       } else {
-//          this.document.getElementById('footer').style.display = 'none';
-//       }
-//    });
-// });
-
-// DESSA BÖR VI TA BORT
-
 // Opening modal of editing bike
 $(".container").on("click", ".edit-bike", function (e) {
    e.preventDefault();
@@ -1031,85 +1141,136 @@ $("#editBikeForm").submit(function (e) {
       } 
    });
 });
-
-function toggleFavorite(userId, bikeId) {
-   $.ajax({
-       url: '/users/' + userId + '/favorite/' + bikeId,
-       type: 'GET',
-       success: function(response) {
-           if (response.favorited) {
-               // Bike is already favorited, so unfavorite it
-               unfavorite(userId, bikeId);
-           } else {
-               // Bike is not favorited, so favorite it
-               favorite(userId, bikeId);
-           }
-       },
-       error: function() {
-           console.error('Error checking favorite status.');
-       }
-   });
-}
-function isFavorite(user_id, bike_id) {
-   var isFavorited;
-   $.ajax({
-       url: host + '/users/' + user_id + '/favorite/' + bike_id,
-       type: 'GET',
-       async: false, // Ensure synchronous execution
-       success: function(response) {
-           isFavorited = response.favorited;
-          
-       },
-       error: function() {
-           console.error('Error checking favorite status.');
-       }
-   });
-   return isFavorited;
-}
-
-
-function favorite(userId, bikeId) {
-   console.log("Deli");
-   $.ajax({
-       url: '/users/' + userId + '/favorite/' + bikeId,
-       type: 'POST',
-       success: function(response) {
-           console.log('Bike favorited successfully.');
-           // Update UI to reflect favorited status
-       },
-       error: function() {
-           console.error('Error favoriting bike.');
-       }
-   });
-}
-
-function unfavorite(userId, bikeId) {
-   $.ajax({
-       url: '/users/' + userId + '/favorite/' + bikeId,
-       type: 'DELETE',
-       success: function(response) {
-           console.log('Bike unfavorited successfully.');
-           // Update UI to reflect unfavorited status
-       },
-       error: function() {
-           console.error('Error unfavoriting bike.');
-       }
-   });
-}
-function unfavoriteAndReload(userId, bikeId) {
-   $.ajax({
-       url: '/users/' + userId + '/favorite/' + bikeId,
-       type: 'DELETE',
-       success: function(response) {
-           console.log('Bike unfavorited successfully.');
-           showMyFavorites();
-       },
-       error: function() {
-           console.error('Error unfavoriting bike.');
-       }
-   });
-}
 function reloadShowBike(bikeId) {
-   // Call your showBike function with the bikeId parameter to reload the content
    showBike(bikeId);
 }
+
+
+const inputBox = document.getElementById("input-text");
+const searchForm = document.getElementById("searchForm");
+const resultsBox = document.querySelector(".result-box");
+
+inputBox.addEventListener("input", search);
+searchForm.addEventListener("submit", handleSearch);
+
+document.addEventListener('click', function(event) {
+   var searchBox = document.querySelector('.search-box');
+   var resultBox = document.querySelector('.result-box');
+   var inputText = document.getElementById('input-text');
+
+   if (!searchBox.contains(event.target) && !resultBox.contains(event.target) && event.target !== inputText) {
+
+       resultBox.style.display = 'none';
+   }
+});
+
+document.getElementById('input-text').addEventListener('input', function(event) {
+   var resultBox = document.querySelector('.result-box');
+   var inputText = document.getElementById('input-text');
+
+   resultBox.style.display = 'block';
+   
+});
+
+function search() {
+   let availableKeywords = [
+      'BMX',
+      'Mountain Bike',
+      'Electrical Bike',
+      'Buy Electrical',
+      'Hardcore',
+      'Sustainable',
+      'Small',
+      'Kid',
+      'Street'
+   ];
+   let input = inputBox.value;
+
+
+
+   let result = availableKeywords.filter((keyword)=>{
+      return keyword.toLowerCase().includes(input.toLowerCase());
+   });
+
+   display(result);
+}
+
+
+function display(result) {
+
+   const content = result.map((list)=>{
+      return "<li onclick=selectInput(this)>" + list + "</li>"
+   });
+
+   resultsBox.innerHTML = "<ul>" + content.join('') + "</ul>";
+}
+
+
+function selectInput(list) {
+
+   inputBox.value = list.innerHTML;
+
+   const inputValueLowerCase = inputBox.value.toLowerCase();
+   console.log("Input value:", inputBox.value);
+
+   if (inputValueLowerCase.includes('electrical') || inputValueLowerCase.includes('sustainable')) {
+      console.log("Redirecting to Electrical Bike page...");
+      alert("Redirecting to Electrical Bike page...");
+      displayBikeCategory('Electrical Bike');
+   } else if (inputValueLowerCase.includes('bmx') || inputValueLowerCase.includes('street')) {
+      console.log("Redirecting to BMX page...");
+      alert("Redirecting to BMX page...");
+      displayBikeCategory('BMX');
+   } else if (inputValueLowerCase.includes('mountain') || inputValueLowerCase.includes('hardcore')) {
+      console.log("Redirecting to Mountain Bike page...");
+      alert("Redirecting to Mountain Bike page...");
+      displayBikeCategory('Mountain Bike');
+   } else if (inputValueLowerCase.includes('small') || inputValueLowerCase.includes('kid')) {
+      console.log("Redirecting to Kid page...");
+      alert("Redirecting to Kid page...");
+      displayBikeCategory('Kid Bike');
+   }
+   else {
+      console.log("Displaying all bikes...");
+      displayAllBikes();
+   }
+
+   resultsBox.innerHTML = '';
+}
+
+function handleSearch(event) {
+   event.preventDefault(); 
+   const input = document.getElementById("input-text").value.trim().toLowerCase();
+
+
+   if (input.includes('electrical') || input.includes('electric') || input.includes('e-bike') || input.includes('sustainable') || input.includes('eco-friendly') || input.includes('battery') || input.includes('powered') || input.includes('rechargeable')) {
+       console.log("Redirecting to Electrical Bike page...");
+       alert("Redirecting to Electrical Bike page...")
+       displayBikeCategory('Electrical Bike');
+   } else if (input.includes('bmx') || input.includes('street') || input.includes('freestyle') || input.includes('trick')) {
+       console.log("Redirecting to BMX page...");
+       alert("Redirecting to BMX page...");
+       displayBikeCategory('BMX');
+   } else if (input.includes('mountain') || input.includes('hardcore') || input.includes('off-road') || input.includes('trail') || input.includes('downhill') || input.includes('cross-country')) {
+       console.log("Redirecting to Mountain Bike page...");
+       alert("Redirecting to Mountain Bike page...");
+       displayBikeCategory('Mountain Bike');
+   } else if (input.includes('small') || input.includes('kid') || input.includes('children') || input.includes('youth') || input.includes('mini') || input.includes('junior')) {
+       console.log("Redirecting to Kid page...");
+       alert("Redirecting to Kid page...");
+       displayBikeCategory('Kid Bike');
+   } else {
+       console.log("Displaying all bikes...");
+       displayAllBikes();
+   }
+}
+
+
+   resultsBox.innerHTML = '';
+
+
+function viewJoin() {
+   $(".container").html($("#join-us").html());
+   $(".container0").hide();
+ }
+
