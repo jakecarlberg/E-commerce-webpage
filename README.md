@@ -2,27 +2,27 @@
 
 ## Project Description
 
-This project is a web application developed as part of the TDDD83 Bachelor project. It's built using Flask for the backend and includes features such as user authentication, database interactions, and Stripe payment integration.
+This project is a web application for Recycle, which is a marketplace for users to buy and sell second-hand bicycles. Recycles acts as a middleman for the transaction, providing users with a secure and efficient way of shopping bicycles. The web application is built using Flask for the backend and includes features such as user authentication, database interactions, and Stripe payment integration. 
 
 ### Prerequisites
 
-- Python installed on your system. You can check your Python version by running `python --version`.
+Python installed on your system. You can check your Python version by running `python --version`.
 
-### Get the website running
+### Get the web application running
 
-**Clone the repository**
+**1. Clone the repository**
 
 ```bash
-git clone https://gitlab.liu.se/joaan879/tddd83-bachelorproject-group04.git
+git clone https://github.com/jakecarlberg/E-commerce-webpage.git
 ```
 
 Navigate to the project directory:
 
 ```bash
-    cd tddd83-bachelorproject-group04
+cd tddd83-bachelorproject-group04
 ```
 
-**Set up an activate a virtual environment (optional but recommended)**
+**2. Set up an activate a virtual environment (optional but recommended)**
 
 Create a virtual environment:
 ```bash
@@ -41,12 +41,12 @@ On Windows, use:
 venv\Scripts\activate
 ````
 
-**Install the required packages**
+**3. Install the required packages**
 ```bash
 pip install -r requirements.txt
 ```
 
-**run the website**
+**4. Run the website**
 ```bash
 python main.py
 ```
