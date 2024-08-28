@@ -6,7 +6,7 @@ This project is a web application for Recycle, which is a marketplace for users 
 
 ### Prerequisites
 
-Python installed on your system. You can check your Python version by running `python --version`.
+- Python 3.x
 
 ### Get the web application running
 
@@ -31,15 +31,25 @@ python -m venv venv
 
 Activate the virtual environment:
 
-On Unix or MacOS, use:
+On Linux based OS or Mac-OS, use:
 ```bash
 source venv/bin/activate
 ```
 
-On Windows, use:
+For Windows with CMD use:
 ```bash
-venv\Scripts\activate
-````
+.\venv\Scripts\activate.bat
+```
+
+For Windows with power shell, use:
+```bash
+.\venv\Scripts\activate.ps1
+```
+
+For Windows with unix like shells, use:
+```bash
+source venv/Scripts/activate
+```
 
 **3. Install the required packages**
 ```bash
