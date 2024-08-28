@@ -36,7 +36,7 @@ On Linux based OS or Mac-OS, use:
 source venv/bin/activate
 ```
 
-For Windows with CMD use:
+For Windows with CMD, use:
 ```bash
 .\venv\Scripts\activate.bat
 ```
