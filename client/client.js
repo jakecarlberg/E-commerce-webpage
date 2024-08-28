@@ -285,8 +285,6 @@ function displayAllBikes() {
    var highestGears = 100000000000;
    var lowestAge = 0;
    var highestAge = 10000000000;
-   var lowestCondition = 1;
-   var highestCondition = 5;
    if ($('#lowPrice').prop('checked')) {
       highestPrice = 999;
    } if ($('#middlePrice').prop('checked')  ) {
@@ -325,16 +323,33 @@ function displayAllBikes() {
       lowestAge = 2;
       highestAge = 1000000;
    } 
-   if ($('#lowCondition').prop('checked')) {
-      highestCondition = 2;
-   } if ($('#highCondition').prop('checked')) {
-      lowestCondition = 3;
-   }
-   if ($('#lowCondition').prop('checked') && $('#highCondition').prop('checked')) {
+   var lowConditionChecked = $('#lowCondition').prop('checked');
+   var fairConditionChecked = $('#fairCondition').prop('checked');
+   var goodConditionChecked = $('#goodCondition').prop('checked');
+   var veryGoodConditionChecked = $('#veryGoodCondition').prop('checked');
+   var excellentConditionChecked = $('#excellentCondition').prop('checked');
+
+   // Uppdatera lowestCondition och highestCondition baserat på vilka checkboxar som är markerade
+   var lowestCondition = 1;
+   var highestCondition = 5;
+
+   if (lowConditionChecked) {
       lowestCondition = 1;
+      highestCondition = 1;
+   }  if (fairConditionChecked) {
+      lowestCondition = 2;
+      highestCondition = 2;
+   }  if (goodConditionChecked) {
+      lowestCondition = 3;
+      highestCondition = 3;
+   }  if (veryGoodConditionChecked) {
+      lowestCondition = 4;
+      highestCondition = 4;
+   }  if (excellentConditionChecked) {
+      lowestCondition = 5;
       highestCondition = 5;
    }
-   
+
    var sortByValue = $('#selectSort').val();
  
    localStorage.setItem("sortOption", sortByValue);
@@ -403,8 +418,6 @@ function displayAllBikes() {
    var highestGears = 100000000000;
    var lowestAge = 0;
    var highestAge = 10000000000;
-   var lowestCondition = 1;
-   var highestCondition = 5;
    if ($('#lowPrice').prop('checked')) {
       highestPrice = 999;
    } if ($('#middlePrice').prop('checked')  ) {
@@ -443,15 +456,33 @@ function displayAllBikes() {
       lowestAge = 2;
       highestAge = 1000000;
    } 
-   if ($('#lowCondition').prop('checked')) {
-      highestCondition = 2;
-   } if ($('#highCondition').prop('checked')) {
-      lowestCondition = 3;
-   }
-   if ($('#lowCondition').prop('checked') && $('#highCondition').prop('checked')) {
+   var lowConditionChecked = $('#lowCondition').prop('checked');
+   var fairConditionChecked = $('#fairCondition').prop('checked');
+   var goodConditionChecked = $('#goodCondition').prop('checked');
+   var veryGoodConditionChecked = $('#veryGoodCondition').prop('checked');
+   var excellentConditionChecked = $('#excellentCondition').prop('checked');
+
+   // Uppdatera lowestCondition och highestCondition baserat på vilka checkboxar som är markerade
+   var lowestCondition = 1;
+   var highestCondition = 5;
+
+   if (lowConditionChecked) {
       lowestCondition = 1;
+      highestCondition = 1;
+   } if (fairConditionChecked) {
+      lowestCondition = 2;
+      highestCondition = 2;
+   } if (goodConditionChecked) {
+      lowestCondition = 3;
+      highestCondition = 3;
+   } if (veryGoodConditionChecked) {
+      lowestCondition = 4;
+      highestCondition = 4;
+   } if (excellentConditionChecked) {
+      lowestCondition = 5;
       highestCondition = 5;
    }
+
    
    var sortByValue = $('#selectSort').val();
  
@@ -586,12 +617,19 @@ function displayAllBikes() {
       highestAge = 1000000;
    } 
    if ($('#lowCondition').prop('checked')) {
-      highestCondition = 2;
-   } if ($('#highCondition').prop('checked')) {
-      lowestCondition = 3;
-   }
-   if ($('#lowCondition').prop('checked') && $('#highCondition').prop('checked')) {
       lowestCondition = 1;
+      highestCondition = 2;
+   } if ($('#fairCondition').prop('checked')) {
+      lowestCondition = 2;
+      highestCondition = 2;
+   }  if ($('#goodCondition').prop('checked')) {
+      lowestCondition = 3;
+      highestCondition = 3;
+   }  if ($('#veryGoodCondition').prop('checked')) {
+      lowestCondition = 4;
+      highestCondition = 4;
+   }  if ($('#excellentCondition').prop('checked')) {
+      lowestCondition = 5;
       highestCondition = 5;
    }
    
@@ -606,9 +644,12 @@ function displayAllBikes() {
    localStorage.setItem('highGearsChecked', $('#highGears').prop('checked'));
    localStorage.setItem('newChecked', $('#new').prop('checked'));
    localStorage.setItem('lowAgeChecked', $('#lowAge').prop('checked'));
-   localStorage.setItem('highAgeChecked', $('#highAge').prop('checked'));
+   localStorage.setItem('highAgeChecked', $('#highAge').prop('checked')); 
    localStorage.setItem('lowConditionChecked', $('#lowCondition').prop('checked'));
-   localStorage.setItem('highConditionChecked', $('#highCondition').prop('checked'));
+   localStorage.setItem('fairConditionChecked', $('#fairCondition').prop('checked'));
+   localStorage.setItem('goodConditionChecked', $('#goodCondition').prop('checked'));
+   localStorage.setItem('veryGoodConditionChecked', $('#veryGoodCondition').prop('checked'));
+   localStorage.setItem('excellentConditionChecked', $('#excellentCondition').prop('checked'));
    setTimeout(() => {
       setStoredOption();
    }, 1);
@@ -670,6 +711,13 @@ function displayAllBikes() {
  }
  function currentCategory() {
    return currentCategoryValue; // Return the current category value
+}
+function goBack(){
+   if (currentCategory != ""){
+      displayBikeCategory(currentCategoryValue);
+   } else {
+      displayAllBikes2();
+   }
 }
 // Function showBike() enter new script for specific bike
 function showBike(bike_id) {
@@ -1186,15 +1234,11 @@ function search() {
    ];
    let input = inputBox.value;
 
-
-
    let result = availableKeywords.filter((keyword)=>{
       return keyword.toLowerCase().includes(input.toLowerCase());
    });
-
    display(result);
 }
-
 
 function display(result) {
 
@@ -1205,11 +1249,8 @@ function display(result) {
    resultsBox.innerHTML = "<ul>" + content.join('') + "</ul>";
 }
 
-
 function selectInput(list) {
-
-   inputBox.value = list.innerHTML;
-
+   inputBox.value = list.innerHTML
    const inputValueLowerCase = inputBox.value.toLowerCase();
    console.log("Input value:", inputBox.value);
 

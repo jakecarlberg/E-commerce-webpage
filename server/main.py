@@ -33,7 +33,7 @@ class User(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    name = db.Column(db.String, nullable=False)
    email = db.Column(db.String, nullable=False)
-   is_admin = db.Column(db.Boolean, nullable=False, default=False)
+   is_admin = db.Column(db.Boolean, nullable=False, default=True)
    password_hash = db.Column(db.String, nullable=True)
    bikes = db.relationship('Bike', backref = 'user', lazy = True) # Bikes for sale or sold for seller
    orders = db.relationship('Order', backref='user_orders', lazy=True) # Completed purchases as buyer
